@@ -52,3 +52,7 @@ GET | POST | DELETE | PUT
 Hổ trợ endpoint mappings
 
 https://spring.io/guides/gs/actuator-service/
+
+## Building REST services with Spring
+
+https://spring.io/guides/tutorials/rest/
