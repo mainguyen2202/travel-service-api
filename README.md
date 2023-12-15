@@ -46,3 +46,9 @@ request body
 response body
 
 GET | POST | DELETE | PUT
+
+## Building a RESTful Web Service with Spring Boot Actuator
+
+Hổ trợ endpoint mappings
+
+https://spring.io/guides/gs/actuator-service/
