@@ -6,10 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Topics {
+public class Topics {// danh mục
     private @Id @GeneratedValue Long id;
 
-    private String title;
+    private String title;//Thiên nhiên và thế giới bên ngoài, Truyền thống
+    
     private String content;
     private int status;
 

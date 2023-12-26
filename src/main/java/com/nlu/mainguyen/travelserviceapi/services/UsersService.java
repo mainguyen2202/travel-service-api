@@ -12,8 +12,8 @@ public class UsersService {
 
     private UsersRepository repository;
 
-    public UsersService(UsersRepository UsersRepository) {
-        this.repository = UsersRepository;
+    public UsersService(UsersRepository repository) {
+        this.repository = repository;
     }
 
     public Iterable<Users> showAll() {

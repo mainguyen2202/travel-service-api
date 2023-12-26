@@ -12,8 +12,8 @@ public class FeedbacksService {
 
     private FeedbacksRepository repository;
 
-    public FeedbacksService(FeedbacksRepository FeedbacksRepository) {
-        this.repository = FeedbacksRepository;
+    public FeedbacksService(FeedbacksRepository repository) {
+        this.repository = repository;
     }
 
     public Iterable<Feedbacks> showAll() {

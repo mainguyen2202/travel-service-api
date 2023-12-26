@@ -12,8 +12,8 @@ public class ItinerariesService {
 
     private ItinerariesRepository repository;
 
-    public ItinerariesService(ItinerariesRepository ItinerariesRepository) {
-        this.repository = ItinerariesRepository;
+    public ItinerariesService(ItinerariesRepository repository) {
+        this.repository = repository;
     }
 
     public Iterable<Itineraries> showAll() {

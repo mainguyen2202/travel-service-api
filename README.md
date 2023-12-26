@@ -57,8 +57,14 @@ https://spring.io/guides/gs/actuator-service/
 
 https://spring.io/guides/tutorials/rest/
 
-# Database
+# Generate Database Schema with Spring Data JPA
 
 ```
 CREATE SCHEMA `db_travels` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ;
 ```
+
+https://www.baeldung.com/spring-data-jpa-generate-db-schema
+
+Code first database design and development using JPA
+
+https://www.baeldung.com/spring-data-repositories#:~:text=CrudRepository%20provides%20CRUD%20functions,deleting%20records%20in%20a%20batch

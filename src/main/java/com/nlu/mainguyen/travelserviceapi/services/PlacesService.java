@@ -12,8 +12,8 @@ public class PlacesService {
 
     private PlacesRepository repository;
 
-    public PlacesService(PlacesRepository PlacesRepository) {
-        this.repository = PlacesRepository;
+    public PlacesService(PlacesRepository repository) {
+        this.repository = repository;
     }
 
     public Iterable<Places> showAll() {
@@ -39,4 +39,7 @@ public class PlacesService {
     public void deleteByID(Long id) {
         this.repository.deleteById(id);
     }
+
+    // Lấy danh sách con theo submenuid
+    
 }

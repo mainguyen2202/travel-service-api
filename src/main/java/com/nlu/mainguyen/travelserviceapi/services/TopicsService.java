@@ -12,8 +12,8 @@ public class TopicsService {
 
     private TopicsRepository repository;
 
-    public TopicsService(TopicsRepository TopicsRepository) {
-        this.repository = TopicsRepository;
+    public TopicsService(TopicsRepository repository) {
+        this.repository = repository;
     }
 
     public Iterable<Topics> showAll() {

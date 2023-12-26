@@ -12,8 +12,8 @@ public class LikesService {
 
     private LikesRepository repository;
 
-    public LikesService(LikesRepository LikesRepository) {
-        this.repository = LikesRepository;
+    public LikesService(LikesRepository repository) {
+        this.repository = repository;
     }
 
     public Iterable<Likes> showAll() {

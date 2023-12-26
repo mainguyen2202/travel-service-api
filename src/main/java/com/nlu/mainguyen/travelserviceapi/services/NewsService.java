@@ -12,8 +12,8 @@ public class NewsService {
 
     private NewsRepository repository;
 
-    public NewsService(NewsRepository NewsRepository) {
-        this.repository = NewsRepository;
+    public NewsService(NewsRepository repository) {
+        this.repository = repository;
     }
 
     public Iterable<News> showAll() {

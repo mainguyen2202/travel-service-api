@@ -12,8 +12,8 @@ public class ArticlesService {
 
     private ArticlesRepository repository;
 
-    public ArticlesService(ArticlesRepository ArticlesRepository) {
-        this.repository = ArticlesRepository;
+    public ArticlesService(ArticlesRepository repository) {
+        this.repository = repository;
     }
 
     public Iterable<Articles> showAll() {
@@ -38,5 +38,17 @@ public class ArticlesService {
 
     public void deleteByID(Long id) {
         this.repository.deleteById(id);
+    }
+
+
+    // lấy danh sách theo địa điểm placeid
+
+    // lấy danh sách theo địa điểm topic
+    public Articles getByTopicsId(Long topicId) {
+        Optional<Articles> items = this.repository.findById(topicId);
+        if (items.isPresent()) {
+            return items.get();
+        }
+        return null;
     }
 }

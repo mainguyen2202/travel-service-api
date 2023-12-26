@@ -12,8 +12,8 @@ public class CoordinatesService {
 
     private CoordinatesRepository repository;
 
-    public CoordinatesService(CoordinatesRepository CoordinatesRepository) {
-        this.repository = CoordinatesRepository;
+    public CoordinatesService(CoordinatesRepository repository) {
+        this.repository = repository;
     }
 
     public Iterable<Coordinates> showAll() {

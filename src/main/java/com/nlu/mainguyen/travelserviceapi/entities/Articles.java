@@ -7,7 +7,7 @@ import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
-public class Articles {
+public class Articles {// bài viết
 
     private @Id @GeneratedValue Long id;
 
@@ -18,7 +18,7 @@ public class Articles {
     private Places places;
 
     @ManyToOne()
-    private Topics topics;
+    private Topics topics;//danh mục
 
     private String title;
     private String image;
