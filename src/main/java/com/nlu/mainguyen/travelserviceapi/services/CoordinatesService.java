@@ -2,37 +2,41 @@ package com.nlu.mainguyen.travelserviceapi.services;
 
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.nlu.mainguyen.travelserviceapi.entities.Coordinates;
 import com.nlu.mainguyen.travelserviceapi.repositories.CoordinatesRepository;
 
+@Service
 public class CoordinatesService {
-    private CoordinatesRepository coordinatesRepository;
 
-    public CoordinatesService(CoordinatesRepository coordinatesRepository) {
-        this.coordinatesRepository = coordinatesRepository;
+    private CoordinatesRepository repository;
+
+    public CoordinatesService(CoordinatesRepository CoordinatesRepository) {
+        this.repository = CoordinatesRepository;
     }
 
-    public Iterable<Coordinates> showAllCoordinates() {
-        return coordinatesRepository.findAll();
+    public Iterable<Coordinates> showAll() {
+        return this.repository.findAll();
     }
 
-    public Coordinates createCoordinates(Coordinates newCoordinates) {
-        return coordinatesRepository.save(newCoordinates);
+    public Coordinates create(Coordinates input) {
+        return this.repository.save(input);
     }
 
-    public Coordinates getByIdCoordinates(Long id) {
-        Optional<Coordinates> aCoordinates = coordinatesRepository.findById(id);
-        if (aCoordinates.isPresent()) {
-            return aCoordinates.get();
+    public Coordinates getById(Long id) {
+        Optional<Coordinates> items = this.repository.findById(id);
+        if (items.isPresent()) {
+            return items.get();
         }
         return null;
     }
 
-    public void updateCoordinates(Coordinates newCoordinates) {
-        coordinatesRepository.save(newCoordinates);
+    public void update(Coordinates input) {
+        this.repository.save(input);
     }
 
     public void deleteByID(Long id) {
-        coordinatesRepository.deleteById(id);
+        this.repository.deleteById(id);
     }
 }

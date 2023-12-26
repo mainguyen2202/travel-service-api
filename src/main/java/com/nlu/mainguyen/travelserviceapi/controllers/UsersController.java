@@ -3,12 +3,8 @@ package com.nlu.mainguyen.travelserviceapi.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
 
 import com.nlu.mainguyen.travelserviceapi.entities.Users;
 import com.nlu.mainguyen.travelserviceapi.services.UsersService;
@@ -39,18 +35,18 @@ public class UsersController {
 
     @GetMapping("/detail/{id}")
     public @ResponseBody Users  viewUsersByID(@PathVariable("id") Long id) {
-        Users users = usersService.getByIdUsers(id);
+        Users users = this.usersService.getByIdUsers(id);
         return users;
     }
     @PostMapping("/edit/{id}")
     public @ResponseBody String editUsers(@PathVariable("id") Long id, @Valid @RequestBody Users updateCurrentUser) {
-        usersService.updateUsers(updateCurrentUser);
+        this.usersService.updateUsers(updateCurrentUser);
         return "success";
 
     }
     @PostMapping("/remove/{id}")
     public String removeUsers(@PathVariable("id") Long id) {
-        usersService.deleteByID(id);
+        this.usersService.deleteByID(id);
         return "success";
     }
     

@@ -56,3 +56,9 @@ https://spring.io/guides/gs/actuator-service/
 ## Building REST services with Spring
 
 https://spring.io/guides/tutorials/rest/
+
+# Database
+
+```
+CREATE SCHEMA `db_travels` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ;
+```

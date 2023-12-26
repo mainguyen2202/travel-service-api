@@ -2,12 +2,7 @@ package com.nlu.mainguyen.travelserviceapi.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.nlu.mainguyen.travelserviceapi.entities.Places;
 import com.nlu.mainguyen.travelserviceapi.services.PlacesService;
@@ -28,7 +23,7 @@ public class PlacesController {
         return this.placesService.showAllPlaces();
         
     }
-      @PostMapping("/register")
+      @PostMapping("/create")
     public @ResponseBody String registrationPlaces(@RequestBody Places places) {
         // TODO
         Places result = this.placesService.createPlaces(places);
@@ -38,18 +33,18 @@ public class PlacesController {
 
     @GetMapping("/detail/{id}")
     public @ResponseBody Places  viewPlacesByID(@PathVariable("id") Long id) {
-        Places places = placesService.getByIdPlaces(id);
+        Places places = this.placesService.getByIdPlaces(id);
         return places;
     }
     @PostMapping("/edit/{id}")
     public @ResponseBody String editPlaces(@PathVariable("id") Long id, @Valid @RequestBody Places updateCurrentPlaces) {
-        placesService.updatePlaces(updateCurrentPlaces);
+        this.placesService.updatePlaces(updateCurrentPlaces);
         return "success";
 
     }
     @PostMapping("/remove/{id}")
     public String removePlaces(@PathVariable("id") Long id) {
-        placesService.deleteByID(id);
+        this.placesService.deleteByID(id);
         return "success";
     }
     

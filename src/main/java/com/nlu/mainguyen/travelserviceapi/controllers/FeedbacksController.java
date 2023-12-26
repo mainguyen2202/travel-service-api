@@ -4,42 +4,42 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import com.nlu.mainguyen.travelserviceapi.services.CoordinatesService;
+import com.nlu.mainguyen.travelserviceapi.services.FeedbacksService;
 
-import com.nlu.mainguyen.travelserviceapi.entities.Coordinates;
+import com.nlu.mainguyen.travelserviceapi.entities.Feedbacks;
 
 import jakarta.validation.Valid;
 
 
 @Controller
-@RequestMapping(path="/coordinates")
-public class CoordinatesController {
-    private CoordinatesService service;
+@RequestMapping(path="/feedbacks")
+public class FeedbacksController {
+    private FeedbacksService service;
 
-	public CoordinatesController(CoordinatesService service) {
+	public FeedbacksController(FeedbacksService service) {
 		this.service = service;
 	}
     
     @GetMapping("/list")
-    public @ResponseBody Iterable<Coordinates> showAll(Model model) {
+    public @ResponseBody Iterable<Feedbacks> showAll(Model model) {
         return this.service.showAll();
         
     }
       @PostMapping("/create")
-    public @ResponseBody String registration(@RequestBody Coordinates input) {
+    public @ResponseBody String registration(@RequestBody Feedbacks input) {
         // TODO
-        Coordinates result = this.service.create(input);
+        Feedbacks result = this.service.create(input);
         System.out.println(result);
         return "success";
     }
 
     @GetMapping("/detail/{id}")
-    public @ResponseBody Coordinates  viewCommentsByID(@PathVariable("id") Long id) {
-        Coordinates result = this.service.getById(id);
+    public @ResponseBody Feedbacks  viewCommentsByID(@PathVariable("id") Long id) {
+        Feedbacks result = this.service.getById(id);
         return result;
     }
     @PostMapping("/edit/{id}")
-    public @ResponseBody String edit(@PathVariable("id") Long id, @Valid @RequestBody Coordinates input) {
+    public @ResponseBody String edit(@PathVariable("id") Long id, @Valid @RequestBody Feedbacks input) {
         this.service.update(input);
         return "success";
 

@@ -15,23 +15,23 @@ public class UsersService {
 		this.usersRepository = usersRepository;
 	}
       public Iterable<Users> showAllUsers(){
-        return usersRepository.findAll();
+        return this.usersRepository.findAll();
     }
     public Users createUsers(Users newUsers){
-        return usersRepository.save(newUsers);
+        return this.usersRepository.save(newUsers);
     }
     public Users getByIdUsers(Long id){
-      Optional<Users> ausers = usersRepository.findById(id);
-        if(ausers.isPresent()) {
-            return ausers.get();
+      Optional<Users> aUsers = this.usersRepository.findById(id);
+        if(aUsers.isPresent()) {
+            return aUsers.get();
         }
         return null;
     }
     public void updateUsers(Users newUsers) {
-        usersRepository.save(newUsers);
+        this.usersRepository.save(newUsers);
     }
     public void deleteByID(Long id) {
-        usersRepository.deleteById(id);
+        this.usersRepository.deleteById(id);
     }
     
 }

@@ -20,25 +20,25 @@ public class VisitorService {
     }
 
     public List<VisitorTModel> showAllUser(){
-        return vistorRepo.findAll();
+        return this.vistorRepo.findAll();
     }
     public VisitorTModel  createAVisitor(VisitorTModel newVisitor) {
         // TODO
-        return vistorRepo.save(newVisitor);
+        return this.vistorRepo.save(newVisitor);
     }
 
     public VisitorTModel getByIdAVisitor(Long id) {
-        Optional<VisitorTModel> aVisitor = vistorRepo.findById(id);
+        Optional<VisitorTModel> aVisitor = this.vistorRepo.findById(id);
         if(aVisitor.isPresent()) {
             return aVisitor.get();
         }
         return null;
     }
     public void updateAVisitor(VisitorTModel newVisitor) {
-        vistorRepo.save(newVisitor);
+        this.vistorRepo.save(newVisitor);
     }
     public void deleteByID(Long id) {
-        vistorRepo.deleteById(id);
+        this.vistorRepo.deleteById(id);
     }
 
     

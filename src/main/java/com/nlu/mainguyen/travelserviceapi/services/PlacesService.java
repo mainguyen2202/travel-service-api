@@ -15,23 +15,23 @@ public class PlacesService {
 		this.placesRepository = PlacesRepository;
 	}
       public Iterable<Places> showAllPlaces(){
-        return placesRepository.findAll();
+        return this.placesRepository.findAll();
     }
     public Places createPlaces(Places newPlaces){
-        return placesRepository.save(newPlaces);
+        return this.placesRepository.save(newPlaces);
     }
     public Places getByIdPlaces(Long id){
-      Optional<Places> aPlaces = placesRepository.findById(id);
+      Optional<Places> aPlaces = this.placesRepository.findById(id);
         if(aPlaces.isPresent()) {
             return aPlaces.get();
         }
         return null;
     }
     public void updatePlaces(Places newPlaces) {
-        placesRepository.save(newPlaces);
+        this.placesRepository.save(newPlaces);
     }
     public void deleteByID(Long id) {
-        placesRepository.deleteById(id);
+        this.placesRepository.deleteById(id);
     }
 
     
