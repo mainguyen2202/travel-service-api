@@ -6,33 +6,37 @@ import org.springframework.stereotype.Service;
 
 import com.nlu.mainguyen.travelserviceapi.entities.Places;
 import com.nlu.mainguyen.travelserviceapi.repositories.PlacesRepository;
+
 @Service
 public class PlacesService {
-    
-  private PlacesRepository placesRepository;
 
-	public PlacesService(PlacesRepository PlacesRepository) {
-		this.placesRepository = PlacesRepository;
-	}
-      public Iterable<Places> showAllPlaces(){
-        return this.placesRepository.findAll();
+    private PlacesRepository repository;
+
+    public PlacesService(PlacesRepository PlacesRepository) {
+        this.repository = PlacesRepository;
     }
-    public Places createPlaces(Places newPlaces){
-        return this.placesRepository.save(newPlaces);
+
+    public Iterable<Places> showAll() {
+        return this.repository.findAll();
     }
-    public Places getByIdPlaces(Long id){
-      Optional<Places> aPlaces = this.placesRepository.findById(id);
-        if(aPlaces.isPresent()) {
-            return aPlaces.get();
+
+    public Places create(Places input) {
+        return this.repository.save(input);
+    }
+
+    public Places getById(Long id) {
+        Optional<Places> items = this.repository.findById(id);
+        if (items.isPresent()) {
+            return items.get();
         }
         return null;
     }
-    public void updatePlaces(Places newPlaces) {
-        this.placesRepository.save(newPlaces);
-    }
-    public void deleteByID(Long id) {
-        this.placesRepository.deleteById(id);
+
+    public void update(Places input) {
+        this.repository.save(input);
     }
 
-    
+    public void deleteByID(Long id) {
+        this.repository.deleteById(id);
+    }
 }

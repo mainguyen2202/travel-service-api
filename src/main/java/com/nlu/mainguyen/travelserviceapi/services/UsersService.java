@@ -9,29 +9,34 @@ import com.nlu.mainguyen.travelserviceapi.repositories.UsersRepository;
 
 @Service
 public class UsersService {
-    private UsersRepository usersRepository;
 
-	public UsersService(UsersRepository usersRepository) {
-		this.usersRepository = usersRepository;
-	}
-      public Iterable<Users> showAllUsers(){
-        return this.usersRepository.findAll();
+    private UsersRepository repository;
+
+    public UsersService(UsersRepository UsersRepository) {
+        this.repository = UsersRepository;
     }
-    public Users createUsers(Users newUsers){
-        return this.usersRepository.save(newUsers);
+
+    public Iterable<Users> showAll() {
+        return this.repository.findAll();
     }
-    public Users getByIdUsers(Long id){
-      Optional<Users> aUsers = this.usersRepository.findById(id);
-        if(aUsers.isPresent()) {
-            return aUsers.get();
+
+    public Users create(Users input) {
+        return this.repository.save(input);
+    }
+
+    public Users getById(Long id) {
+        Optional<Users> items = this.repository.findById(id);
+        if (items.isPresent()) {
+            return items.get();
         }
         return null;
     }
-    public void updateUsers(Users newUsers) {
-        this.usersRepository.save(newUsers);
+
+    public void update(Users input) {
+        this.repository.save(input);
     }
+
     public void deleteByID(Long id) {
-        this.usersRepository.deleteById(id);
+        this.repository.deleteById(id);
     }
-    
 }

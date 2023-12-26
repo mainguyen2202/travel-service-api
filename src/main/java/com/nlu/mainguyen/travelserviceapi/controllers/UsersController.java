@@ -1,54 +1,52 @@
 package com.nlu.mainguyen.travelserviceapi.controllers;
 
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import com.nlu.mainguyen.travelserviceapi.services.UsersService;
 
 import com.nlu.mainguyen.travelserviceapi.entities.Users;
-import com.nlu.mainguyen.travelserviceapi.services.UsersService;
 
 import jakarta.validation.Valid;
 
-@Controller
-@RequestMapping(path="/users")
-public class UsersController {
-    private UsersService usersService;
 
-	public UsersController(UsersService usersService) {
-		this.usersService = usersService;
+@Controller
+@RequestMapping(path="/Users")
+public class UsersController {
+    private UsersService service;
+
+	public UsersController(UsersService service) {
+		this.service = service;
 	}
     
     @GetMapping("/list")
-    public @ResponseBody Iterable<Users> showAllUsers(Model model) {
-        return this.usersService.showAllUsers();
+    public @ResponseBody Iterable<Users> showAll(Model model) {
+        return this.service.showAll();
         
     }
-      @PostMapping("/register")
-    public @ResponseBody String registrationUsers(@RequestBody Users users) {
+      @PostMapping("/create")
+    public @ResponseBody String registration(@RequestBody Users input) {
         // TODO
-        Users result = this.usersService.createUsers(users);
+        Users result = this.service.create(input);
         System.out.println(result);
         return "success";
     }
 
     @GetMapping("/detail/{id}")
-    public @ResponseBody Users  viewUsersByID(@PathVariable("id") Long id) {
-        Users users = this.usersService.getByIdUsers(id);
-        return users;
+    public @ResponseBody Users  viewCommentsByID(@PathVariable("id") Long id) {
+        Users result = this.service.getById(id);
+        return result;
     }
     @PostMapping("/edit/{id}")
-    public @ResponseBody String editUsers(@PathVariable("id") Long id, @Valid @RequestBody Users updateCurrentUser) {
-        this.usersService.updateUsers(updateCurrentUser);
+    public @ResponseBody String edit(@PathVariable("id") Long id, @Valid @RequestBody Users input) {
+        this.service.update(input);
         return "success";
 
     }
     @PostMapping("/remove/{id}")
-    public String removeUsers(@PathVariable("id") Long id) {
-        this.usersService.deleteByID(id);
+    public String remove(@PathVariable("id") Long id) {
+        this.service.deleteByID(id);
         return "success";
     }
-    
-    
 }

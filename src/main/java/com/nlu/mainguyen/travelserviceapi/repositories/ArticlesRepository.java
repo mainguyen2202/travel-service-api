@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.nlu.mainguyen.travelserviceapi.entities.Articles;
 
-public interface ArticlesReponsitory extends JpaRepository<Articles, Long> {
+public interface ArticlesRepository extends JpaRepository<Articles, Long> {
 
     
 } 

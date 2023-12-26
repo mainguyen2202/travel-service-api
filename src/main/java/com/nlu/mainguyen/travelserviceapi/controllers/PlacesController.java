@@ -4,48 +4,49 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import com.nlu.mainguyen.travelserviceapi.entities.Places;
 import com.nlu.mainguyen.travelserviceapi.services.PlacesService;
+
+import com.nlu.mainguyen.travelserviceapi.entities.Places;
 
 import jakarta.validation.Valid;
 
-@Controller
-@RequestMapping(path="/places")
-public class PlacesController {
-    private PlacesService placesService;
 
-	public PlacesController(PlacesService placesService) {
-		this.placesService = placesService;
+@Controller
+@RequestMapping(path="/Places")
+public class PlacesController {
+    private PlacesService service;
+
+	public PlacesController(PlacesService service) {
+		this.service = service;
 	}
     
-      @GetMapping("/list")
-    public @ResponseBody Iterable<Places> showAllPlaces(Model model) {
-        return this.placesService.showAllPlaces();
+    @GetMapping("/list")
+    public @ResponseBody Iterable<Places> showAll(Model model) {
+        return this.service.showAll();
         
     }
       @PostMapping("/create")
-    public @ResponseBody String registrationPlaces(@RequestBody Places places) {
+    public @ResponseBody String registration(@RequestBody Places input) {
         // TODO
-        Places result = this.placesService.createPlaces(places);
+        Places result = this.service.create(input);
         System.out.println(result);
         return "success";
     }
 
     @GetMapping("/detail/{id}")
-    public @ResponseBody Places  viewPlacesByID(@PathVariable("id") Long id) {
-        Places places = this.placesService.getByIdPlaces(id);
-        return places;
+    public @ResponseBody Places  viewCommentsByID(@PathVariable("id") Long id) {
+        Places result = this.service.getById(id);
+        return result;
     }
     @PostMapping("/edit/{id}")
-    public @ResponseBody String editPlaces(@PathVariable("id") Long id, @Valid @RequestBody Places updateCurrentPlaces) {
-        this.placesService.updatePlaces(updateCurrentPlaces);
+    public @ResponseBody String edit(@PathVariable("id") Long id, @Valid @RequestBody Places input) {
+        this.service.update(input);
         return "success";
 
     }
     @PostMapping("/remove/{id}")
-    public String removePlaces(@PathVariable("id") Long id) {
-        this.placesService.deleteByID(id);
+    public String remove(@PathVariable("id") Long id) {
+        this.service.deleteByID(id);
         return "success";
     }
-    
 }

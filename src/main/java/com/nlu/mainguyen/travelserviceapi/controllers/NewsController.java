@@ -4,48 +4,49 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import com.nlu.mainguyen.travelserviceapi.entities.News;
 import com.nlu.mainguyen.travelserviceapi.services.NewsService;
+
+import com.nlu.mainguyen.travelserviceapi.entities.News;
 
 import jakarta.validation.Valid;
 
-@Controller
-@RequestMapping(path="/news")
-public class NewsController {
-    private NewsService newsService;
 
-	public NewsController(NewsService newsService) {
-		this.newsService = newsService;
+@Controller
+@RequestMapping(path="/News")
+public class NewsController {
+    private NewsService service;
+
+	public NewsController(NewsService service) {
+		this.service = service;
 	}
     
-      @GetMapping("/list")
-    public @ResponseBody Iterable<News> showAllNews(Model model) {
-        return this.newsService.showAllNews();
+    @GetMapping("/list")
+    public @ResponseBody Iterable<News> showAll(Model model) {
+        return this.service.showAll();
         
     }
       @PostMapping("/create")
-    public @ResponseBody String registrationNews(@RequestBody News News) {
+    public @ResponseBody String registration(@RequestBody News input) {
         // TODO
-        News result = 	this.newsService.createNews(News);
+        News result = this.service.create(input);
         System.out.println(result);
         return "success";
     }
 
     @GetMapping("/detail/{id}")
-    public @ResponseBody News  viewNewsByID(@PathVariable("id") Long id) {
-        News News = 	this.newsService.getByIdNews(id);
-        return News;
+    public @ResponseBody News  viewCommentsByID(@PathVariable("id") Long id) {
+        News result = this.service.getById(id);
+        return result;
     }
     @PostMapping("/edit/{id}")
-    public @ResponseBody String editNews(@PathVariable("id") Long id, @Valid @RequestBody News updateCurrentNews) {
-        	this.newsService.updateNews(updateCurrentNews);
+    public @ResponseBody String edit(@PathVariable("id") Long id, @Valid @RequestBody News input) {
+        this.service.update(input);
         return "success";
 
     }
     @PostMapping("/remove/{id}")
-    public String removeNews(@PathVariable("id") Long id) {
-        	this.newsService.deleteByID(id);
+    public String remove(@PathVariable("id") Long id) {
+        this.service.deleteByID(id);
         return "success";
     }
-    
 }

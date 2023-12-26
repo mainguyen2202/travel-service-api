@@ -6,34 +6,37 @@ import org.springframework.stereotype.Service;
 
 import com.nlu.mainguyen.travelserviceapi.entities.News;
 import com.nlu.mainguyen.travelserviceapi.repositories.NewsRepository;
+
 @Service
 public class NewsService {
-    
-  private NewsRepository newsRepository;
 
-	public NewsService(NewsRepository newsRepository) {
-		this.newsRepository = newsRepository;
-	}
-      public Iterable<News> showAllNews(){
-        return this.newsRepository.findAll();
+    private NewsRepository repository;
+
+    public NewsService(NewsRepository NewsRepository) {
+        this.repository = NewsRepository;
     }
-    public News createNews(News newNews){
-        return this.newsRepository.save(newNews);
+
+    public Iterable<News> showAll() {
+        return this.repository.findAll();
     }
-    public News getByIdNews(Long id){
-      Optional<News> aNews = this.newsRepository.findById(id);
-        if(aNews.isPresent()) {
-            return aNews.get();
+
+    public News create(News input) {
+        return this.repository.save(input);
+    }
+
+    public News getById(Long id) {
+        Optional<News> items = this.repository.findById(id);
+        if (items.isPresent()) {
+            return items.get();
         }
         return null;
     }
-    public void updateNews(News newNews) {
-        this.newsRepository.save(newNews);
+
+    public void update(News input) {
+        this.repository.save(input);
     }
+
     public void deleteByID(Long id) {
-        this.newsRepository.deleteById(id);
+        this.repository.deleteById(id);
     }
-
-    
 }
-

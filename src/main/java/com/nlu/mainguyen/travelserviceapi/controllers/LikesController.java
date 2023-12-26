@@ -4,48 +4,49 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import com.nlu.mainguyen.travelserviceapi.entities.Likes;
 import com.nlu.mainguyen.travelserviceapi.services.LikesService;
+
+import com.nlu.mainguyen.travelserviceapi.entities.Likes;
 
 import jakarta.validation.Valid;
 
-@Controller
-@RequestMapping(path="/likes")
-public class LikesController {
-    private LikesService likesService;
 
-	public LikesController(LikesService likesService) {
-		this.likesService = likesService;
+@Controller
+@RequestMapping(path="/Likes")
+public class LikesController {
+    private LikesService service;
+
+	public LikesController(LikesService service) {
+		this.service = service;
 	}
     
-      @GetMapping("/list")
-    public @ResponseBody Iterable<Likes> showAllLikes(Model model) {
-        return this.likesService.showAllLikes();
+    @GetMapping("/list")
+    public @ResponseBody Iterable<Likes> showAll(Model model) {
+        return this.service.showAll();
         
     }
       @PostMapping("/create")
-    public @ResponseBody String registrationLikes(@RequestBody Likes Likes) {
+    public @ResponseBody String registration(@RequestBody Likes input) {
         // TODO
-        Likes result = this.likesService.createLikes(Likes);
+        Likes result = this.service.create(input);
         System.out.println(result);
         return "success";
     }
 
     @GetMapping("/detail/{id}")
-    public @ResponseBody Likes  viewLikesByID(@PathVariable("id") Long id) {
-        Likes Likes = this.likesService.getByIdLikes(id);
-        return Likes;
+    public @ResponseBody Likes  viewCommentsByID(@PathVariable("id") Long id) {
+        Likes result = this.service.getById(id);
+        return result;
     }
     @PostMapping("/edit/{id}")
-    public @ResponseBody String editLikes(@PathVariable("id") Long id, @Valid @RequestBody Likes updateCurrentLikes) {
-        this.likesService.updateLikes(updateCurrentLikes);
+    public @ResponseBody String edit(@PathVariable("id") Long id, @Valid @RequestBody Likes input) {
+        this.service.update(input);
         return "success";
 
     }
     @PostMapping("/remove/{id}")
-    public String removeLikes(@PathVariable("id") Long id) {
-        this.likesService.deleteByID(id);
+    public String remove(@PathVariable("id") Long id) {
+        this.service.deleteByID(id);
         return "success";
     }
-    
 }

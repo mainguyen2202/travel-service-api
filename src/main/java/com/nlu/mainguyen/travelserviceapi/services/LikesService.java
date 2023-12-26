@@ -6,33 +6,37 @@ import org.springframework.stereotype.Service;
 
 import com.nlu.mainguyen.travelserviceapi.entities.Likes;
 import com.nlu.mainguyen.travelserviceapi.repositories.LikesRepository;
+
 @Service
 public class LikesService {
-    
-  private LikesRepository likesRepository;
 
-	public LikesService(LikesRepository likesRepository) {
-		this.likesRepository = likesRepository;
-	}
-      public Iterable<Likes> showAllLikes(){
-        return this.likesRepository.findAll();
+    private LikesRepository repository;
+
+    public LikesService(LikesRepository LikesRepository) {
+        this.repository = LikesRepository;
     }
-    public Likes createLikes(Likes newLikes){
-        return this.likesRepository.save(newLikes);
+
+    public Iterable<Likes> showAll() {
+        return this.repository.findAll();
     }
-    public Likes getByIdLikes(Long id){
-      Optional<Likes> aLikes = this.likesRepository.findById(id);
-        if(aLikes.isPresent()) {
-            return aLikes.get();
+
+    public Likes create(Likes input) {
+        return this.repository.save(input);
+    }
+
+    public Likes getById(Long id) {
+        Optional<Likes> items = this.repository.findById(id);
+        if (items.isPresent()) {
+            return items.get();
         }
         return null;
     }
-    public void updateLikes(Likes newLikes) {
-        this.likesRepository.save(newLikes);
-    }
-    public void deleteByID(Long id) {
-        this.likesRepository.deleteById(id);
+
+    public void update(Likes input) {
+        this.repository.save(input);
     }
 
-    
+    public void deleteByID(Long id) {
+        this.repository.deleteById(id);
+    }
 }
