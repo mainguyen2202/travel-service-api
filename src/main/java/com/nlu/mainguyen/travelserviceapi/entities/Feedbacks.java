@@ -4,7 +4,7 @@ import java.sql.Date;
 import jakarta.persistence.*;
 
 @Entity
-public class Feedbacks {
+public class Feedbacks {// Bình luận
 
     @Id
     @GeneratedValue
@@ -19,9 +19,9 @@ public class Feedbacks {
     private int status;
     private Date creatAt;
 
-    private int heart;
+    private int heart; // thích
     private int share;
-    private String review;
+    private String review; // bình luận
 
     public Feedbacks() {
     }

@@ -12,7 +12,7 @@ import jakarta.validation.Valid;
 
 
 @Controller
-@RequestMapping(path="/News")
+@RequestMapping(path="/news")
 public class NewsController {
     private NewsService service;
 

@@ -7,13 +7,13 @@ import jakarta.persistence.*;
 
 
 @Entity
-public class Places {
+public class Places { // Địa điểm
     private @Id @GeneratedValue Long id;
     
-    private int subPlaceId;
+    private int subPlaceId;  // Địa điểm cha
     
     @ManyToOne()
-    private Coordinates coordinates;
+    private Coordinates coordinates; // Tọa độ
     
     private String name;
     private String image;

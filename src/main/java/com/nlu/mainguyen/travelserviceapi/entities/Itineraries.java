@@ -5,7 +5,7 @@ import java.sql.Date;
 import jakarta.persistence.*;
 
 @Entity
-public class Itineraries {
+public class Itineraries { // Lập kế hoạch
     private @Id @GeneratedValue Long id;
 
     @ManyToOne()
@@ -18,7 +18,7 @@ public class Itineraries {
     private Date dateStart;
     private Date dateEnd;
     private int status;
-    private int position;
+    private int position; // thứ tự
 
     public Itineraries() {
     }

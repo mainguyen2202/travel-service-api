@@ -12,7 +12,7 @@ import jakarta.validation.Valid;
 
 
 @Controller
-@RequestMapping(path="/Topics")
+@RequestMapping(path="/topics")
 public class TopicsController {
     private TopicsService service;
 

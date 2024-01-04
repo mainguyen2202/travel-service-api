@@ -15,10 +15,10 @@ public class Articles {// bài viết
     private Users users;
 
     @ManyToOne()
-    private Places places;
+    private Places places; // vị trí cụ thể
 
     @ManyToOne()
-    private Topics topics;//danh mục
+    private Topics topics;//danh mục về món ăn
 
     private String title;
     private String image;

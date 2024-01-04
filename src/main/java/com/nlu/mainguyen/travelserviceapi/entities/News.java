@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 
 
 @Entity
-public class News {
+public class News { // Tin tưc
     private @Id @GeneratedValue Long id;
     
     @ManyToOne()

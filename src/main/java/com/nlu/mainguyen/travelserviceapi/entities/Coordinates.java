@@ -7,10 +7,10 @@ import jakarta.persistence.*;
 
 
 @Entity
-public class Coordinates {
+public class Coordinates { // Tọa độ
     private @Id @GeneratedValue Long id;
-    private String longitude;
-    private String latitude;
+    private String longitude; //kinh độ
+    private String latitude;// vĩ độ
     private int status;
 
     @OneToMany(mappedBy = "coordinates", cascade = CascadeType.ALL)

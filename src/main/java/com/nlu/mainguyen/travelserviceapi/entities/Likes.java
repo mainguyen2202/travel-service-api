@@ -5,7 +5,7 @@ import java.sql.Date;
 import jakarta.persistence.*;
 
 @Entity
-public class Likes {
+public class Likes { // Địa điểm yêu thích
     private @Id @GeneratedValue Long id;
 
     @ManyToOne()

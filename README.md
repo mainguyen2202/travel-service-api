@@ -68,3 +68,29 @@ https://www.baeldung.com/spring-data-jpa-generate-db-schema
 Code first database design and development using JPA
 
 https://www.baeldung.com/spring-data-repositories#:~:text=CrudRepository%20provides%20CRUD%20functions,deleting%20records%20in%20a%20batch
+
+LINQ - lambda - ORM - Fluent API
+
+
+https://stackoverflow.com/questions/73017508/is-it-possible-to-use-lambda-expressions-in-spring-jpa
+
+- Quan trọng
+https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html#jpa.query-methods.at-query
+
+https://docs.spring.io/spring-data/jpa/reference/repositories/query-by-example.html#query-by-example.fluent
+
+```
+// mô tả table, biến
+// liệt kê api > input placeId
+// database mẫu
+```
+
+Unit of work | Repository Pattern | Entity | ORM
+
+ORM : Object-relational mapping
+
+# access-control-allow-origin in spring boot rest api
+
+Access to XMLHttpRequest from origin has been blocked by CORS
+
+https://spring.io/guides/gs/rest-service-cors/
