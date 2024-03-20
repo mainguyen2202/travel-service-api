@@ -94,3 +94,13 @@ ORM : Object-relational mapping
 Access to XMLHttpRequest from origin has been blocked by CORS
 
 https://spring.io/guides/gs/rest-service-cors/
+
+# Using DTO (Data Transfer Object) Projection — Mapping Entities to DTOs and vice versa in Java Spring Boot
+
+entity to dto mapper spring boot
+
+https://www.javaguides.net/2021/02/spring-boot-dto-example-entity-to-dto.html#google_vignette
+
+https://medium.com/@bectorhimanshu/using-dto-data-transfer-object-projection-mapping-entities-to-dtos-and-vice-versa-in-java-a7a9fe6b50a4
+
+https://www.baeldung.com/entity-to-and-from-dto-for-a-java-spring-application
