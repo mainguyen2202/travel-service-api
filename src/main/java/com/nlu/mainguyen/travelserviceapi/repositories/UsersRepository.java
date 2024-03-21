@@ -14,6 +14,8 @@ public interface UsersRepository extends JpaRepository<Users, Long>, JpaSpecific
 
     // https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html#jpa.query-methods.at-query.native
 
+
+
     @Query(value = "SELECT * FROM app_users WHERE username = ?1", nativeQuery = true)
     Users findByName(String name);
 }
