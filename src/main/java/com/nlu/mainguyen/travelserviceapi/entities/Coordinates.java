@@ -23,4 +23,4 @@ public class Coordinates { // Tọa độ
     @OneToMany(mappedBy = "coordinates", cascade = CascadeType.ALL)
     private List<Places> places = new ArrayList<>();
 
-}
+    }

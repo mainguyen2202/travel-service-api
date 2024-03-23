@@ -1,8 +1,6 @@
 package com.nlu.mainguyen.travelserviceapi.model;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
 
 import lombok.*;
 
@@ -27,7 +25,7 @@ public class UserDTO {
     // private List<Articles> articles = new ArrayList<>();
 
     // @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
-    private List<ItinerariesDTO> itineraries;
+    // private List<ItinerariesDTO> itineraries;
 
     // @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     // private List<Feedbacks> feedbacks = new ArrayList<>();   

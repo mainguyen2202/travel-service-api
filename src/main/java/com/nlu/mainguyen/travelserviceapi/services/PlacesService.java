@@ -1,8 +1,9 @@
 package com.nlu.mainguyen.travelserviceapi.services;
 
-import java.net.http.HttpResponse.ResponseInfo;
 import java.util.Optional;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nlu.mainguyen.travelserviceapi.entities.Places;
@@ -13,15 +14,28 @@ import com.nlu.mainguyen.travelserviceapi.repositories.PlacesRepository;
 @Service
 public class PlacesService {
 
+    @Autowired
     private PlacesRepository repository;
 
-    public PlacesService(PlacesRepository repository) {
-        this.repository = repository;
-    }
-
-    public Iterable<Places> showAll() {
+ 
+// lấy danh sách
+    public List<Places> getAll() {
         return this.repository.findAll();
     }
+
+    //  public List<Places> getById(Coordinates coordinates) {
+    //     // Optional<Places> items = this.repository.findById(coordinates.getId());
+    //     // if (items.isPresent()) {
+    //     //     return items.get();
+    //     // }else {
+	// 	// 	throw new ResourceNotFoundException("Post", "id", id);
+	// 	// }
+    //     return this.repository.findAllById(coordinates.getId());
+    // }
+
+
+
+
 
     public Iterable<Places> findByName(String name) {
         return this.repository.findByName(name);
@@ -32,7 +46,7 @@ public class PlacesService {
         return new ResponseInfoDTO(1, "", result);
     }
 
-    public ResponseInfoDTO getById(Long id) {
+ public ResponseInfoDTO getById(Long id) {
         Optional<Places> items = this.repository.findById(id);
         if (items.isPresent()) {
             Places result = items.get();
@@ -61,6 +75,6 @@ public class PlacesService {
         }
     }
 
-    // Lấy danh sách con theo submenuid
+// Lấy danh sách con theo submenuid
 
 }

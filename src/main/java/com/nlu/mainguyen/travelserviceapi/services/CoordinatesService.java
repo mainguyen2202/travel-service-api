@@ -1,24 +1,21 @@
 package com.nlu.mainguyen.travelserviceapi.services;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nlu.mainguyen.travelserviceapi.entities.Coordinates;
+import com.nlu.mainguyen.travelserviceapi.model.CoordinatesDTO;
 import com.nlu.mainguyen.travelserviceapi.repositories.CoordinatesRepository;
 
 @Service
 public class CoordinatesService {
 
+    @Autowired
     private CoordinatesRepository repository;
-
-    public CoordinatesService(CoordinatesRepository repository) {
-        this.repository = repository;
-    }
-
-    public Iterable<Coordinates> showAll() {
-        return this.repository.findAll();
-    }
 
     public Coordinates create(Coordinates input) {
         return this.repository.save(input);
@@ -38,5 +35,10 @@ public class CoordinatesService {
 
     public void deleteByID(Long id) {
         this.repository.deleteById(id);
+    }
+
+    public List<Coordinates> getAll() {
+        // TODO Auto-generated method stub
+        return this.repository.findAll();
     }
 }

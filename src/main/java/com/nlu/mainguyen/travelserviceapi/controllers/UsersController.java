@@ -14,10 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import com.nlu.mainguyen.travelserviceapi.services.UsersService;
 
-import jakarta.validation.Valid;
 
 import com.nlu.mainguyen.travelserviceapi.entities.Users;
-import com.nlu.mainguyen.travelserviceapi.exception.ResourceNotFoundException;
 import com.nlu.mainguyen.travelserviceapi.model.UserDTO;
 
 @Controller
@@ -93,8 +91,8 @@ public class UsersController {
 
             // convert DTO to Entity
             Users userRequest = modelMapper.map(userDTO, Users.class);
-
             Users users = this.service.update(id, userRequest);
+
 
             // entity to DTO
             UserDTO resp = modelMapper.map(users, UserDTO.class);
