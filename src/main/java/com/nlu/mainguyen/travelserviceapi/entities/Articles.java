@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "articles")
-public class Articles {// bài viết
+public class Articles {// bài viết của nhiều địa điểm và nhiều topics
 
     private @Id @GeneratedValue Long id;
 

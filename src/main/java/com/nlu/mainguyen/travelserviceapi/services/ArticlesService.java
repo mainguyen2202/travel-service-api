@@ -1,7 +1,9 @@
 package com.nlu.mainguyen.travelserviceapi.services;
 
+import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nlu.mainguyen.travelserviceapi.entities.Articles;
@@ -9,15 +11,14 @@ import com.nlu.mainguyen.travelserviceapi.repositories.ArticlesRepository;
 
 @Service
 public class ArticlesService {
-
+  @Autowired
     private ArticlesRepository repository;
 
-    public ArticlesService(ArticlesRepository repository) {
-        this.repository = repository;
-    }
+  
 
-    public Iterable<Articles> showAll() {
-        return this.repository.findAll();
+    // lấy danh sách
+    public List<Articles> getAll() {
+        return repository.findAll();
     }
 
     public Articles create(Articles input) {
