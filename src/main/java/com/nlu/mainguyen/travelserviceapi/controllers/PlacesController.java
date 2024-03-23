@@ -62,23 +62,45 @@ public class PlacesController {
     }
 
     // @GetMapping("/list/{coordinates_id}")
-    // public @ResponseBody List<PlacesDTO> showAllId(@RequestBody Coordinates coordinates) {
+    // public @ResponseBody List<PlacesDTO> showAllId(@PathVariable("coordinates_id") Coordinates coordinates) {
     //     try {
-    //     List<Places> places = this.service.getById(coordinates.getId());
+    //         List<Places> places = this.service.getAllById(coordinates.getId());
 
-            
-    //         List<PlacesDTO>  results = places.stream().map(i -> modelMapper.map(i, PlacesDTO.class))
-    //         .collect(Collectors.toList());
-     
+    //         List<PlacesDTO> results = places.stream().map(i -> modelMapper.map(i, PlacesDTO.class))
+    //                 .collect(Collectors.toList());
+
     //         return results;
-
-            
 
     //     } catch (Exception e) {
     //         System.out.println(e.getMessage());
     //     }
     //     return null;
     // }
+
+    @GetMapping("/list/{coordinates_id}")
+    public @ResponseBody
+    List<PlacesDTO> showAllId(@PathVariable("coordinates_id") List<Long> coordinatesIds) {
+        try {
+            List<Places> places = service.getAllById(coordinatesIds);
+
+            List<PlacesDTO> results = places.stream()
+                    .map(place -> modelMapper.map(place, PlacesDTO.class))
+                    .collect(Collectors.toList());
+
+            return results;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+
+
+
+
+
+
+
 
     // @GetMapping("/list")
     // public @ResponseBody ResponseListDTO showAll() {
@@ -102,8 +124,9 @@ public class PlacesController {
     }
 
     // @GetMapping("/detail/{id}")
-    // public @ResponseBody ResponseInfoDTO viewCommentsByID(@PathVariable("id") Long id) {
-    //     return this.service.getById(id);
+    // public @ResponseBody ResponseInfoDTO viewCommentsByID(@PathVariable("id")
+    // Long id) {
+    // return this.service.getById(id);
     // }
 
     @PostMapping("/edit/{id}")

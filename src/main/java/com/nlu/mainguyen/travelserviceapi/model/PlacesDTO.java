@@ -11,8 +11,8 @@ public class PlacesDTO { // Địa điểm
     
     private int subPlaceId;  // Địa điểm cha
     
-    // @ManyToOne()
-    // private CoordinatesDTO coordinates; // Tọa độ
+    @ManyToOne()
+    private CoordinatesDTO coordinates; // Tọa độ
     
     private String name;
     private String image;

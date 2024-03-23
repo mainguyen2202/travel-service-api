@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nlu.mainguyen.travelserviceapi.entities.Coordinates;
 import com.nlu.mainguyen.travelserviceapi.entities.Places;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseInfoDTO;
@@ -23,15 +24,13 @@ public class PlacesService {
         return this.repository.findAll();
     }
 
-    //  public List<Places> getById(Coordinates coordinates) {
-    //     // Optional<Places> items = this.repository.findById(coordinates.getId());
-    //     // if (items.isPresent()) {
-    //     //     return items.get();
-    //     // }else {
-	// 	// 	throw new ResourceNotFoundException("Post", "id", id);
-	// 	// }
+    //  public List<Places> getAllById(Coordinates coordinates) {
+        
     //     return this.repository.findAllById(coordinates.getId());
     // }
+    public List<Places> getAllById(List<Long> ids) {
+        return (List<Places>) repository.findAllById(ids);
+    }
 
 
 
