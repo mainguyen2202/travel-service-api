@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nlu.mainguyen.travelserviceapi.entities.Coordinates;
 import com.nlu.mainguyen.travelserviceapi.entities.Places;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseInfoDTO;
@@ -25,13 +24,9 @@ public class PlacesService {
     }
 
 // lấy danh sách theo id
-    public List<Places> getAllById(List<Long> ids) {
-        return (List<Places>) repository.findAllById(ids);
+    public List<Places> listByCoordinatesId(long coordinates_id) {//B2
+        return this.repository.findAllByCoordinatesId(coordinates_id);
     }
-
-
-
-
 
     public Iterable<Places> findByName(String name) {
         return this.repository.findByName(name);

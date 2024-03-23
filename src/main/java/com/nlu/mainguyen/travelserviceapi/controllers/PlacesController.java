@@ -46,7 +46,8 @@ public class PlacesController {
             // về DTO thì stream().map()
             // tương đương for
 
-            List<PlacesDTO> results = this.service.getAll().stream().map(i -> modelMapper.map(i, PlacesDTO.class))
+            List<PlacesDTO> results = this.service.getAll().stream()
+            .map(item -> modelMapper.map(item, PlacesDTO.class))
                     .collect(Collectors.toList());
 
             return results;
@@ -61,13 +62,20 @@ public class PlacesController {
 
     @GetMapping("/list/{coordinates_id}")
     public @ResponseBody
-    List<PlacesDTO> showAllId(@PathVariable("coordinates_id") List<Long> coordinatesIds) {
+    List<PlacesDTO> showAllId(@PathVariable("coordinates_id") long coordinates_id) {//B3
         try {
-            List<Places> places = service.getAllById(coordinatesIds);
+            List<Places> places = service.listByCoordinatesId(coordinates_id);
 
+            /*
+            List<PlacesDTO> results = new ArrayList<PlacesDTO>();
+            for (Places item : places) {
+                PlacesDTO itemDTO = modelMapper.map(item, PlacesDTO.class);
+                results.add(itemDTO);
+            }
+            */
             List<PlacesDTO> results = places.stream()
-                    .map(place -> modelMapper.map(place, PlacesDTO.class))
-                    .collect(Collectors.toList());
+                    .map(item -> modelMapper.map(item, PlacesDTO.class))
+                    .collect(Collectors.toList());//B4
 
             return results;
         } catch (Exception e) {

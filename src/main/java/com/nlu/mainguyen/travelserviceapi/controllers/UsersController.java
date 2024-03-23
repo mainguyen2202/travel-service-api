@@ -39,7 +39,7 @@ public class UsersController {
             // List<Users> users = this.service.showAll();// danh sách Entity mà cần convert về DTO thì stream().map()
                                                        // tương đương for
 
-            List<UserDTO> results = this.service.getAll().stream().map(i -> modelMapper.map(i, UserDTO.class))
+            List<UserDTO> results = this.service.getAll().stream().map(item -> modelMapper.map(item, UserDTO.class))
                     .collect(Collectors.toList());
 
             return results;

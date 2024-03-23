@@ -3,6 +3,7 @@ package com.nlu.mainguyen.travelserviceapi.entities;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -41,6 +42,11 @@ public class Articles {// bài viết của nhiều địa điểm và nhiều t
 
     @OneToMany(mappedBy = "articles", cascade = CascadeType.ALL)
     private List<Feedbacks> feedbacks = new ArrayList<>();
+
+    public static Stream<Articles> stream() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'stream'");
+    }
 
   
 

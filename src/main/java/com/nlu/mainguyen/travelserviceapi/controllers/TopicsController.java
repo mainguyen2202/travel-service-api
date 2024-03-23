@@ -34,7 +34,7 @@ public class TopicsController {
             // về DTO thì stream().map()
             // tương đương for
 
-            List<TopicsDTO> results = this.service.getAll().stream().map(i -> modelMapper.map(i, TopicsDTO.class))
+            List<TopicsDTO> results = this.service.getAll().stream().map(item -> modelMapper.map(item, TopicsDTO.class))
                     .collect(Collectors.toList());
 
             return results;
@@ -85,12 +85,5 @@ public class TopicsController {
     public String remove(@PathVariable("id") Long id) {
         this.service.deleteByID(id);
         return "success";
-    }
-
-    @GetMapping("/api/foos")
-    @ResponseBody
-    public String getFoos(@RequestParam String id, @RequestParam("clientTitle") String title) {
-        System.out.println(title);
-        return "ID: " + id;
     }
 }

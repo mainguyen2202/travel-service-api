@@ -37,7 +37,7 @@ public class CoordinatesController {
             List<Coordinates> data = this.service.getAll();// lấy dữ liệu ở db
 
             List<CoordinatesDTO> results = data.stream()
-                    .map(i -> modelMapper.map(i, CoordinatesDTO.class))
+                    .map(item -> modelMapper.map(item, CoordinatesDTO.class))
                     .collect(Collectors.toList());
 
             return results;

@@ -11,14 +11,27 @@ import com.nlu.mainguyen.travelserviceapi.repositories.ArticlesRepository;
 
 @Service
 public class ArticlesService {
-  @Autowired
+    @Autowired
     private ArticlesRepository repository;
-
-  
 
     // lấy danh sách
     public List<Articles> getAll() {
         return repository.findAll();
+    }
+
+    // lấy danh sách theo idPlaces, idTopics
+    public List<Articles> listAllBySearch(long places_id, long topics_id) {
+        // places_id có giá trị và topics_id = 0
+        // places_id = 0 và topics_id có giá trị
+        // tất cả điều có giá trị
+        if (places_id != 0 && topics_id == 0) {
+            return this.repository.findAllByPlacesId(places_id);
+        } else if (places_id == 0 && topics_id != 0) {
+            return this.repository.findAllByTopicsId(topics_id);
+        } else  {
+            return this.repository.findAllBySearch(places_id, topics_id);
+        }
+        // giá trị mặc định
     }
 
     public Articles create(Articles input) {
@@ -41,11 +54,10 @@ public class ArticlesService {
         this.repository.deleteById(id);
     }
 
-
     // lấy danh sách theo địa điểm placeid
 
     // lấy danh sách theo địa điểm topic
-    public Articles getByTopicsId(Long topicId) {
+    public Articles getByArticlesId(Long topicId) {
         Optional<Articles> items = this.repository.findById(topicId);
         if (items.isPresent()) {
             return items.get();

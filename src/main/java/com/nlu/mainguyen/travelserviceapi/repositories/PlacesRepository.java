@@ -15,5 +15,6 @@ public interface PlacesRepository extends JpaRepository<Places, Long> {
     List<Places> findByName(String name);
 
 
-  
+       @Query(value = "SELECT * FROM places WHERE coordinates_id = ?1", nativeQuery = true)
+       List<Places> findAllByCoordinatesId(long coordinates_id);// B1
 }
