@@ -2,8 +2,15 @@ package com.nlu.mainguyen.travelserviceapi.entities;
 
 import java.sql.Date;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "feedbacks")
 public class Feedbacks {// Bình luận
 
     @Id
@@ -23,118 +30,6 @@ public class Feedbacks {// Bình luận
     private int share;
     private String review; // bình luận
 
-    public Feedbacks() {
-    }
-
-    
-
   
-
-
-
-    public Feedbacks(Users users, Articles articles, int status, Date creatAt, int heart, int share, String review) {
-        this.users = users;
-        this.articles = articles;
-        this.status = status;
-        this.creatAt = creatAt;
-        this.heart = heart;
-        this.share = share;
-        this.review = review;
-    }
-
-
-
-
-
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public Date getCreatAt() {
-        return creatAt;
-    }
-
-    public void setCreatAt(Date creatAt) {
-        this.creatAt = creatAt;
-    }
-
-
-
-
-
-    public int getShare() {
-        return share;
-    }
-
-
-
-    public void setShare(int share) {
-        this.share = share;
-    }
-
-
-
-    public Users getUsers() {
-        return users;
-    }
-
-    public void setUsers(Users users) {
-        this.users = users;
-    }
-
-    public Articles getArticles() {
-        return articles;
-    }
-
-    public void setArticles(Articles articles) {
-        this.articles = articles;
-    }
-
-
-
-    public int getHeart() {
-        return heart;
-    }
-
-
-
-    public void setHeart(int heart) {
-        this.heart = heart;
-    }
-
-
-
-
-
-
-
-    public String getReview() {
-        return review;
-    }
-
-
-
-
-
-
-
-    public void setReview(String review) {
-        this.review = review;
-    }
-
     
 }

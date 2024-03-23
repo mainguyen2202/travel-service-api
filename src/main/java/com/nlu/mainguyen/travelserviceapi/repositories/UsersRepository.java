@@ -16,7 +16,7 @@ public interface UsersRepository extends JpaRepository<Users, Long>, JpaSpecific
 
 
 
-    @Query(value = "SELECT * FROM app_users WHERE username = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM users WHERE username = ?1", nativeQuery = true)
     Users findByName(String name);
 }
 

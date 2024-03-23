@@ -5,8 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "articles")
 public class Articles {// bài viết
 
     private @Id @GeneratedValue Long id;
@@ -35,111 +42,6 @@ public class Articles {// bài viết
     @OneToMany(mappedBy = "articles", cascade = CascadeType.ALL)
     private List<Feedbacks> feedbacks = new ArrayList<>();
 
-    public Articles() {
-    }
-
-    public Articles(String title, String image, Date createAt, String content, int status) {
-        this.title = title;
-        this.image = image;
-        this.createAt = createAt;
-        this.content = content;
-        this.status = status;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Users getUsers() {
-        return users;
-    }
-
-    public void setUsers(Users users) {
-        this.users = users;
-    }
-
-    public Places getPlaces() {
-        return places;
-    }
-
-    public void setPlaces(Places places) {
-        this.places = places;
-    }
-
-    public Topics getTopics() {
-        return topics;
-    }
-
-    public void setTopics(Topics topics) {
-        this.topics = topics;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public Date getCreateAt() {
-        return createAt;
-    }
-
-    public void setCreateAt(Date createAt) {
-        this.createAt = createAt;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public List<Likes> getLikes() {
-        return likes;
-    }
-
-    public void setLikes(List<Likes> likes) {
-        this.likes = likes;
-    }
-
-    public List<Itineraries> getItineraries() {
-        return itineraries;
-    }
-
-    public void setItineraries(List<Itineraries> itineraries) {
-        this.itineraries = itineraries;
-    }
-
-    public List<Feedbacks> getFeedbacks() {
-        return feedbacks;
-    }
-
-    public void setFeedbacks(List<Feedbacks> feedbacks) {
-        this.feedbacks = feedbacks;
-    }
+  
 
 }

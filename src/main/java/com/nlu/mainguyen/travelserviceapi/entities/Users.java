@@ -11,7 +11,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "app_users")
+@Table(name = "users")
 public class Users {
     private @Id @GeneratedValue Long id;
 
