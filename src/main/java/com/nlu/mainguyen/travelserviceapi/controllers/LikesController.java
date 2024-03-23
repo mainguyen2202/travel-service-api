@@ -12,6 +12,7 @@ import jakarta.validation.Valid;
 
 
 @Controller
+@CrossOrigin("http://localhost:3000")
 @RequestMapping(path="/likes")
 public class LikesController {
     private LikesService service;

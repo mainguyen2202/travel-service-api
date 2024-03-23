@@ -24,10 +24,7 @@ public class PlacesService {
         return this.repository.findAll();
     }
 
-    //  public List<Places> getAllById(Coordinates coordinates) {
-        
-    //     return this.repository.findAllById(coordinates.getId());
-    // }
+// lấy danh sách theo id
     public List<Places> getAllById(List<Long> ids) {
         return (List<Places>) repository.findAllById(ids);
     }

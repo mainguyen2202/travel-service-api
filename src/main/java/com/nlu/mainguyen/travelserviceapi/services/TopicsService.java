@@ -1,7 +1,9 @@
 package com.nlu.mainguyen.travelserviceapi.services;
 
+import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nlu.mainguyen.travelserviceapi.entities.Topics;
@@ -9,15 +11,21 @@ import com.nlu.mainguyen.travelserviceapi.repositories.TopicsRepository;
 
 @Service
 public class TopicsService {
+    @Autowired
 
     private TopicsRepository repository;
 
-    public TopicsService(TopicsRepository repository) {
-        this.repository = repository;
+    // lấy danh sách
+    public List<Topics> getAll() {
+        return this.repository.findAll();
     }
 
-    public Iterable<Topics> showAll() {
-        return this.repository.findAll();
+    // lấy danh sách theo id
+   
+    public List<Topics> getAllById(int subTopicsId) {
+        // Thực hiện logic lấy danh sách Topics dựa trên subTopicsId
+        // Ví dụ:
+        return repository.findAllBySubTopicsId(subTopicsId);
     }
 
     public Topics create(Topics input) {

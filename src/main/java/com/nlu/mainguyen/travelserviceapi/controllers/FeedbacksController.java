@@ -12,6 +12,7 @@ import jakarta.validation.Valid;
 
 
 @Controller
+@CrossOrigin("http://localhost:3000")
 @RequestMapping(path="/feedbacks")
 public class FeedbacksController {
     private FeedbacksService service;

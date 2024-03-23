@@ -19,6 +19,7 @@ import com.nlu.mainguyen.travelserviceapi.entities.Users;
 import com.nlu.mainguyen.travelserviceapi.model.UserDTO;
 
 @Controller
+@CrossOrigin("http://localhost:3000")
 @RequestMapping(path = "/users")
 public class UsersController {
 

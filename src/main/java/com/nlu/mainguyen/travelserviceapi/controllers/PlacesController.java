@@ -5,8 +5,8 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,16 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.nlu.mainguyen.travelserviceapi.entities.Coordinates;
 import com.nlu.mainguyen.travelserviceapi.entities.Places;
-import com.nlu.mainguyen.travelserviceapi.entities.Users;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseInfoDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseListDTO;
 import com.nlu.mainguyen.travelserviceapi.model.PlacesDTO;
-import com.nlu.mainguyen.travelserviceapi.model.PlacesDTO;
-import com.nlu.mainguyen.travelserviceapi.model.PlacesDTO;
-import com.nlu.mainguyen.travelserviceapi.model.PlacesDTO;
+
 import com.nlu.mainguyen.travelserviceapi.services.PlacesService;
 
 import jakarta.validation.Valid;
@@ -61,21 +57,7 @@ public class PlacesController {
         return null;
     }
 
-    // @GetMapping("/list/{coordinates_id}")
-    // public @ResponseBody List<PlacesDTO> showAllId(@PathVariable("coordinates_id") Coordinates coordinates) {
-    //     try {
-    //         List<Places> places = this.service.getAllById(coordinates.getId());
-
-    //         List<PlacesDTO> results = places.stream().map(i -> modelMapper.map(i, PlacesDTO.class))
-    //                 .collect(Collectors.toList());
-
-    //         return results;
-
-    //     } catch (Exception e) {
-    //         System.out.println(e.getMessage());
-    //     }
-    //     return null;
-    // }
+ 
 
     @GetMapping("/list/{coordinates_id}")
     public @ResponseBody

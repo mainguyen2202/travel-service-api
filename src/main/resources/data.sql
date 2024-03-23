@@ -66,3 +66,16 @@ VALUES
 (45, 'Công viên nước', 7, NULL, 1),
 (46, 'Khu trò chơi trong nhà', 7, NULL, 1),
 (47, 'Khu vui chơi ngoài trời', 7, NULL, 1);
+
+INSERT INTO `articles` (`id`, `content`, `create_at`, `image`, `status`, `title`, `places_id`, `topics_id`, `users_id`)
+VALUES
+(1, 'Content 1', '2022-01-01', 'image1.jpg', 1, 'Title 1', 1, 8, 1),
+(2, 'Content 2', '2022-02-02', 'image2.jpg', 1, 'Title 2', 2, 9, 2),
+(3, 'Content 3', '2022-03-03', 'image3.jpg', 1, 'Title 3', 3, 10, 3),
+(4, 'Content 4', '2022-04-04', 'image4.jpg', 1, 'Title 4', 4, 11, 4),
+(5, 'Content 5', '2022-05-05', 'image5.jpg', 1, 'Title 5', 5, 12, 5),
+(6, 'Content 6', '2022-06-06', 'image6.jpg', 1, 'Title 6', 6, 13, 6),
+(7, 'Content 7', '2022-07-07', 'image7.jpg', 1, 'Title 7', 7, 14, 7),
+(8, 'Content 8', '2022-08-08', 'image8.jpg', 1, 'Title 8', 8, 15, 8),
+(9, 'Content 9', '2022-09-09', 'image9.jpg', 1, 'Title 9', 9, 16, 9),
+(10, 'Content 10', '2022-10-10', 'image10.jpg', 1, 'Title 10', 10, 17, 10);
