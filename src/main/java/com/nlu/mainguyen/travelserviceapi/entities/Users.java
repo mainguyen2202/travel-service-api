@@ -15,8 +15,7 @@ import lombok.*;
 public class Users {
     private @Id @GeneratedValue Long id;
 
-    private String lastname;
-    private String firstname;
+    private String name;
     private String email;
     private String username;
     private String password;

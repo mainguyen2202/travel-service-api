@@ -11,7 +11,7 @@ public class ArticlesDTO { // Địa điểm
     private long id;
 
     @ManyToOne()
-    private UserDTO users;
+    private UserOutputDTO users;
 
     @ManyToOne()
     private PlacesDTO places; // vị trí cụ thể

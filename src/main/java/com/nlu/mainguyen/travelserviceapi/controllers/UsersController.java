@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.*;
 
 import com.nlu.mainguyen.travelserviceapi.services.UsersService;
 
-
 import com.nlu.mainguyen.travelserviceapi.entities.Users;
-import com.nlu.mainguyen.travelserviceapi.model.UserDTO;
+import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
+import com.nlu.mainguyen.travelserviceapi.model.UserOutputDTO;
+import com.nlu.mainguyen.travelserviceapi.model.UserInputDTO;
 
 @Controller
 @CrossOrigin("http://localhost:3000")
@@ -34,17 +35,17 @@ public class UsersController {
     // }
 
     @GetMapping("/list")
-    public @ResponseBody List<UserDTO> showAll(Model model) {
+    public @ResponseBody List<UserOutputDTO> showAll(Model model) {
         try {
-            // List<Users> users = this.service.showAll();// danh sách Entity mà cần convert về DTO thì stream().map()
-                                                       // tương đương for
+            // List<Users> users = this.service.showAll();// danh sách Entity mà cần convert
+            // về DTO thì stream().map()
+            // tương đương for
 
-            List<UserDTO> results = this.service.getAll().stream().map(item -> modelMapper.map(item, UserDTO.class))
+            List<UserOutputDTO> results = this.service.getAll().stream()
+                    .map(item -> modelMapper.map(item, UserOutputDTO.class))
                     .collect(Collectors.toList());
 
             return results;
-
-            
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -52,59 +53,57 @@ public class UsersController {
         return null;
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<UserDTO> registration(@RequestBody UserDTO userDto) {
+    // đăng ký
+    @PostMapping("/registration")
+    public ResponseEntity<ResponseDTO> registration(@RequestBody UserInputDTO userRequest) {
         try {
-            // convert DTO to entity
-            Users userRequest = modelMapper.map(userDto, Users.class);
-
-            Users user = this.service.create(userRequest);// lưu database, trả về id
-
-            // convert entity to DTO
-            UserDTO userResponse = modelMapper.map(user, UserDTO.class);
-
-            return new ResponseEntity<UserDTO>(userResponse, HttpStatus.CREATED);// OK : 200, 201
+            ResponseDTO userResponse = this.service.registration(userRequest);// lưu database, trả về id
+            return new ResponseEntity<ResponseDTO>(userResponse, HttpStatus.OK);// OK : 200, 201
         } catch (Exception e) {
-            // TODO: handle exception
-            return new ResponseEntity<UserDTO>(new UserDTO(), HttpStatus.BAD_REQUEST);
+            ResponseDTO userResponse = new ResponseDTO(2, e.getMessage());
+            return new ResponseEntity<ResponseDTO>(userResponse, HttpStatus.OK);// OK : 200, 201
         }
+    }
 
+    // đăng nhập
+    @PostMapping("/login")
+    public ResponseEntity<ResponseDTO> login(@RequestBody UserInputDTO userRequest) {
+        ResponseDTO userResponse = this.service.login(userRequest.getUsername(), userRequest.getPassword());// lưu database, trả về id
+        return new ResponseEntity<ResponseDTO>(userResponse, HttpStatus.OK);// OK : 200, 201
+        
     }
 
     @GetMapping("/detail/{id}")
-    public ResponseEntity<UserDTO> viewCommentsByID(@PathVariable("id") Long id) {
+    public ResponseEntity<UserOutputDTO> viewCommentsByID(@PathVariable("id") Long id) {
         try {
             Users i = this.service.getById(id);
 
-            UserDTO resp = modelMapper.map(i, UserDTO.class);
+            UserOutputDTO resp = modelMapper.map(i, UserOutputDTO.class);
             return ResponseEntity.ok().body(resp);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return new ResponseEntity<UserDTO>(new UserDTO(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<UserOutputDTO>(new UserOutputDTO(), HttpStatus.BAD_REQUEST);
         }
     }
- 
 
     @PostMapping("/edit/{id}")
-    public ResponseEntity<UserDTO> update(@PathVariable long id, @RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserOutputDTO> update(@PathVariable long id, @RequestBody UserOutputDTO UserOutputDTO) {
 
         try {
 
             // convert DTO to Entity
-            Users userRequest = modelMapper.map(userDTO, Users.class);
+            Users userRequest = modelMapper.map(UserOutputDTO, Users.class);
             Users users = this.service.update(id, userRequest);
 
-
             // entity to DTO
-            UserDTO resp = modelMapper.map(users, UserDTO.class);
+            UserOutputDTO resp = modelMapper.map(users, UserOutputDTO.class);
 
             return ResponseEntity.ok().body(resp);
         } catch (Exception e) {
             // TODO: handle exception
-            return new ResponseEntity<UserDTO>(new UserDTO(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<UserOutputDTO>(new UserOutputDTO(), HttpStatus.BAD_REQUEST);
         }
     }
-
 
     @PostMapping("/remove/{id}")
     public ResponseEntity<String> delete(@PathVariable long id) {
@@ -120,15 +119,15 @@ public class UsersController {
     }
 
     @GetMapping("/detail/{username}")
-    public ResponseEntity<UserDTO> viewCommentsByUserName(@PathVariable("username") String username) {
+    public ResponseEntity<UserOutputDTO> viewCommentsByUserName(@PathVariable("username") String username) {
         try {
             Users i = this.service.getByName("minhminh");
 
-            UserDTO resp = modelMapper.map(i, UserDTO.class);
+            UserOutputDTO resp = modelMapper.map(i, UserOutputDTO.class);
             return ResponseEntity.ok().body(resp);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return new ResponseEntity<UserDTO>(new UserDTO(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<UserOutputDTO>(new UserOutputDTO(), HttpStatus.BAD_REQUEST);
         }
     }
 }

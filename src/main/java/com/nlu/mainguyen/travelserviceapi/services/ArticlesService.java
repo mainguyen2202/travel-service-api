@@ -28,6 +28,8 @@ public class ArticlesService {
             return this.repository.findAllByPlacesId(places_id);
         } else if (places_id == 0 && topics_id != 0) {
             return this.repository.findAllByTopicsId(topics_id);
+        } else if (places_id == 0 && topics_id == 0) {
+            return this.repository.findAll();
         } else  {
             return this.repository.findAllBySearch(places_id, topics_id);
         }

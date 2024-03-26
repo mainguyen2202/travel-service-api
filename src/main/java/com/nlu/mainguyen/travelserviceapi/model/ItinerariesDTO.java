@@ -10,7 +10,7 @@ public class ItinerariesDTO { // Lập kế hoạch
     private long id;
 
     @ManyToOne()
-    private UserDTO users;
+    private UserOutputDTO users;
 
     @ManyToOne()
     private ArticlesDTO articles;
