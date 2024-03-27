@@ -1,7 +1,9 @@
 package com.nlu.mainguyen.travelserviceapi.services;
 
+import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nlu.mainguyen.travelserviceapi.entities.Itineraries;
@@ -9,15 +11,19 @@ import com.nlu.mainguyen.travelserviceapi.repositories.ItinerariesRepository;
 
 @Service
 public class ItinerariesService {
-
+  @Autowired
     private ItinerariesRepository repository;
 
-    public ItinerariesService(ItinerariesRepository repository) {
-        this.repository = repository;
+   
+
+    public List<Itineraries> getAll() {
+        return this.repository.findAll();
     }
 
-    public Iterable<Itineraries> showAll() {
-        return this.repository.findAll();
+ 
+// lấy danh sách theo id
+    public List<Itineraries> listByUsersId(long users_id) {//B2
+        return this.repository.findAllByUsersId(users_id);
     }
 
     public Itineraries create(Itineraries input) {
