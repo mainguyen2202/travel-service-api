@@ -17,6 +17,12 @@ public class ResponseDTO {
     @JsonProperty("data")
     public UserOutputDTO Data;
 
+    @JsonProperty("dataItinerariesDTO")
+    public ItinerariesDTO DataItinerariesDTO;
+
+    @JsonProperty("dataArticlesDTO")
+    public ArticlesDTO DataArticlesDTO;
+
     public ResponseDTO(int status, String message) {
         Status = status;
         Message = message;
@@ -26,5 +32,15 @@ public class ResponseDTO {
         Status = status;
         Message = message;
         Data = data;
+    }
+    public ResponseDTO(int status, String message, ItinerariesDTO dataItinerariesDTO) {
+        Status = status;
+        Message = message;
+        DataItinerariesDTO = dataItinerariesDTO;
+    }
+    public ResponseDTO(int status, String message, ArticlesDTO dataArticlesDTO) {
+        Status = status;
+        Message = message;
+        DataArticlesDTO = dataArticlesDTO;
     }
 }

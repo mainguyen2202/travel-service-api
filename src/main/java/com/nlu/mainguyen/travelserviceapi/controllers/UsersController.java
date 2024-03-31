@@ -68,9 +68,11 @@ public class UsersController {
     // đăng nhập
     @PostMapping("/login")
     public ResponseEntity<ResponseDTO> login(@RequestBody UserInputDTO userRequest) {
-        ResponseDTO userResponse = this.service.login(userRequest.getUsername(), userRequest.getPassword());// lưu database, trả về id
+        ResponseDTO userResponse = this.service.login(userRequest.getUsername(), userRequest.getPassword());// lưu
+                                                                                                            // database,
+                                                                                                            // trả về id
         return new ResponseEntity<ResponseDTO>(userResponse, HttpStatus.OK);// OK : 200, 201
-        
+
     }
 
     @GetMapping("/detail/{id}")
@@ -118,16 +120,21 @@ public class UsersController {
         }
     }
 
-    @GetMapping("/detail/{username}")
-    public ResponseEntity<UserOutputDTO> viewCommentsByUserName(@PathVariable("username") String username) {
+    @GetMapping("/detailBySearch")
+    public ResponseEntity<UserOutputDTO> detailBySearch(@RequestParam("username") String username,
+            @RequestParam("email") String email, @RequestParam("role") int role) {
         try {
-            Users i = this.service.getByName("minhminh");
+            Users user = this.service.detailBySearch(username, email, role); // Lấy thông tin người dùng dựa trên tên người
+                                                                      // dùng
 
-            UserOutputDTO resp = modelMapper.map(i, UserOutputDTO.class);
-            return ResponseEntity.ok().body(resp);
+            UserOutputDTO resp = modelMapper.map(user, UserOutputDTO.class); // Chuyển đổi đối tượng người dùng thành
+                                                                             // đối tượng DTO
+            return ResponseEntity.ok().body(resp); // Trả về phản hồi thành công với đối tượng DTO
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return new ResponseEntity<UserOutputDTO>(new UserOutputDTO(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<UserOutputDTO>(new UserOutputDTO(), HttpStatus.BAD_REQUEST); // Trả về phản hồi
+                                                                                                   // lỗi nếu có lỗi xảy
+                                                                                                   // ra
         }
     }
 }

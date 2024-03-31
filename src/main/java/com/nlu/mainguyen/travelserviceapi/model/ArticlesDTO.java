@@ -19,6 +19,7 @@ public class ArticlesDTO { // Địa điểm
     @ManyToOne()
     private TopicsDTO topics;// danh mục về món ăn
 
+    private String name;
     private String title;
     private String image;
     private Date createAt;

@@ -5,7 +5,8 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,13 +15,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nlu.mainguyen.travelserviceapi.entities.Itineraries;
 import com.nlu.mainguyen.travelserviceapi.model.ItinerariesDTO;
+import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.services.ItinerariesService;
 
-import jakarta.validation.Valid;
 
 @Controller
 @CrossOrigin("http://localhost:3000")
@@ -51,11 +53,10 @@ public class ItinerariesController {
         return null;
     }
 
-    @GetMapping("/list/{users_id}")
-    public @ResponseBody
-    List<ItinerariesDTO> showAllUsersId(@PathVariable("users_id") long users_id) {//B3
+    @GetMapping("/listBySearch")
+    public @ResponseBody List<ItinerariesDTO> listBySearch(@RequestParam("user_id") long user_id) {//B3
         try {
-            List<Itineraries> Itineraries = this.service.listByUsersId(users_id);
+            List<Itineraries> Itineraries = this.service.listByUserId(user_id);
 
            
             List<ItinerariesDTO> results = Itineraries.stream()
@@ -70,29 +71,64 @@ public class ItinerariesController {
     }
 
     @PostMapping("/create")
-    public @ResponseBody String registration(@RequestBody Itineraries input) {
-        // TODO
-        Itineraries result = this.service.create(input);
-        System.out.println(result);
-        return "success";
+   
+      public ResponseEntity<ResponseDTO> create(@RequestBody ItinerariesDTO request) {
+        try {
+            ResponseDTO response = this.service.create(request);// lưu database, trả về id
+            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+        } catch (Exception e) {
+            ResponseDTO response = new ResponseDTO(2, e.getMessage());
+            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+        }
     }
 
     @GetMapping("/detail/{id}")
-    public @ResponseBody Itineraries viewCommentsByID(@PathVariable("id") Long id) {
-        Itineraries result = this.service.getById(id);
-        return result;
+      public ResponseEntity<ItinerariesDTO> viewByID(@PathVariable("id") Long id) {
+        try {
+            Itineraries i = this.service.getById(id);
+
+            ItinerariesDTO resp = modelMapper.map(i, ItinerariesDTO.class);
+            return ResponseEntity.ok().body(resp);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<ItinerariesDTO>(new ItinerariesDTO(), HttpStatus.BAD_REQUEST);
+        }
     }
 
-    @PostMapping("/edit/{id}")
-    public @ResponseBody String edit(@PathVariable("id") Long id, @Valid @RequestBody Itineraries input) {
-        this.service.update(input);
-        return "success";
 
+   
+
+    @PostMapping("/edit/{id}")
+ 
+
+        public ResponseEntity<ItinerariesDTO> update(@PathVariable long id, @RequestBody ItinerariesDTO ItinerariesDTO) {
+
+        try {
+
+            // convert DTO to Entity
+            Itineraries request = modelMapper.map(ItinerariesDTO, Itineraries.class);
+            Itineraries entity = this.service.update(id, request);
+
+            // entity to DTO
+            ItinerariesDTO resp = modelMapper.map(entity, ItinerariesDTO.class);
+
+            return ResponseEntity.ok().body(resp);
+        } catch (Exception e) {
+            // TODO: handle exception
+            return new ResponseEntity<ItinerariesDTO>(new ItinerariesDTO(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/remove/{id}")
-    public String remove(@PathVariable("id") Long id) {
-        this.service.deleteByID(id);
-        return "success";
+    public ResponseEntity<ItinerariesDTO> delete(@PathVariable("id") Long id) {
+        try {
+            Itineraries i = this.service.deleteByID(id);
+    
+            ItinerariesDTO resp = modelMapper.map(i, ItinerariesDTO.class);
+            return ResponseEntity.ok().body(resp);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<ItinerariesDTO>(new ItinerariesDTO(), HttpStatus.BAD_REQUEST);
+        }
     }
 }

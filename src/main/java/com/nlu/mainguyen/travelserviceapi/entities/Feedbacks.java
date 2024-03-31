@@ -29,7 +29,7 @@ public class Feedbacks {// Bình luận
     private int heart; // thích
     private int share;
     private String review; // bình luận
-
+    private String content;
   
     
 }

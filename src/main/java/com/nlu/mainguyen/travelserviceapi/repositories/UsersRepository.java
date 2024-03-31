@@ -1,6 +1,5 @@
 package com.nlu.mainguyen.travelserviceapi.repositories;
 
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -15,7 +14,7 @@ public interface UsersRepository extends JpaRepository<Users, Long>, JpaSpecific
     // https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html#jpa.query-methods.at-query.native
 
     @Query(value = "SELECT * FROM users WHERE username = ?1", nativeQuery = true)
-    Users findByName(String name);
+    Users findByName(String username);
 
     @Query(value = "SELECT * FROM users WHERE username = ?1 ", nativeQuery = true)
     Users findByUsername(String username);

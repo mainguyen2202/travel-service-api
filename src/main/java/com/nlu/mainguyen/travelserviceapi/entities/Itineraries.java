@@ -1,6 +1,8 @@
 package com.nlu.mainguyen.travelserviceapi.entities;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,18 +17,23 @@ import lombok.NoArgsConstructor;
 public class Itineraries { // Lập kế hoạch
     private @Id @GeneratedValue Long id;
 
-    @ManyToOne()
+    @ManyToOne
+    @JoinColumn(name = "users_id")
     private Users users;
 
-    @ManyToOne()
-    private Articles articles;
-
     private String name;
-    private Date dateStart;
+    @Column(name = "date_end")
     private Date dateEnd;
+
+    @Column(name = "date_start")
+    private Date dateStart;
     private int status;
     private int position; // thứ tự
+    private String content;
 
-  
+    @OneToMany(mappedBy = "itineraries", cascade = CascadeType.ALL)
+    private List<ItineraryArticles> itineraries = new ArrayList<>();
+
+ 
 
 }

@@ -9,10 +9,7 @@ import com.nlu.mainguyen.travelserviceapi.entities.Itineraries;
 
 public interface ItinerariesRepository extends JpaRepository<Itineraries, Long> {
 
-    
-   
-
-      @Query(value = "SELECT * FROM itineraries WHERE users_id = ?1", nativeQuery = true)
-    List<Itineraries> findAllByUsersId(long users_id);// B1
+  @Query(value = "SELECT * FROM itineraries WHERE users_id = ?1", nativeQuery = true)
+  List<Itineraries> findAllByUserId(long user_id);// B1
 
 }

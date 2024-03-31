@@ -50,14 +50,15 @@ CREATE TABLE `users` (
 
 CREATE TABLE `articles` (
   `id` bigint(20) NOT NULL,
-  `content` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `content` varchar(255) DEFAULT NULL,
   `create_at` date DEFAULT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
   `status` int(11) NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
   `places_id` bigint(20) DEFAULT NULL,
   `topics_id` bigint(20) DEFAULT NULL,
   `users_id` bigint(20) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK7b843ueq7u8o2jbbpnnl3knqk` (`places_id`),
   KEY `FKi6prltuwudqmd7lo0tdqaodvs` (`topics_id`),
@@ -65,7 +66,7 @@ CREATE TABLE `articles` (
   CONSTRAINT `FK7b843ueq7u8o2jbbpnnl3knqk` FOREIGN KEY (`places_id`) REFERENCES `places` (`id`),
   CONSTRAINT `FKi6prltuwudqmd7lo0tdqaodvs` FOREIGN KEY (`topics_id`) REFERENCES `topics` (`id`),
   CONSTRAINT `FKltflfjxhtxmxchtvgsl0avvf9` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
 
 
 
@@ -125,6 +126,18 @@ CREATE TABLE `news` (
   KEY `FK4ms58abmos751qf580ciy3tu` (`topics_id`),
   CONSTRAINT `FK4ms58abmos751qf580ciy3tu` FOREIGN KEY (`topics_id`) REFERENCES `topics` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+CREATE TABLE `itinerary_articles` (
+  `id` bigint(20) NOT NULL,
+  `articles_id` bigint(20) DEFAULT NULL,
+  `itineraries_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKox7qjjy6e9gg1nt20vdm1650r` (`articles_id`),
+  KEY `FKjtxi18dg78jwtffdecekppksa` (`itineraries_id`),
+  CONSTRAINT `FKjtxi18dg78jwtffdecekppksa` FOREIGN KEY (`itineraries_id`) REFERENCES `itineraries` (`id`),
+  CONSTRAINT `FKox7qjjy6e9gg1nt20vdm1650r` FOREIGN KEY (`articles_id`) REFERENCES `articles` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
 
 
 

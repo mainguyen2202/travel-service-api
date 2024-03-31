@@ -122,7 +122,7 @@ public class UsersService {
         this.repository.delete(user);
     }
 
-    public Users getById(Long id) {
+    public Users getById(long id) {
         Optional<Users> items = this.repository.findById(id);
         if (items.isPresent()) {
             return items.get();
@@ -131,8 +131,15 @@ public class UsersService {
         }
     }
 
-    public Users getByName(String name) {
-        return this.repository.findByName(name);
+    public Users detailBySearch(String username, String email, int role) {
+        if (username!= ""){
+            return this.repository.findByName(username); // Tìm người dùng theo tên người dùng trong cơ sở dữ liệu
+        } else if (email!= ""){
+            return this.repository.findByName(username); // tìm theo email
+        } else if (role != 0){
+            return this.repository.findByName(username); // tìm theo role
+        } 
+        return null;
     }
 
     public static Specification<Users> isLongTermCustomer() {

@@ -22,7 +22,7 @@ public class Likes { // Địa điểm yêu thích
 
     private int status;
     private Date creatAt;
-
+    private String content;
  
 
 }

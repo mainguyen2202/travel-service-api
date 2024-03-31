@@ -28,6 +28,7 @@ public class Articles {// bài viết của nhiều địa điểm và nhiều t
     @ManyToOne()
     private Topics topics;//danh mục về món ăn
 
+    private String name;
     private String title;
     private String image;
     private Date createAt;
@@ -37,17 +38,13 @@ public class Articles {// bài viết của nhiều địa điểm và nhiều t
     @OneToMany(mappedBy = "articles", cascade = CascadeType.ALL)
     private List<Likes> likes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "articles", cascade = CascadeType.ALL)
-    private List<Itineraries> itineraries = new ArrayList<>();
 
     @OneToMany(mappedBy = "articles", cascade = CascadeType.ALL)
     private List<Feedbacks> feedbacks = new ArrayList<>();
 
-    public static Stream<Articles> stream() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'stream'");
-    }
-
+ 
+    @OneToMany(mappedBy = "articles", cascade = CascadeType.ALL)
+    private List<ItineraryArticles> itineraries = new ArrayList<>();
   
 
 }

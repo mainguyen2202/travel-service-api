@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,8 @@ import com.nlu.mainguyen.travelserviceapi.services.ArticlesService;
 
 import com.nlu.mainguyen.travelserviceapi.entities.Articles;
 import com.nlu.mainguyen.travelserviceapi.model.ArticlesDTO;
+import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
+
 import jakarta.validation.Valid;
 
 @Controller
@@ -29,7 +33,7 @@ public class ArticlesController {
     @GetMapping("/temp")
     public @ResponseBody List<ArticlesDTO> showAll(Model model) {
         try {
-            // List<Users> users = this.service.showAll();// danh sách Entity mà cần convert
+            // List<Articles> Articles = this.service.showAll();// danh sách Entity mà cần convert
             // về DTO thì stream().map()
             // tương đương for
 
@@ -65,17 +69,28 @@ public class ArticlesController {
     }
 
     @PostMapping("/create")
-    public @ResponseBody String registration(@RequestBody Articles input) {
-        // TODO
-        Articles result = this.service.create(input);
-        System.out.println(result);
-        return "success";
+    public ResponseEntity<ResponseDTO> create(@RequestBody ArticlesDTO request) {
+        try {
+            ResponseDTO response = this.service.create(request);// lưu database, trả về id
+            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+        } catch (Exception e) {
+            ResponseDTO response = new ResponseDTO(2, e.getMessage());
+            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+        }
     }
+    
 
     @GetMapping("/detail/{id}")
-    public @ResponseBody Articles viewCommentsByID(@PathVariable("id") Long id) {
-        Articles result = this.service.getById(id);
-        return result;
+    public ResponseEntity<ArticlesDTO> viewByID(@PathVariable("id") Long id) {
+        try {
+            Articles i = this.service.getById(id);
+
+            ArticlesDTO resp = modelMapper.map(i, ArticlesDTO.class);
+            return ResponseEntity.ok().body(resp);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<ArticlesDTO>(new ArticlesDTO(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/edit/{id}")
