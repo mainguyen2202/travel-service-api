@@ -8,15 +8,12 @@ import lombok.Data;
 public class ItinerariesDTO { // Lập kế hoạch
     private long id;
 
-     private String name;
+    private String name;
     private Date dateStart;
     private Date dateEnd;
     private int status;
     private int position; // thứ tự
     private String content;
+
     private long usersId;
-
-
-   
-
 }

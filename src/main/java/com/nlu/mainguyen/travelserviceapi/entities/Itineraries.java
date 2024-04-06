@@ -22,18 +22,17 @@ public class Itineraries { // Lập kế hoạch
     private Users users;
 
     private String name;
-    @Column(name = "date_end")
-    private Date dateEnd;
 
     @Column(name = "date_start")
     private Date dateStart;
+
+    @Column(name = "date_end")
+    private Date dateEnd;
+
     private int status;
     private int position; // thứ tự
     private String content;
 
     @OneToMany(mappedBy = "itineraries", cascade = CascadeType.ALL)
     private List<ItineraryArticles> itineraries = new ArrayList<>();
-
- 
-
 }

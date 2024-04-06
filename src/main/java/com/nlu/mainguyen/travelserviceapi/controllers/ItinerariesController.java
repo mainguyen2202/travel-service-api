@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +23,6 @@ import com.nlu.mainguyen.travelserviceapi.entities.Itineraries;
 import com.nlu.mainguyen.travelserviceapi.model.ItinerariesDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.services.ItinerariesService;
-
 
 @Controller
 @CrossOrigin("http://localhost:3000")
@@ -54,14 +54,13 @@ public class ItinerariesController {
     }
 
     @GetMapping("/listBySearch")
-    public @ResponseBody List<ItinerariesDTO> listBySearch(@RequestParam("user_id") long user_id) {//B3
+    public @ResponseBody List<ItinerariesDTO> listBySearch(@RequestParam("user_id") long user_id) {// B3
         try {
             List<Itineraries> Itineraries = this.service.listByUserId(user_id);
 
-           
             List<ItinerariesDTO> results = Itineraries.stream()
                     .map(item -> modelMapper.map(item, ItinerariesDTO.class))
-                    .collect(Collectors.toList());//B4
+                    .collect(Collectors.toList());// B4
 
             return results;
         } catch (Exception e) {
@@ -71,8 +70,8 @@ public class ItinerariesController {
     }
 
     @PostMapping("/create")
-   
-      public ResponseEntity<ResponseDTO> create(@RequestBody ItinerariesDTO request) {
+
+    public ResponseEntity<ResponseDTO> create(@RequestBody ItinerariesDTO request) {
         try {
             ResponseDTO response = this.service.create(request);// lưu database, trả về id
             return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
@@ -83,7 +82,7 @@ public class ItinerariesController {
     }
 
     @GetMapping("/detail/{id}")
-      public ResponseEntity<ItinerariesDTO> viewByID(@PathVariable("id") Long id) {
+    public ResponseEntity<ItinerariesDTO> viewByID(@PathVariable("id") Long id) {
         try {
             Itineraries i = this.service.getById(id);
 
@@ -95,40 +94,25 @@ public class ItinerariesController {
         }
     }
 
-
-   
-
     @PostMapping("/edit/{id}")
- 
-
-        public ResponseEntity<ItinerariesDTO> update(@PathVariable long id, @RequestBody ItinerariesDTO ItinerariesDTO) {
-
+      public ResponseEntity<ResponseDTO> update(@PathVariable long id,@RequestBody ItinerariesDTO request) {
         try {
-
-            // convert DTO to Entity
-            Itineraries request = modelMapper.map(ItinerariesDTO, Itineraries.class);
-            Itineraries entity = this.service.update(id, request);
-
-            // entity to DTO
-            ItinerariesDTO resp = modelMapper.map(entity, ItinerariesDTO.class);
-
-            return ResponseEntity.ok().body(resp);
+            ResponseDTO response = this.service.update(id, request);// lưu database, trả về id
+            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
         } catch (Exception e) {
-            // TODO: handle exception
-            return new ResponseEntity<ItinerariesDTO>(new ItinerariesDTO(), HttpStatus.BAD_REQUEST);
+            ResponseDTO response = new ResponseDTO(2, e.getMessage());
+            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
         }
     }
 
-    @PostMapping("/remove/{id}")
-    public ResponseEntity<ItinerariesDTO> delete(@PathVariable("id") Long id) {
+    @DeleteMapping("/remove/{id}")
+    public ResponseEntity<ResponseDTO> delete(@PathVariable("id") Long id) {
         try {
-            Itineraries i = this.service.deleteByID(id);
-    
-            ItinerariesDTO resp = modelMapper.map(i, ItinerariesDTO.class);
-            return ResponseEntity.ok().body(resp);
+            ResponseDTO response = this.service.deleteByID(id);
+            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return new ResponseEntity<ItinerariesDTO>(new ItinerariesDTO(), HttpStatus.BAD_REQUEST);
+            ResponseDTO response = new ResponseDTO(2, e.getMessage());
+            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
         }
     }
 }

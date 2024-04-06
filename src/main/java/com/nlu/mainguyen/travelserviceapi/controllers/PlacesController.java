@@ -61,8 +61,7 @@ public class PlacesController {
  
 
     @GetMapping("/list/{coordinates_id}")
-    public @ResponseBody
-    List<PlacesDTO> showAllId(@PathVariable("coordinates_id") long coordinates_id) {//B3
+    public @ResponseBody List<PlacesDTO> showAllId(@PathVariable("coordinates_id") long coordinates_id) {//B3
         try {
             List<Places> places = service.listByCoordinatesId(coordinates_id);
 

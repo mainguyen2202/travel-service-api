@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.nlu.mainguyen.travelserviceapi.entities.Itineraries;
 import com.nlu.mainguyen.travelserviceapi.entities.Users;
-import com.nlu.mainguyen.travelserviceapi.exception.ResourceNotFoundException;
 import com.nlu.mainguyen.travelserviceapi.model.ItinerariesDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.repositories.ItinerariesRepository;
@@ -40,29 +39,18 @@ public class ItinerariesService {
 
     public ResponseDTO create(ItinerariesDTO dto) {
         try {
-            Itineraries itineraries = new Itineraries();
-            itineraries.setName(dto.getName());
-            itineraries.setDateStart(dto.getDateStart());
-            itineraries.setDateEnd(dto.getDateEnd());
-            // itineraries.setStatus(dto.getStatus());
-            // itineraries.setPosition(dto.getPosition());
-            itineraries.setContent(dto.getContent());
+            Itineraries itineraries = modelMapper.map(dto, Itineraries.class);// chuyển từ dto sang entity
 
-            Users user = userRepository.findById(dto.getUsersId())
-                    .orElseThrow(() -> new RuntimeException("User not found"));
+            Optional<Users> userOptional = userRepository.findById(dto.getUsersId());
+            if (userOptional.isEmpty()) {
+                return new ResponseDTO(2, "User not found");
+            }
+            Users user = userOptional.get();
             itineraries.setUsers(user);
 
             Itineraries created = this.repository.save(itineraries);
 
-            ItinerariesDTO responseDto = new ItinerariesDTO();
-            responseDto.setId(created.getId());
-            responseDto.setName(created.getName());
-            responseDto.setDateStart(created.getDateStart());
-            responseDto.setDateEnd(created.getDateEnd());
-            // responseDto.setStatus(created.getStatus());
-            // responseDto.setPosition(created.getPosition());
-            responseDto.setContent(created.getContent());
-            responseDto.setUsersId(created.getUsers().getId());
+            ItinerariesDTO responseDto = modelMapper.map(created, ItinerariesDTO.class);
 
             return new ResponseDTO(1, "Created successfully", responseDto);
         } catch (Exception e) {
@@ -78,25 +66,38 @@ public class ItinerariesService {
         return null;
     }
 
-    public Itineraries update(long id, Itineraries request) {
-        Itineraries itineraries = this.repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Itineraries", "id", id));
 
-        // Cập nhật các trường của itineraries với các giá trị mới từ request
-        itineraries.setName(request.getName());
-        itineraries.setContent(request.getContent());
-        itineraries.setDateStart(request.getDateStart());
-        itineraries.setDateEnd(request.getDateEnd());
+    public ResponseDTO update(long id, ItinerariesDTO dto) {
+        try {
+            Itineraries itineraries = modelMapper.map(dto, Itineraries.class);// chuyển từ dto sang entity
 
-        return this.repository.save(itineraries);
+            Optional<Itineraries> itinerariesOptional = this.repository.findById(id);
+        if (itinerariesOptional.isEmpty()) {
+            return null;// không tìm thấy dữ liệu return rỗng
+        } else {
+            // Cập nhật các trường của itineraries với các giá trị mới từ request
+            Itineraries itinerariesget = itinerariesOptional.get();
+            itinerariesget.setName(dto.getName());
+            itinerariesget.setContent(dto.getContent());
+            itinerariesget.setDateStart(dto.getDateStart());
+            itinerariesget.setDateEnd(dto.getDateEnd());
+
+            Itineraries update = this.repository.save(itinerariesget);
+            ItinerariesDTO responseDto = modelMapper.map(update, ItinerariesDTO.class);
+
+            return new ResponseDTO(1, "Update successfully", responseDto);
+        }} catch (Exception e) {
+            return new ResponseDTO(2, "Failed to create: " + e.getMessage());
+        }
     }
 
-    public Itineraries deleteByID(Long id) {
-        Itineraries itineraries = this.repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Itineraries", "id", id));
-    
-        this.repository.deleteById(id);
-    
-        return itineraries;
+    public ResponseDTO deleteByID(Long id) {
+        Optional<Itineraries> itineraries = this.repository.findById(id);
+        if (itineraries.isEmpty()) {
+            return new ResponseDTO(2, "Empty");// không tìm thấy dữ liệu return lỗi
+        } else {
+            this.repository.deleteById(id);
+            return new ResponseDTO(1, "Success");
+        }
     }
 }
