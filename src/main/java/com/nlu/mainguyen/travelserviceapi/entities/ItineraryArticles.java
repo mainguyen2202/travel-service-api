@@ -1,15 +1,13 @@
 package com.nlu.mainguyen.travelserviceapi.entities;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.sql.Date;
+
+
+import jakarta.persistence.*;
 
 @Entity
 @Data
@@ -27,6 +25,9 @@ public class ItineraryArticles {// bài viết của nhiều địa điểm và 
     @ManyToOne()
     @JoinColumn(name = "itineraries_id")
     private Itineraries itineraries; // vị trí cụ thể
+
+    @Column(name = "date_start")
+    private Date dateStart;
 
     private int status;
 }

@@ -3,8 +3,6 @@ package com.nlu.mainguyen.travelserviceapi.entities;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

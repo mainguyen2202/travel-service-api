@@ -22,6 +22,7 @@ public class Itineraries { // Lập kế hoạch
     private Users users;
 
     private String name;
+    private int participantCount;
 
     @Column(name = "date_start")
     private Date dateStart;

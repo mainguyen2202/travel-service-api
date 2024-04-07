@@ -104,3 +104,9 @@ https://www.javaguides.net/2021/02/spring-boot-dto-example-entity-to-dto.html#go
 https://medium.com/@bectorhimanshu/using-dto-data-transfer-object-projection-mapping-entities-to-dtos-and-vice-versa-in-java-a7a9fe6b50a4
 
 https://www.baeldung.com/entity-to-and-from-dto-for-a-java-spring-application
+
+Working with Date Parameters in Spring https://www.baeldung.com/spring-date-parameters
+
+https://xinghua24.github.io/SpringBoot/Spring-Boot-Handling-Date-Request-Parameter/
+
+https://www.geeksforgeeks.org/java-program-to-convert-date-to-string/

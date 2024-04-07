@@ -69,8 +69,6 @@ public class ItinerariesService {
 
     public ResponseDTO update(long id, ItinerariesDTO dto) {
         try {
-            Itineraries itineraries = modelMapper.map(dto, Itineraries.class);// chuyển từ dto sang entity
-
             Optional<Itineraries> itinerariesOptional = this.repository.findById(id);
         if (itinerariesOptional.isEmpty()) {
             return null;// không tìm thấy dữ liệu return rỗng

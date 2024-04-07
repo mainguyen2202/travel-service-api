@@ -9,6 +9,7 @@ public class ItinerariesDTO { // Lập kế hoạch
     private long id;
 
     private String name;
+    private int participantCount;
     private Date dateStart;
     private Date dateEnd;
     private int status;
