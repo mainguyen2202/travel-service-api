@@ -1,6 +1,6 @@
 package com.nlu.mainguyen.travelserviceapi.services;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -20,23 +20,10 @@ public class LikesService {
         return this.repository.findAll();
     }
 
-    public Likes create(Likes input) {
-        return this.repository.save(input);
+    // lấy danh sách theo id
+    public List<Likes> listByUserId(long users_id) {// B2
+        return this.repository.findAllByUserId(users_id);
     }
 
-    public Likes getById(Long id) {
-        Optional<Likes> items = this.repository.findById(id);
-        if (items.isPresent()) {
-            return items.get();
-        }
-        return null;
-    }
 
-    public void update(Likes input) {
-        this.repository.save(input);
-    }
-
-    public void deleteByID(Long id) {
-        this.repository.deleteById(id);
-    }
 }

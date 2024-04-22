@@ -56,9 +56,9 @@ public class ItinerariesController {
     @GetMapping("/listBySearch")
     public @ResponseBody List<ItinerariesDTO> listBySearch(@RequestParam("user_id") long user_id) {// B3
         try {
-            List<Itineraries> Itineraries = this.service.listByUserId(user_id);
+            List<Itineraries> itineraries = this.service.listByUserId(user_id);
 
-            List<ItinerariesDTO> results = Itineraries.stream()
+            List<ItinerariesDTO> results = itineraries.stream()
                     .map(item -> modelMapper.map(item, ItinerariesDTO.class))
                     .collect(Collectors.toList());// B4
 

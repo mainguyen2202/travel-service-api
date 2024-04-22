@@ -1,7 +1,7 @@
 package com.nlu.mainguyen.travelserviceapi.model;
 
 
-import jakarta.persistence.*;
+
 import lombok.Data;
 
 
@@ -11,7 +11,6 @@ public class PlacesDTO { // Địa điểm
     
     private int subPlaceId;  // Địa điểm cha
     
-    @ManyToOne()
     private CoordinatesDTO coordinates; // Tọa độ
     
     private String name;

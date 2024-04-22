@@ -15,6 +15,7 @@ public class Likes { // Địa điểm yêu thích
     private @Id @GeneratedValue Long id;
 
     @ManyToOne()
+    @JoinColumn(name = "users_id")
     private Users users;
 
     @ManyToOne()

@@ -34,16 +34,17 @@ public class ItineraryArticlesService {
         this.itinerariesRepository = itinerariesRepository;
     }
 
-    public List<ItineraryArticles> listByItineraryId(long itineraries_id, Date date_start) {
-        if (date_start == null) {
+    public List<ItineraryArticles> listByItineraryId(long itineraries_id, String date_start) {
+        // if (date_start == null) {
+        if (date_start == "") {
             return this.repository.findAllByIdItinerary(itineraries_id);
         }
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String date_str = format.format(date_start);// covert Date to String
-        System.out.println(date_str);
+        // SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        // String date_str = format.format(date_start);// covert Date to String
+        // System.out.println(date_str);
 
-        return this.repository.findAllByDateStart(itineraries_id, date_str);
+        return this.repository.findAllByDateStart(itineraries_id, date_start);
     }
 
     public ResponseDTO create(ItineraryArticlesDTO dto) {
@@ -102,5 +103,7 @@ public class ItineraryArticlesService {
         }
         return null;
     }
-
+    public void deleteByID(Long id) {
+        this.repository.deleteById(id);
+    }
 }

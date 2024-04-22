@@ -1,12 +1,10 @@
 package com.nlu.mainguyen.travelserviceapi.controllers;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -49,10 +47,11 @@ public class ItineraryArticlesController {
     // http://127.0.0.1:8080/itineraryArticles/listBySearch?date_start=2024-04-19&itineraries_id=1
     @GetMapping("/listBySearch")
     public @ResponseBody List<ItineraryArticlesDTO> listBySearch(@RequestParam("itineraries_id") long itineraries_id,
-            // @RequestParam("date_start") String date_start
+            @RequestParam("date_start") String date_start
             // convert String to Date
             // @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date_start
-            @RequestParam("date_start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date_start) {// B3
+            // @RequestParam("date_start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date_start
+            ) {// B3
         try {
             List<ItineraryArticles> ltsItineraryArticles = this.service.listByItineraryId(itineraries_id, date_start);
 
@@ -89,6 +88,11 @@ public class ItineraryArticlesController {
             System.out.println(e.getMessage());
             return new ResponseEntity<ItineraryArticlesDTO>(new ItineraryArticlesDTO(), HttpStatus.BAD_REQUEST);
         }
+    }
+    @PostMapping("/remove/{id}")
+    public String remove(@PathVariable("id") Long id) {
+        this.service.deleteByID(id);
+        return "success";
     }
 
 }

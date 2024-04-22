@@ -14,6 +14,7 @@ public class TopicsDTO {// danh mục
     private String content;
     private int status;
     private int subTopicsId;
+    private String image;
 
     // @OneToMany(mappedBy = "topics", cascade = CascadeType.ALL)
     // private List<News> news = new ArrayList<>();

@@ -17,6 +17,7 @@ public class TopicsService {
 
     // lấy danh sách
     public List<Topics> getAll() {
+        
         return this.repository.findAll();
     }
 
@@ -25,6 +26,9 @@ public class TopicsService {
     public List<Topics> getAllById(int subTopicsId) {
         // Thực hiện logic lấy danh sách Topics dựa trên subTopicsId
         // Ví dụ:
+        if(subTopicsId!=0){
+            return null;
+        }
         return repository.findAllBySubTopicsId(subTopicsId);
     }
 
