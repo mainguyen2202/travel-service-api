@@ -16,4 +16,7 @@ public interface ArticlesRepository extends JpaRepository<Articles, Long> {
 
     @Query(value = "SELECT * FROM articles WHERE places_id= ?1 AND topics_id= ?2", nativeQuery = true)
     List<Articles> findAllBySearch(long places_id, long topic_id);// B1
+
+    @Query(value = " SELECT * FROM articles s ORDER BY s.create_at DESC", nativeQuery = true)
+    List<Articles> findAllDescDate();// B1
 }

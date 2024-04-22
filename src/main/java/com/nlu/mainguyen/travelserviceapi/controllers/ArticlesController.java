@@ -67,6 +67,24 @@ public class ArticlesController {
         
         return new ArrayList<ArticlesDTO>();
     }
+    @GetMapping("/listDate")
+    public @ResponseBody List<ArticlesDTO> showAllDescDate(Model model) {
+        try {
+            // List<Articles> Articles = this.service.showAll();// danh sách Entity mà cần convert
+            // về DTO thì stream().map()
+            // tương đương for
+
+            List<ArticlesDTO> results = this.service.getAllDescDate().stream()
+                    .map(item -> modelMapper.map(item, ArticlesDTO.class))
+                    .collect(Collectors.toList());
+
+            return results;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 
     @PostMapping("/create")
     public ResponseEntity<ResponseDTO> create(@RequestBody ArticlesDTO request) {

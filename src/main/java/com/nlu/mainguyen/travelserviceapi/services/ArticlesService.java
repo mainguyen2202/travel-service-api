@@ -22,6 +22,10 @@ public class ArticlesService {
     public List<Articles> getAll() {
         return repository.findAll();
     }
+     // lấy danh sách
+     public List<Articles> getAllDescDate() {
+        return repository.findAllDescDate();
+    }
 
     // lấy danh sách theo idPlaces, idTopics
     public List<Articles> listAllBySearch(long places_id, long topics_id) {

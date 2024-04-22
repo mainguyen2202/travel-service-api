@@ -26,6 +26,9 @@ public class ResponseDTO {
     @JsonProperty("dataItineraryArticlesDTO")
     public ItineraryArticlesDTO DataItineraryArticlesDTO;
 
+    @JsonProperty("dataLikesDTO")
+    public LikesDTO DataLikesDTO;
+
     public ResponseDTO(int status, String message) {
         Status = status;
         Message = message;
@@ -50,5 +53,10 @@ public class ResponseDTO {
         Status = status;
         Message = message;
         DataItineraryArticlesDTO = dataItineraryArticlesDTO;
+    }
+    public ResponseDTO(int status, String message, LikesDTO dataLikesDTO) {
+        Status = status;
+        Message = message;
+        DataLikesDTO = dataLikesDTO;
     }
 }

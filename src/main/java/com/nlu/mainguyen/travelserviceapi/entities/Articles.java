@@ -41,6 +41,9 @@ public class Articles {// bài viết của nhiều địa điểm và nhiều t
     @OneToMany(mappedBy = "articles", cascade = CascadeType.ALL)
     private List<Likes> likes = new ArrayList<>();
 
+    @OneToMany(mappedBy = "articles", cascade = CascadeType.ALL)
+    private List<HisArticles> historyArticles = new ArrayList<>();
+
 
     @OneToMany(mappedBy = "articles", cascade = CascadeType.ALL)
     private List<Feedbacks> feedbacks = new ArrayList<>();
