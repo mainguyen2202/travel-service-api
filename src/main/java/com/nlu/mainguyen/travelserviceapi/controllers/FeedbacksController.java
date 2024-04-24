@@ -1,5 +1,12 @@
 package com.nlu.mainguyen.travelserviceapi.controllers;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -7,47 +14,66 @@ import org.springframework.web.bind.annotation.*;
 import com.nlu.mainguyen.travelserviceapi.services.FeedbacksService;
 
 import com.nlu.mainguyen.travelserviceapi.entities.Feedbacks;
+import com.nlu.mainguyen.travelserviceapi.model.FeedbacksDTO;
+import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 
 import jakarta.validation.Valid;
 
-
 @Controller
 @CrossOrigin("http://localhost:3000")
-@RequestMapping(path="/feedbacks")
+@RequestMapping(path = "/feedbacks")
 public class FeedbacksController {
     private FeedbacksService service;
 
-	public FeedbacksController(FeedbacksService service) {
-		this.service = service;
-	}
-    
-    @GetMapping("/list")
-    public @ResponseBody Iterable<Feedbacks> showAll(Model model) {
-        return this.service.showAll();
-        
-    }
-      @PostMapping("/create")
-    public @ResponseBody String registration(@RequestBody Feedbacks input) {
-        // TODO
-        Feedbacks result = this.service.create(input);
-        System.out.println(result);
-        return "success";
+    @Autowired
+    private ModelMapper modelMapper;
+
+    public FeedbacksController(FeedbacksService service) {
+        this.service = service;
     }
 
-    @GetMapping("/detail/{id}")
-    public @ResponseBody Feedbacks  viewCommentsByID(@PathVariable("id") Long id) {
-        Feedbacks result = this.service.getById(id);
-        return result;
-    }
-    @PostMapping("/edit/{id}")
-    public @ResponseBody String edit(@PathVariable("id") Long id, @Valid @RequestBody Feedbacks input) {
-        this.service.update(input);
-        return "success";
+    @GetMapping("/listBySearch")
+    public @ResponseBody List<FeedbacksDTO> listBySearch(@RequestParam("articles_id") long articlesId) {// B3
+        try {
+            List<Feedbacks> ltsFeedbacks = this.service.listByArticlesId(articlesId);
 
+            List<FeedbacksDTO> results = ltsFeedbacks.stream()
+                    .map(item -> modelMapper.map(item, FeedbacksDTO.class))
+                    .collect(Collectors.toList());// B4
+
+            return results;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
-    @PostMapping("/remove/{id}")
-    public String remove(@PathVariable("id") Long id) {
-        this.service.deleteByID(id);
-        return "success";
+
+    @GetMapping("/listByHeart")
+    public @ResponseBody List<FeedbacksDTO> listByHeart(@RequestParam("articles_id") long articlesId,
+            @RequestParam("heart") int heart) {// B3
+        try {
+            List<Feedbacks> ltsFeedbacks = this.service.listByHeart(heart,articlesId);
+
+            List<FeedbacksDTO> results = ltsFeedbacks.stream()
+                    .map(item -> modelMapper.map(item, FeedbacksDTO.class))
+                    .collect(Collectors.toList());// B4
+
+            return results;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<ResponseDTO> create(@RequestBody FeedbacksDTO request) {
+        try {
+
+            ResponseDTO response = this.service.create(request);// lưu database, trả về id
+            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+        } catch (Exception e) {
+            ResponseDTO response = new ResponseDTO(2, e.getMessage());
+            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+        }
     }
 }

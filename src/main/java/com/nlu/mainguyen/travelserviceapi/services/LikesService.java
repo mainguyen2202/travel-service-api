@@ -36,30 +36,6 @@ public class LikesService {
         return this.repository.findAllByUserId(users_id);
     }
 
-    // public ResponseDTO create(LikesDTO dto) {
-    //     try {
-    //         Likes ent = modelMapper.map(dto, Likes.class);// chuyển từ dto sang entity
-            
-    //         Optional<Users> userOptional = userRepository.findById(dto.getUsers().getId());
-    //         if (userOptional.isEmpty()) {
-    //             return new ResponseDTO(2, "User not found");
-    //         }
-    //         Users user = userOptional.get();
-    //         ent.setUsers(user);
-    //         if (this.repository.findByUsersArticle(user.getId(), ent.getArticles().getId()) != null) {
-    //             return new ResponseDTO(2, "articlesId and userId already exists");
-    //         }
-
-    //         Likes created = this.repository.save(ent);
-
-    //         LikesDTO responseDto = modelMapper.map(created, LikesDTO.class);
-    //         return new ResponseDTO(1, "Created successfully", responseDto);
-
-    //     } catch (Exception e) {
-    //         return new ResponseDTO(2, "Failed to create: " + e.getMessage());
-    //     }
-
-    // }
     public ResponseDTO create(LikesDTO dto) {
         try {
             Optional<Users> userOptional = userRepository.findById(dto.getUsers().getId());

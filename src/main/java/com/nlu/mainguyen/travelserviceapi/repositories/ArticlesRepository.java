@@ -19,4 +19,6 @@ public interface ArticlesRepository extends JpaRepository<Articles, Long> {
 
     @Query(value = " SELECT * FROM articles s ORDER BY s.create_at DESC", nativeQuery = true)
     List<Articles> findAllDescDate();// B1
+
+    
 }
