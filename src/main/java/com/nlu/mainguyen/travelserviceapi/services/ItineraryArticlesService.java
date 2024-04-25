@@ -47,29 +47,28 @@ public class ItineraryArticlesService {
         return this.repository.findAllByDateStart(itineraries_id, date_start);
     }
 
+
+
+
     public ResponseDTO create(ItineraryArticlesDTO dto) {
         try {
-            ItineraryArticles itineraryArticles = modelMapper.map(dto, ItineraryArticles.class);// chuyển từ dto sang
-                                                                                                // entity
-
-            Optional<Articles> optional = articlesRepository.findById(dto.getArticles().getId());
-            if (optional.isEmpty()) {
-                return new ResponseDTO(2, "Articles not found");
+            ItineraryArticles ent = modelMapper.map(dto, ItineraryArticles.class);
+            
+            Optional<Articles> userOptional = articlesRepository.findById(dto.getArticles().getId());
+            if (userOptional.isEmpty()) {
+                return new ResponseDTO(2, "User not found");
             }
-            Articles input = optional.get();
-            itineraryArticles.setArticles(input);
-
-            Optional<Itineraries> optionalItineraries = itinerariesRepository.findById(dto.getItineraries().getId());
-            if (optionalItineraries.isEmpty()) {
-                return new ResponseDTO(2, "Itineraries not found");
+            Articles user = userOptional.get();
+            ent.setArticles(user);
+    
+            // Kiểm tra xem đã tồn tại bản ghi với cặp ArticlesId và articlesId hay chưa
+            Optional<ItineraryArticles> existingItineraryArticles = repository.findByItinerariesIdAndArticlesId(ent.getItineraries().getId(),user.getId());
+            if (existingItineraryArticles.isPresent()) {
+                return new ResponseDTO(2, "articlesId and userId already exist");
             }
-            Itineraries itineraries = optionalItineraries.get();
-            itineraryArticles.setItineraries(itineraries);
-
-            ItineraryArticles created = this.repository.save(itineraryArticles);
-
+    
+            ItineraryArticles created = repository.save(ent);
             ItineraryArticlesDTO responseDto = modelMapper.map(created, ItineraryArticlesDTO.class);
-
             return new ResponseDTO(1, "Created successfully", responseDto);
         } catch (Exception e) {
             return new ResponseDTO(2, "Failed to create: " + e.getMessage());
@@ -103,6 +102,7 @@ public class ItineraryArticlesService {
         }
         return null;
     }
+
     public void deleteByID(Long id) {
         this.repository.deleteById(id);
     }

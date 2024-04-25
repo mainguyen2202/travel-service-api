@@ -38,12 +38,13 @@ public class LikesService {
 
     public ResponseDTO create(LikesDTO dto) {
         try {
+            Likes ent = modelMapper.map(dto, Likes.class);
+            
             Optional<Users> userOptional = userRepository.findById(dto.getUsers().getId());
             if (userOptional.isEmpty()) {
                 return new ResponseDTO(2, "User not found");
             }
             Users user = userOptional.get();
-            Likes ent = modelMapper.map(dto, Likes.class);
             ent.setUsers(user);
     
             // Kiểm tra xem đã tồn tại bản ghi với cặp usersId và articlesId hay chưa

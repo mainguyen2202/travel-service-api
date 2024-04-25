@@ -1,6 +1,7 @@
 package com.nlu.mainguyen.travelserviceapi.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,4 +21,7 @@ public interface ItineraryArticlesRepository extends JpaRepository<ItineraryArti
   @Query(value = " SELECT * FROM itinerary_articles  WHERE itineraries_id=?1 and date_start=?2", nativeQuery = true)
   List<ItineraryArticles> findAllByDateStart(long itineraries_id, String date_start);//yyyy-MM-dd
 
+  
+  @Query(value = "SELECT * FROM itinerary_articles WHERE itineraries_id = ?1 AND articles_id = ?2", nativeQuery = true)
+  Optional<ItineraryArticles> findByItinerariesIdAndArticlesId(long itinerariesId, long articlesId);
 }
