@@ -141,6 +141,12 @@ public class UsersService {
         } 
         return null;
     }
+    public Users detailBySearchUserName(String username) {
+        if (username!= ""){
+            return this.repository.findByName(username); // Tìm người dùng theo tên người dùng trong cơ sở dữ liệu
+        }
+        return null;
+    }
 
     public static Specification<Users> isLongTermCustomer() {
         return (root, query, builder) -> {

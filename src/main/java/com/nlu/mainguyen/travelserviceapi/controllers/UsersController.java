@@ -137,4 +137,20 @@ public class UsersController {
                                                                                                    // ra
         }
     }
+    @GetMapping("/detailBySearchUserName")
+    public ResponseEntity<UserOutputDTO> detailBySearch(@RequestParam("username") String username) {
+        try {
+            Users user = this.service.detailBySearchUserName(username); // Lấy thông tin người dùng dựa trên tên người
+                                                                      // dùng
+
+            UserOutputDTO resp = modelMapper.map(user, UserOutputDTO.class); // Chuyển đổi đối tượng người dùng thành
+                                                                             // đối tượng DTO
+            return ResponseEntity.ok().body(resp); // Trả về phản hồi thành công với đối tượng DTO
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<UserOutputDTO>(new UserOutputDTO(), HttpStatus.BAD_REQUEST); // Trả về phản hồi
+                                                                                                   // lỗi nếu có lỗi xảy
+                                                                                                   // ra
+        }
+    }
 }

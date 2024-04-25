@@ -35,5 +35,10 @@ public class Itineraries { // Lập kế hoạch
     private String content;
 
     @OneToMany(mappedBy = "itineraries", cascade = CascadeType.ALL)
-    private List<ItineraryArticles> itineraries = new ArrayList<>();
+    private List<ItineraryArticles> itinerariesArticles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "itineraries", cascade = CascadeType.ALL)
+    private List<ShareItineraries> shareItineraries = new ArrayList<>();
+
+ 
 }

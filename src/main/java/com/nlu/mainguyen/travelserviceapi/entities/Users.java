@@ -35,4 +35,7 @@ public class Users {
 
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<Feedbacks> feedbacks = new ArrayList<>();   
+
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
+    private List<ShareItineraries> shareItineraries = new ArrayList<>();  
 }

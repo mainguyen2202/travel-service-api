@@ -32,6 +32,9 @@ public class ResponseDTO {
     @JsonProperty("dataFeedbacksDTO")
     public FeedbacksDTO DataFeedbacksDTO;
 
+    @JsonProperty("dataShareItinerariesDTO")
+    public ShareItinerariesDTO DataShareItinerariesDTO;
+
     public ResponseDTO(int status, String message) {
         Status = status;
         Message = message;
@@ -66,5 +69,11 @@ public class ResponseDTO {
         Status = status;
         Message = message;
         DataFeedbacksDTO = dataFeedbacksDTO;
+    }
+    
+    public ResponseDTO(int status, String message, ShareItinerariesDTO dataShareItinerariesDTO) {
+        Status = status;
+        Message = message;
+        DataShareItinerariesDTO = dataShareItinerariesDTO;
     }
 }
