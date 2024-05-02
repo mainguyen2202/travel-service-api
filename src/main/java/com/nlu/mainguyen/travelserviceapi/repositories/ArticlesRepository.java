@@ -20,5 +20,15 @@ public interface ArticlesRepository extends JpaRepository<Articles, Long> {
     @Query(value = " SELECT * FROM articles s ORDER BY s.create_at DESC", nativeQuery = true)
     List<Articles> findAllDescDate();// B1
 
+    // @Query(value = " SELECT * FROM articles  WHERE  name= ?1 ", nativeQuery = true)
+    // List<Articles> findAllSearchKeyword(String name);// B1
+
+    @Query(value = " SELECT * FROM articles  WHERE  name LIKE  %?1%  ", nativeQuery = true)
+    List<Articles> findAllSearchKeyword(String name);// B1
+
+ 
+
+
+
     
 }

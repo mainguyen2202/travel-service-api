@@ -110,6 +110,26 @@ public class ArticlesController {
             return new ResponseEntity<ArticlesDTO>(new ArticlesDTO(), HttpStatus.BAD_REQUEST);
         }
     }
+   
+    @GetMapping("/listSearchKeyWord")
+    public @ResponseBody List<ArticlesDTO> getArticlesBySearchName( @RequestParam("name") String name) {
+
+        try {
+            List<Articles> articles = service.detailBySearchName(name);
+
+            List<ArticlesDTO> results = articles.stream()
+                    .map(item -> modelMapper.map(item, ArticlesDTO.class))
+                    .collect(Collectors.toList());
+
+            return results;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        return new ArrayList<ArticlesDTO>();
+    }
+
+  
 
     @PostMapping("/edit/{id}")
     public @ResponseBody String edit(@PathVariable("id") Long id, @Valid @RequestBody Articles input) {

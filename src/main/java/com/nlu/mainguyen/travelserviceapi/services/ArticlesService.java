@@ -44,6 +44,16 @@ public class ArticlesService {
         // giá trị mặc định
     }
 
+    public List<Articles>  detailBySearchName(String name) {
+        if (name != null) {
+            return repository.findAllSearchKeyword(name);
+        }
+        // giá trị mặc định
+        return null;
+    }
+   
+   
+
     public ResponseDTO create(ArticlesDTO dto) {
          try {
             Articles entity = modelMapper.map(dto, Articles.class);
@@ -69,6 +79,8 @@ public class ArticlesService {
         return null;
     }
   
+  
+ 
 
     public void update(Articles input) {
         this.repository.save(input);
