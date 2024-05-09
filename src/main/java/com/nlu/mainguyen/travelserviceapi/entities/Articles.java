@@ -42,8 +42,7 @@ public class Articles {// bài viết của nhiều địa điểm và nhiều t
     private List<Likes> likes = new ArrayList<>();
 
     @OneToMany(mappedBy = "articles", cascade = CascadeType.ALL)
-    private List<HisArticles> historyArticles = new ArrayList<>();
-
+    private List<HisArticles> historyArticles = new ArrayList<>(); // quản lí cả danh sách người click xem => count(1)
 
     @OneToMany(mappedBy = "articles", cascade = CascadeType.ALL)
     private List<Feedbacks> feedbacks = new ArrayList<>();

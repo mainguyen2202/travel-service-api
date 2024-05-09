@@ -110,3 +110,13 @@ Working with Date Parameters in Spring https://www.baeldung.com/spring-date-para
 https://xinghua24.github.io/SpringBoot/Spring-Boot-Handling-Date-Request-Parameter/
 
 https://www.geeksforgeeks.org/java-program-to-convert-date-to-string/
+
+
+https://www.youtube.com/watch?v=bV85_gIrHTc
+
+jackson
+
+json
+
+
+Focus https://themewagon.github.io/focus-2/table-datatable-basic.html

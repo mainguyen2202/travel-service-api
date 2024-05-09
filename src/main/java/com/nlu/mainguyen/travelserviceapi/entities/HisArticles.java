@@ -15,8 +15,11 @@ import lombok.NoArgsConstructor;
 @Table(name = "hisArticles")
 public class HisArticles {
     private @Id @GeneratedValue Long id;
+
     @ManyToOne()
     private Articles articles;
-    private Date creatAt;
+    
+    private Date creatAt;// ngày xem
     private int count;
+    // người xem
 }

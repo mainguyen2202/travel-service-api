@@ -1,6 +1,9 @@
 package com.nlu.mainguyen.travelserviceapi.model;
 
 import java.sql.Date;
+import java.util.List;
+
+import com.nlu.mainguyen.travelserviceapi.entities.HisArticles;
 
 import lombok.Data;
 
@@ -25,6 +28,8 @@ public class ArticlesDTO { // Địa điểm
     private Date createAt;
     private String content;
     private int status;
+
+    // private List<HistoryArticlesDTO> historyArticles;
 
     // @OneToMany(mappedBy = "articles", cascade = CascadeType.ALL)
     // private List<Likes> likes = new ArrayList<>();
