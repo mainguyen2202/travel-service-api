@@ -1,7 +1,5 @@
 package com.nlu.mainguyen.travelserviceapi.services;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.nlu.mainguyen.travelserviceapi.entities.ItineraryArticles;
 import com.nlu.mainguyen.travelserviceapi.entities.Articles;
-import com.nlu.mainguyen.travelserviceapi.entities.Itineraries;
 import com.nlu.mainguyen.travelserviceapi.model.ItineraryArticlesDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.repositories.ItineraryArticlesRepository;

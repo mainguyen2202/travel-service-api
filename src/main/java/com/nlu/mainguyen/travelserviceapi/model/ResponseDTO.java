@@ -35,6 +35,9 @@ public class ResponseDTO {
     @JsonProperty("dataShareItinerariesDTO")
     public ShareItinerariesDTO DataShareItinerariesDTO;
 
+    @JsonProperty("dataHistoryArticlesDTO")
+    public HistoryArticlesDTO DataHistoryArticlesDTO;
+
     public ResponseDTO(int status, String message) {
         Status = status;
         Message = message;
@@ -75,5 +78,11 @@ public class ResponseDTO {
         Status = status;
         Message = message;
         DataShareItinerariesDTO = dataShareItinerariesDTO;
+    }
+
+    public ResponseDTO(int status, String message, HistoryArticlesDTO dataHistoryArticlesDTO) {
+        Status = status;
+        Message = message;
+        DataHistoryArticlesDTO = dataHistoryArticlesDTO;
     }
 }

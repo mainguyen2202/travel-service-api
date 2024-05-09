@@ -1,17 +1,16 @@
 package com.nlu.mainguyen.travelserviceapi.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nlu.mainguyen.travelserviceapi.entities.Itineraries;
 import com.nlu.mainguyen.travelserviceapi.entities.ShareItineraries;
 import com.nlu.mainguyen.travelserviceapi.entities.Users;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ShareItinerariesDTO;
-import com.nlu.mainguyen.travelserviceapi.model.UserOutputDTO;
 import com.nlu.mainguyen.travelserviceapi.repositories.ItinerariesRepository;
 import com.nlu.mainguyen.travelserviceapi.repositories.ShareItinerariesRepository;
 import com.nlu.mainguyen.travelserviceapi.repositories.UsersRepository;
@@ -31,6 +30,15 @@ public class ShareItinerariesService {
         this.userRepository = userRepository;
         this.itinerariesRepository = itinerariesRepository;
     }
+
+       // lấy danh sách theo id
+       public List<ShareItineraries> listByUserId(long users_id) {// B2
+      
+
+        return this.repository.findByUsersId(users_id);
+      
+    }
+
 
     public ResponseDTO create(ShareItinerariesDTO dto) {
         try {

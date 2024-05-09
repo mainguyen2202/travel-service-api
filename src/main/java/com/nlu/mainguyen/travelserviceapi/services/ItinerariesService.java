@@ -79,6 +79,7 @@ public class ItinerariesService {
             itinerariesget.setContent(dto.getContent());
             itinerariesget.setDateStart(dto.getDateStart());
             itinerariesget.setDateEnd(dto.getDateEnd());
+            itinerariesget.setParticipantCount((dto.getParticipantCount()));
 
             Itineraries update = this.repository.save(itinerariesget);
             ItinerariesDTO responseDto = modelMapper.map(update, ItinerariesDTO.class);
