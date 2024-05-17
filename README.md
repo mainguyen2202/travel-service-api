@@ -95,6 +95,12 @@ Access to XMLHttpRequest from origin has been blocked by CORS
 
 https://spring.io/guides/gs/rest-service-cors/
 
+## Entity
+
+https://github.com/Damiox/ecommerce-rest-spring-jpa/tree/master
+
+https://github.com/Aman103767/E-Commerce-Application/tree/main
+
 # Using DTO (Data Transfer Object) Projection — Mapping Entities to DTOs and vice versa in Java Spring Boot
 
 entity to dto mapper spring boot
@@ -111,12 +117,10 @@ https://xinghua24.github.io/SpringBoot/Spring-Boot-Handling-Date-Request-Paramet
 
 https://www.geeksforgeeks.org/java-program-to-convert-date-to-string/
 
-
 https://www.youtube.com/watch?v=bV85_gIrHTc
 
 jackson
 
 json
-
 
 Focus https://themewagon.github.io/focus-2/table-datatable-basic.html
