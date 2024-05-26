@@ -1,11 +1,13 @@
 package com.nlu.mainguyen.travelserviceapi.entities;
 
-import java.sql.Date;
+// import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.Date;
 
 @Entity
 @Data
@@ -23,6 +25,10 @@ public class Users {
     private int status;
     private int role;
     private Date createAt;
+
+    private String resetPasswordToken;
+    private Date resetPasswordTokenExpirationDate;
+    
 
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<Likes> likes = new ArrayList<>();

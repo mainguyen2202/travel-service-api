@@ -2,6 +2,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "GEmailSender",
+            "request": "launch",
+            "mainClass": "com.nlu.mainguyen.travelserviceapi.Util.GEmailSender",
+            "projectName": "travel-service-api"
+        },
+        {
+            "type": "java",
+            "name": "Email",
+            "request": "launch",
+            "mainClass": "com.nlu.mainguyen.travelserviceapi.Util.Email",
+            "projectName": "travel-service-api"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-TravelServiceApiApplication<travel-service-api>",
             "request": "launch",
             "cwd": "${workspaceFolder}",

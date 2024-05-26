@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -88,10 +88,15 @@ public class ItineraryArticlesController {
             return new ResponseEntity<ItineraryArticlesDTO>(new ItineraryArticlesDTO(), HttpStatus.BAD_REQUEST);
         }
     }
-    @PostMapping("/remove/{id}")
-    public String remove(@PathVariable("id") Long id) {
-        this.service.deleteByID(id);
-        return "success";
+    @DeleteMapping("/remove/{id}")
+    public ResponseEntity<ResponseDTO> delete(@PathVariable("id") Long id) {
+        try {
+            ResponseDTO response = this.service.deleteByID(id);
+            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+        } catch (Exception e) {
+            ResponseDTO response = new ResponseDTO(2, e.getMessage());
+            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+        }
     }
 
 }

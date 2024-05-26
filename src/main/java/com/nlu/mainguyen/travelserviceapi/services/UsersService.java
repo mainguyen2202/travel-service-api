@@ -1,6 +1,8 @@
 package com.nlu.mainguyen.travelserviceapi.services;
 
 import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,16 +12,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import com.nlu.mainguyen.travelserviceapi.entities.Articles;
-import com.nlu.mainguyen.travelserviceapi.entities.Places;
-import com.nlu.mainguyen.travelserviceapi.entities.Topics;
+import com.nlu.mainguyen.travelserviceapi.Util.GEmailSender;
 import com.nlu.mainguyen.travelserviceapi.entities.Users;
 import com.nlu.mainguyen.travelserviceapi.exception.ResourceNotFoundException;
-import com.nlu.mainguyen.travelserviceapi.model.ArticlesDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.model.UserInputDTO;
 import com.nlu.mainguyen.travelserviceapi.model.UserOutputDTO;
 import com.nlu.mainguyen.travelserviceapi.repositories.UsersRepository;
+import java.util.Base64;
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+import java.security.Key;
 
 @Service
 public class UsersService {
@@ -27,11 +30,19 @@ public class UsersService {
     @Autowired
     private UsersRepository repository;// new
 
-    // @Autowired
-    // private PasswordEncoder passwordEncoder;
+    @Autowired
+    private GEmailSender gEmailSender;
+
+    public UsersService(UsersRepository repository, GEmailSender gEmailSender) {
+        this.repository = repository;
+        this.gEmailSender = gEmailSender;
+    }
 
     @Autowired
     private ModelMapper modelMapper;
+
+    // @Autowired
+    // private PasswordEncoder passwordEncoder;
 
     // lấy danh sách
     public List<Users> getAll() {
@@ -77,22 +88,22 @@ public class UsersService {
     }
 
     public ResponseDTO login(String username, String password) {
-        // Kiểm tra sự tồn tại của người dùng bằng username
-        Users getUser = this.repository.findOneByUsernameOrEmail(username, username);
-        if (getUser == null) {
-            return new ResponseDTO(2, "Không tồn tại tên đăng nhập");
-        }
-        // Kiểm tra tính chính xác của mật khẩu
-        if (!getUser.getPassword().equals(password)) {
-            return new ResponseDTO(2, "Không đúng mật khẩu");
-        }
-        // Boolean isPwdRight = passwordEncoder.matches(password, encodedPassword);
-        // if (!isPwdRight) {
-        // return new ResponseDTO(2, "Không đúng mật khẩu");
-        // }
+    // Kiểm tra sự tồn tại của người dùng bằng username
+    Users getUser = this.repository.findOneByUsernameOrEmail(username, username);
+    if (getUser == null) {
+    return new ResponseDTO(2, "Không tồn tại tên đăng nhập");
+    }
+    // Kiểm tra tính chính xác của mật khẩu
+    if (!getUser.getPassword().equals(password)) {
+    return new ResponseDTO(2, "Không đúng mật khẩu");
+    }
+    // Boolean isPwdRight = passwordEncoder.matches(password, encodedPassword);
+    // if (!isPwdRight) {
+    // return new ResponseDTO(2, "Không đúng mật khẩu");
+    // }
 
-        UserOutputDTO userResponse = modelMapper.map(getUser, UserOutputDTO.class);
-        return new ResponseDTO(1, "", userResponse);
+    UserOutputDTO userResponse = modelMapper.map(getUser, UserOutputDTO.class);
+    return new ResponseDTO(1, "", userResponse);
     }
 
     public Users getById(long id) {
@@ -103,28 +114,7 @@ public class UsersService {
             throw new ResourceNotFoundException("Post", "id", id);
         }
     }
-    // update
-    // public Users update(long id, Users userRequest) {
-    // Users user = repository.findById(id).orElseThrow(() -> new
-    // ResourceNotFoundException("Users", "id", id));
 
-    // if (userRequest.getName() != null) {
-    // user.setName(userRequest.getName());
-    // }
-
-    // if (userRequest.getEmail() != null) {
-    // user.setEmail(userRequest.getEmail());
-    // }
-    // if (userRequest.getUsername() != null) {
-    // user.setUsername(userRequest.getUsername());
-    // }
-    // user.setStatus(userRequest.getStatus());
-    // user.setRole(userRequest.getRole());
-    // user.setCreateAt(userRequest.getCreateAt());
-    // user.setImage(userRequest.getImage());
-
-    // return repository.save(user);
-    // }
     public ResponseDTO update(long id, UserOutputDTO dto) {
         try {
             Users user = modelMapper.map(dto, Users.class); // chuyển từ dto sang entity
@@ -138,11 +128,11 @@ public class UsersService {
             if (dto.getUsername() != null) {
                 user.setUsername(dto.getUsername());
             }
-            
+
             Optional<Users> opt = this.repository.findById(id);
             if (opt.isEmpty()) {
                 return new ResponseDTO(2, "User not found");
-            }else {
+            } else {
                 Users info = opt.get();
                 info.setName(dto.getName());
                 info.setEmail(dto.getEmail());
@@ -156,32 +146,28 @@ public class UsersService {
                 Users update = this.repository.save(info);
                 UserOutputDTO responseDto = modelMapper.map(update, UserOutputDTO.class);
                 return new ResponseDTO(1, "Update successfully", responseDto);
-            }           
-
-
+            }
 
         } catch (Exception e) {
             return new ResponseDTO(2, "Failed to create: " + e.getMessage());
         }
     }
+
     public ResponseDTO updatePassword(long id, UserOutputDTO dto) {
         try {
             Users user = modelMapper.map(dto, Users.class); // chuyển từ dto sang entity
-       
-            
+
             Optional<Users> opt = this.repository.findById(id);
             if (opt.isEmpty()) {
                 return new ResponseDTO(2, "User not found");
-            }else {
+            } else {
                 Users info = opt.get();
-              
+
                 info.setPassword(dto.getPassword());
                 Users update = this.repository.save(info);
                 UserOutputDTO responseDto = modelMapper.map(update, UserOutputDTO.class);
                 return new ResponseDTO(1, "Update successfully", responseDto);
-            }           
-
-
+            }
 
         } catch (Exception e) {
             return new ResponseDTO(2, "Failed to create: " + e.getMessage());
@@ -199,6 +185,91 @@ public class UsersService {
         }
     }
 
+  
+
+    
+
+    private String generateUniqueToken() {
+        // Implement the logic to generate a unique token
+        return "unique_token";
+    }
+
+    private Date calculateExpirationDate() {
+        // Implement the logic to calculate the expiration date for the reset token
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.HOUR, 24);
+        return calendar.getTime();
+    }
+
+    // public ResponseDTO forgotPassword(String email) {
+    //     // Find the user by email
+    //     Users user = this.repository.findByEmail(email);
+    //     if (user == null) {
+    //         throw new RuntimeException("User not found");
+    //     }
+    
+    //     // Generate a unique token and expiration date
+    //     String resetToken = generateUniqueToken();
+    //     Date expirationDate = calculateExpirationDate();
+    
+    //     // Update the user's reset token and expiration date
+    //     user.setResetPasswordToken(resetToken);
+    //     user.setResetPasswordTokenExpirationDate(expirationDate);
+    //     this.repository.save(user);
+    
+    //     // Build the password reset URL
+    //     String passwordResetUrl = "http://localhost:3000/ForgotPassword?token=" + resetToken + "&userId=" + user.getId();
+    
+    //     // Send the password reset email to the user
+    //     String subject = "Password Reset Request";
+    //     String text = "Please click the following link to reset your password: " + passwordResetUrl;
+    //     gEmailSender.sendEmail(email, "trucmainguyen02@gmail.com", subject, text);
+    
+    //     // Return the response
+    //     return new ResponseDTO(1, "Password reset instructions have been sent to your email");
+    // }
+
+   
+    public ResponseDTO forgotPassword(String email) {
+        // Tìm người dùng bằng email
+        Users user = this.repository.findByEmail(email);
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
+    
+        // Tạo token và ngày hết hạn
+        String resetToken = generateUniqueToken();
+        Date expirationDate = calculateExpirationDate();
+    
+        // Cập nhật token và ngày hết hạn của người dùng
+        user.setResetPasswordToken(resetToken);
+        user.setResetPasswordTokenExpirationDate(expirationDate);
+        this.repository.save(user);
+    
+        // Mã hóa userId
+        String encryptedUserId = Base64.getEncoder().encodeToString(("&userId=" + user.getId()).getBytes());
+    
+        // Tạo URL đặt lại mật khẩu
+        String passwordResetUrl = "http://localhost:3000/ForgotPassword?token=" + resetToken + encryptedUserId;
+    
+        // Gửi email đặt lại mật khẩu cho người dùng
+        String subject = "Password Reset Request";
+        String text = "Please click the following link to reset your password: " + passwordResetUrl;
+        gEmailSender.sendEmail(email, "trucmainguyen02@gmail.com", subject, text);
+    
+        // Trả về phản hồi
+        return new ResponseDTO(1, "Password reset instructions have been sent to your email");
+    }
+
+
+
+
+
+
+
+
+
+    // end
     public Users detailBySearch(String username, String email, int role) {
         if (username != "") {
             return this.repository.findByName(username); // Tìm người dùng theo tên người dùng trong cơ sở dữ liệu

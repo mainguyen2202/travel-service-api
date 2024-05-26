@@ -22,7 +22,7 @@ import com.nlu.mainguyen.travelserviceapi.model.ShareItinerariesDTO;
 import com.nlu.mainguyen.travelserviceapi.services.ShareItinerariesService;
 
 @Controller
-@RequestMapping(path = "/shareShareItineraries")
+@RequestMapping(path = "/shareItineraries")
 public class ShareShareItinerariesController {
     @Autowired
     private ShareItinerariesService service;

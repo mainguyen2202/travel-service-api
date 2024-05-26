@@ -100,7 +100,13 @@ public class ItineraryArticlesService {
         return null;
     }
 
-    public void deleteByID(Long id) {
-        this.repository.deleteById(id);
+    public ResponseDTO deleteByID(Long id) {
+        Optional<ItineraryArticles> opt = this.repository.findById(id);
+        if (opt.isEmpty()) {
+            return new ResponseDTO(2, "Empty");// không tìm thấy dữ liệu return lỗi
+        } else {
+            this.repository.deleteById(id);
+            return new ResponseDTO(1, "Success");
+        }
     }
 }

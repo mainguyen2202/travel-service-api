@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import com.nlu.mainguyen.travelserviceapi.services.UsersService;
 
 import com.nlu.mainguyen.travelserviceapi.entities.Users;
-import com.nlu.mainguyen.travelserviceapi.model.ArticlesDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.model.UserOutputDTO;
 import com.nlu.mainguyen.travelserviceapi.model.UserInputDTO;
@@ -153,4 +152,18 @@ public class UsersController {
                                                                                                    // ra
         }
     }
+
+    @PostMapping("/forgotPassword")
+    public ResponseEntity<ResponseDTO> forgotPassword(@RequestBody UserOutputDTO request) {
+        try {
+            ResponseDTO response = this.service.forgotPassword(request.getEmail());
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            ResponseDTO response = new ResponseDTO(2, e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+    }
+
+
+
 }
