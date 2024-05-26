@@ -8,22 +8,46 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nlu.mainguyen.travelserviceapi.entities.Articles;
+import com.nlu.mainguyen.travelserviceapi.entities.HisArticles;
+import com.nlu.mainguyen.travelserviceapi.entities.Itineraries;
+import com.nlu.mainguyen.travelserviceapi.entities.Places;
+import com.nlu.mainguyen.travelserviceapi.entities.Topics;
+import com.nlu.mainguyen.travelserviceapi.entities.Users;
 import com.nlu.mainguyen.travelserviceapi.model.ArticlesDTO;
+import com.nlu.mainguyen.travelserviceapi.model.ItinerariesDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.repositories.ArticlesRepository;
+import com.nlu.mainguyen.travelserviceapi.repositories.HistoryArticlesRepository;
+import com.nlu.mainguyen.travelserviceapi.repositories.ItinerariesRepository;
+import com.nlu.mainguyen.travelserviceapi.repositories.PlacesRepository;
+import com.nlu.mainguyen.travelserviceapi.repositories.TopicsRepository;
+import com.nlu.mainguyen.travelserviceapi.repositories.UsersRepository;
 
 @Service
 public class ArticlesService {
     @Autowired
     private ArticlesRepository repository;
+    private final PlacesRepository placesRepository;
+    private final TopicsRepository topicsRepository;
+    private final UsersRepository userRepository;
+
+    public ArticlesService(ArticlesRepository repository, PlacesRepository placesRepository, TopicsRepository topicsRepository, UsersRepository userRepository) {
+        this.repository = repository;
+        this.placesRepository = placesRepository;
+       this.topicsRepository =topicsRepository;
+       this.userRepository = userRepository;
+    }
+
     @Autowired
     private ModelMapper modelMapper;
+
     // lấy danh sách
     public List<Articles> getAll() {
         return repository.findAll();
     }
-     // lấy danh sách
-     public List<Articles> getAllDescDate() {
+
+    // lấy danh sách
+    public List<Articles> getAllDescDate() {
         return repository.findAllDescDate();
     }
 
@@ -38,31 +62,50 @@ public class ArticlesService {
             return this.repository.findAllByTopicsId(topics_id);
         } else if (places_id == 0 && topics_id == 0) {
             return this.repository.findAll();
-        } else  {
+        } else {
             return this.repository.findAllBySearch(places_id, topics_id);
         }
         // giá trị mặc định
     }
 
-    public List<Articles>  detailBySearchName(String name) {
+    public List<Articles> detailBySearchName(String name) {
         if (name != null) {
             return repository.findAllSearchKeyword(name);
         }
         // giá trị mặc định
         return null;
     }
-   
-   
 
     public ResponseDTO create(ArticlesDTO dto) {
-         try {
+        try {
             Articles entity = modelMapper.map(dto, Articles.class);
 
-            Articles createdUser = this.repository.save(entity);// lưu thành công và có id định danh
+            Optional<Places> optPlace = placesRepository.findById(dto.getPlaces().getId());
+            if (optPlace.isEmpty()) {
+                return new ResponseDTO(2, "User not found");
+            }
+            Places place = optPlace.get();
+            entity.setPlaces(place);
+
+            Optional<Topics> optTopic = topicsRepository.findById(dto.getTopics().getId());
+            if (optTopic.isEmpty()) {
+                return new ResponseDTO(2, "User not found");
+            }
+            Topics topic = optTopic.get();
+            entity.setTopics(topic);
+
+            Optional<Users> userOptional = userRepository.findById(dto.getUsers().getId());
+            if (userOptional.isEmpty()) {
+                return new ResponseDTO(2, "User not found");
+            }
+            Users user = userOptional.get();
+            entity.setUsers(user);
+
+            Articles create = this.repository.save(entity);// lưu thành công và có id định danh
 
             // Tạo đối tượng chứa thông tin người dùng và thông báo thành công
             // convert entity to DTO
-            ArticlesDTO response = modelMapper.map(createdUser, ArticlesDTO.class);
+            ArticlesDTO response = modelMapper.map(create, ArticlesDTO.class);
 
             return new ResponseDTO(1, " Created successfully", response);
         } catch (Exception e) {
@@ -78,16 +121,67 @@ public class ArticlesService {
         }
         return null;
     }
-  
-  
- 
 
-    public void update(Articles input) {
-        this.repository.save(input);
+    public ResponseDTO update(long id, ArticlesDTO dto) {
+        try {
+            Articles entity = modelMapper.map(dto, Articles.class); // chuyển từ dto sang entity
+    
+            Optional<Articles> opt = this.repository.findById(id);
+            if (opt.isEmpty()) {
+                return null;// không tìm thấy dữ liệu return rỗng
+            } else {
+                // Cập nhật các trường của itineraries với các giá trị mới từ request
+                Articles get = opt.get();
+                get.setName(dto.getName());
+                get.setTitle(dto.getTitle());
+                get.setPrice(dto.getPrice());
+                get.setContent(dto.getContent());
+                get.setCreateAt(dto.getCreateAt());
+                get.setImage(dto.getImage());
+                get.setLongitude(dto.getLongitude());
+                get.setLatitude(dto.getLatitude());
+                get.setStatus(dto.getStatus());
+
+                Optional<Places> optPlace = placesRepository.findById(dto.getPlaces().getId());
+                if (optPlace.isEmpty()) {
+                    return new ResponseDTO(2, "User not found");
+                }
+                Places place = optPlace.get();
+                get.setPlaces(place);
+    
+                Optional<Topics> optTopic = topicsRepository.findById(dto.getTopics().getId());
+                if (optTopic.isEmpty()) {
+                    return new ResponseDTO(2, "User not found");
+                }
+                Topics topic = optTopic.get();
+                get.setTopics(topic);
+    
+                Optional<Users> userOptional = userRepository.findById(dto.getUsers().getId());
+                if (userOptional.isEmpty()) {
+                    return new ResponseDTO(2, "User not found");
+                }
+                Users user = userOptional.get();
+                get.setUsers(user);
+                
+
+                Articles update = this.repository.save(get);
+                ArticlesDTO responseDto = modelMapper.map(update, ArticlesDTO.class);
+
+                return new ResponseDTO(1, "Update successfully", responseDto);
+            }
+        } catch (Exception e) {
+            return new ResponseDTO(2, "Failed to create: " + e.getMessage());
+        }
     }
 
-    public void deleteByID(Long id) {
-        this.repository.deleteById(id);
+    public ResponseDTO deleteByID(Long id) {
+        Optional<Articles> opt = this.repository.findById(id);
+        if (opt.isEmpty()) {
+            return new ResponseDTO(2, "Empty");// không tìm thấy dữ liệu return lỗi
+        } else {
+            this.repository.deleteById(id);
+            return new ResponseDTO(1, "Success");
+        }
     }
 
     // lấy danh sách theo địa điểm placeid

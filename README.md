@@ -120,3 +120,11 @@ json
 
 
 Focus https://themewagon.github.io/focus-2/table-datatable-basic.html
+
+https://www.callicoder.com/hibernate-spring-boot-jpa-one-to-many-mapping-example/
+
+https://github.com/callicoder/jpa-hibernate-tutorials   
+
+# Enabling Cross Origin Requests for a RESTful Web Service
+
+https://spring.io/guides/gs/rest-service-cors#global-cors-configuration

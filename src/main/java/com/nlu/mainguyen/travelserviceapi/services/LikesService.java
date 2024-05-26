@@ -1,5 +1,7 @@
 package com.nlu.mainguyen.travelserviceapi.services;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,12 +9,17 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nlu.mainguyen.travelserviceapi.entities.Articles;
+import com.nlu.mainguyen.travelserviceapi.entities.HisArticles;
 import com.nlu.mainguyen.travelserviceapi.entities.Likes;
 import com.nlu.mainguyen.travelserviceapi.entities.Users;
+import com.nlu.mainguyen.travelserviceapi.model.ArticlesDTO;
+import com.nlu.mainguyen.travelserviceapi.model.HistoryArticlesDTO;
 import com.nlu.mainguyen.travelserviceapi.model.LikesDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.repositories.LikesRepository;
 import com.nlu.mainguyen.travelserviceapi.repositories.UsersRepository;
+import com.nlu.mainguyen.travelserviceapi.model.UserOutputDTO;
 
 @Service
 public class LikesService {
@@ -36,28 +43,37 @@ public class LikesService {
         return this.repository.findAllByUserId(users_id);
     }
 
-    public ResponseDTO create(LikesDTO dto) {
+    public ResponseDTO clickLike(LikesDTO dto) {
         try {
-            Likes ent = modelMapper.map(dto, Likes.class);
-            
-            Optional<Users> userOptional = userRepository.findById(dto.getUsers().getId());
-            if (userOptional.isEmpty()) {
-                return new ResponseDTO(2, "User not found");
+
+            Optional<Likes> opt = repository.findByUsersIdAndArticlesId(dto.getUsers().getId(), dto.getArticles().getId());
+            if (opt.isEmpty()) {
+                Likes ent = modelMapper.map(dto, Likes.class); // chuyển từ dto sang entity
+                ent.setStatus(1);
+
+                LocalDate localDate = LocalDate.now();// thời gian hiện tại
+                Date now = Date.valueOf(localDate);
+                ent.setModifyDate(now);
+
+                Likes created = repository.save(ent);
+                LikesDTO responseDto = modelMapper.map(created, LikesDTO.class);
+                return new ResponseDTO(1, "Create successfully", responseDto);
+            } else {
+                Likes info = opt.get();
+                if (info.getStatus() == 1) {
+                    info.setStatus(0);
+                } else {
+                    info.setStatus(1);
+                }
+
+                info.setModifyDate(new Date(System.currentTimeMillis()));// thời gian hiện tại
+
+                Likes update = repository.save(info);
+                LikesDTO responseDto = modelMapper.map(update, LikesDTO.class);
+                return new ResponseDTO(1, "Update successfully", responseDto);
             }
-            Users user = userOptional.get();
-            ent.setUsers(user);
-    
-            // Kiểm tra xem đã tồn tại bản ghi với cặp usersId và articlesId hay chưa
-            Optional<Likes> existingLikes = repository.findByUsersIdAndArticlesId(user.getId(), ent.getArticles().getId());
-            if (existingLikes.isPresent()) {
-                return new ResponseDTO(2, "articlesId and userId already exist");
-            }
-    
-            Likes created = repository.save(ent);
-            LikesDTO responseDto = modelMapper.map(created, LikesDTO.class);
-            return new ResponseDTO(1, "Created successfully", responseDto);
         } catch (Exception e) {
-            return new ResponseDTO(2, "Failed to create: " + e.getMessage());
+            return new ResponseDTO(2, "Failed to update: " + e.getMessage());
         }
     }
 

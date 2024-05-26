@@ -13,12 +13,5 @@ public interface HistoryArticlesRepository extends JpaRepository<HisArticles, Lo
 
     @Query(value = "SELECT * FROM his_articles WHERE  articles_id = ?1", nativeQuery = true)
     Optional<HisArticles> findByArticlesId( long articles_id);
-
-    @Query(value = "SELECT * FROM his_articles WHERE  articles_id = ?1", nativeQuery = true)
-    List<HisArticles> findAllByArticlesId( long articles_id);
-
-    
-    @Query(value = "SELECT * FROM his_articles WHERE  articles_id = ?1", nativeQuery = true)
-    HisArticles findByArticlesIdCount( long articles_id);
     
 }

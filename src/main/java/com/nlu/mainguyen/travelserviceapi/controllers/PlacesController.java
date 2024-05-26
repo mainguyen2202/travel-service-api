@@ -28,8 +28,7 @@ import com.nlu.mainguyen.travelserviceapi.services.PlacesService;
 
 import jakarta.validation.Valid;
 
-@Controller
-@CrossOrigin("http://localhost:3000") // bảo mật thông tin - system - cho phép client nào được phép truy cập
+@Controller // bảo mật thông tin - system - cho phép client nào được phép truy cập
 @RequestMapping(path = "/places")
 public class PlacesController {
 

@@ -19,7 +19,6 @@ import com.nlu.mainguyen.travelserviceapi.entities.VisitorTModel;
 import com.nlu.mainguyen.travelserviceapi.services.VisitorService;
 
 @Controller
-@CrossOrigin("http://localhost:3000")
 @RequestMapping(path="/visitor")
 public class VisitorController {
 

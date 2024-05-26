@@ -3,6 +3,7 @@ package com.nlu.mainguyen.travelserviceapi.model;
 import java.sql.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nlu.mainguyen.travelserviceapi.entities.HisArticles;
 
 import lombok.Data;
@@ -29,7 +30,8 @@ public class ArticlesDTO { // Địa điểm
     private String content;
     private int status;
 
-    // private List<HistoryArticlesDTO> historyArticles;
+    private List<HistoryArticlesDTOs> historyArticles;
+    // private List<HisArticles> historyArticles;
 
     // @OneToMany(mappedBy = "articles", cascade = CascadeType.ALL)
     // private List<Likes> likes = new ArrayList<>();

@@ -20,29 +20,32 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.ui.Model;
 
 import com.nlu.mainguyen.travelserviceapi.entities.HisArticles;
+import com.nlu.mainguyen.travelserviceapi.entities.Likes;
+import com.nlu.mainguyen.travelserviceapi.model.ArticlesDTO;
 import com.nlu.mainguyen.travelserviceapi.model.HistoryArticlesDTO;
+import com.nlu.mainguyen.travelserviceapi.model.LikesDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.services.HistoryArticlesService;
 
 @Controller
-@CrossOrigin("http://localhost:3000")
-@RequestMapping(path="/historyArticles")
+@RequestMapping(path = "/historyArticles")
 public class HistoryArticlesController {
     private HistoryArticlesService service;
 
-	public HistoryArticlesController(HistoryArticlesService service) {
-		this.service = service;
-	}
+    public HistoryArticlesController(HistoryArticlesService service) {
+        this.service = service;
+    }
+
     @Autowired
     private ModelMapper modelMapper;
 
     @GetMapping("/list")
     public @ResponseBody List<HistoryArticlesDTO> showAll(Model model) {
         try {
-     
+
             List<HistoryArticlesDTO> results = this.service.getAll().stream()
-            .map(item-> modelMapper.map(item, HistoryArticlesDTO.class))
-            .collect(Collectors.toList());
+                    .map(item -> modelMapper.map(item, HistoryArticlesDTO.class))
+                    .collect(Collectors.toList());
 
             return results;
 
@@ -51,57 +54,38 @@ public class HistoryArticlesController {
         }
         return null;
     }
-    @GetMapping("/listByIdArticles")
-    // public @ResponseBody List<HistoryArticlesDTO> listBySearch(@RequestParam("articles_id")  long articles_id   ) {// B3
+
+    // @GetMapping("/getByIdArticles")
+    // public ResponseEntity<ResponseDTO> getByIdArticles(@RequestParam("articles_id") long articles_id) {
     //     try {
-    //         List<HisArticles> ltsHisArticles = this.service.listByItineraryId(articles_id);
-
-    //         List<HistoryArticlesDTO> results = ltsHisArticles.stream()
-    //                 .map(item -> modelMapper.map(item, HistoryArticlesDTO.class))
-    //                 .collect(Collectors.toList());// B4
-
-    //         return results;
+    //         ResponseDTO response = this.service.getByIdArticles(articles_id);
+    //         return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);
     //     } catch (Exception e) {
-    //         System.out.println(e.getMessage());
+    //         ResponseDTO response = new ResponseDTO(2, e.getMessage());
+    //         return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);
     //     }
-    //     return null;
     // }
-    public @ResponseBody HistoryArticlesDTO getBySearch(@RequestParam("articles_id") long articles_id) {
-        try {
-            HisArticles hisArticles = this.service.listByItineraryId(articles_id);
-            
-            if (hisArticles != null) {
-                HistoryArticlesDTO result = modelMapper.map(hisArticles, HistoryArticlesDTO.class);
-                return result;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            // Xử lý ngoại lệ tại đây hoặc ném ngoại lệ để xử lý ở tầng trên
-        }
-        return null;
-    }
- 
-    @PostMapping("/edit")
-      public ResponseEntity<ResponseDTO> update(@RequestParam("articles_id") long articles_id,
-      @RequestBody HistoryArticlesDTO request) {
-        try {
-            ResponseDTO response = this.service.update(articles_id, request);// lưu database, trả về id
-            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
-        } catch (Exception e) {
-            ResponseDTO response = new ResponseDTO(2, e.getMessage());
-            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
-        }
-    }
-    @PostMapping("/create")
 
-    public ResponseEntity<ResponseDTO> create(@RequestBody HistoryArticlesDTO request) {
+     @GetMapping("/getByIdArticles")
+    public @ResponseBody ResponseDTO getByIdArticles(@RequestParam("articles_id") long articles_id) {// B3
         try {
-            ResponseDTO response = this.service.create(request);// lưu database, trả về id
+            ResponseDTO response = this.service.getByIdArticles(articles_id);
+            return response;
+        } catch (Exception e) {
+            ResponseDTO response = new ResponseDTO(2, e.getMessage());
+            return response;
+        }
+    }
+
+    @PostMapping("/clickView")
+    public ResponseEntity<ResponseDTO> clickView(@RequestBody HistoryArticlesDTO request) {
+        try {
+            ResponseDTO response = this.service.clickView(request);// lưu database, trả về id
             return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
         } catch (Exception e) {
             ResponseDTO response = new ResponseDTO(2, e.getMessage());
             return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
         }
     }
-    
+
 }

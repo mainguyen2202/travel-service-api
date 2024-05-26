@@ -17,7 +17,6 @@ import com.nlu.mainguyen.travelserviceapi.model.CoordinatesDTO;
 import jakarta.validation.Valid;
 
 @Controller
-@CrossOrigin("http://localhost:3000")
 @RequestMapping(path = "/coordinates")
 public class CoordinatesController {
 

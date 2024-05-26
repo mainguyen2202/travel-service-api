@@ -1,8 +1,7 @@
 package com.nlu.mainguyen.travelserviceapi.entities;
 
-
 import java.sql.Date;
-
+import org.springframework.format.annotation.DateTimeFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,8 +17,23 @@ public class HisArticles {
 
     @ManyToOne()
     private Articles articles;
-    
-    private Date creatAt;// ngày xem
+
+    // @Column(updatable = false)
+    // @DateTimeFormat(pattern = "yyyy/MM/dd")
+    private Date modifyDate;// ngày xem
     private int count;
-    // người xem
+
+    /*
+     * 
+     * new SimpleDateFormat("yyyy-MM-dd").parse("2017-11-15")
+     * new SimpleDateFormat("HH:mm:ss").parse("15:30:14")
+     * new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse("2017-11-15 15:30:14.332")
+     * 
+     * // Get the current date
+        java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
+        
+        // Or, alternatively, using LocalDate and converting to java.sql.Date
+        LocalDate localDate = LocalDate.now();
+        java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
+     */
 }

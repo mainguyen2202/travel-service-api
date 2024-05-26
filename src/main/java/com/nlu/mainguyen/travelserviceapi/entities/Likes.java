@@ -21,8 +21,8 @@ public class Likes { // Địa điểm yêu thích
     @ManyToOne()
     private Articles articles;
 
-    private int status;
-    private Date creatAt;
+    private int status; // 0 : unlike , 1 : like
+    private Date modifyDate;
     private String content;
  
     

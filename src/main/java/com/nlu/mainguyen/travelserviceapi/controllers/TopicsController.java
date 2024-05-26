@@ -18,7 +18,6 @@ import jakarta.validation.Valid;
 
 @Controller
 
-@CrossOrigin("http://localhost:3000")
 @RequestMapping(path="/topics")
 public class TopicsController {
     @Autowired

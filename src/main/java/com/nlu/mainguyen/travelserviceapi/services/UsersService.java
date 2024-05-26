@@ -10,8 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.nlu.mainguyen.travelserviceapi.entities.Articles;
+import com.nlu.mainguyen.travelserviceapi.entities.Places;
+import com.nlu.mainguyen.travelserviceapi.entities.Topics;
 import com.nlu.mainguyen.travelserviceapi.entities.Users;
 import com.nlu.mainguyen.travelserviceapi.exception.ResourceNotFoundException;
+import com.nlu.mainguyen.travelserviceapi.model.ArticlesDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.model.UserInputDTO;
 import com.nlu.mainguyen.travelserviceapi.model.UserOutputDTO;
@@ -91,33 +95,6 @@ public class UsersService {
         return new ResponseDTO(1, "", userResponse);
     }
 
-    // update
-    public Users update(long id, Users userRequest) {
-        Users user = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Users", "id", id));
-
-        if (userRequest.getName() != null) {
-            user.setName(userRequest.getName());
-        }
-
-        if (userRequest.getEmail() != null) {
-            user.setEmail(userRequest.getEmail());
-        }
-        if (userRequest.getUsername() != null) {
-            user.setUsername(userRequest.getUsername());
-        }
-
-        return repository.save(user);
-    }
-
-    // delete
-
-    public void deleteByID(long id) {
-
-        Users user = this.repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Users", "id", id));
-
-        this.repository.delete(user);
-    }
-
     public Users getById(long id) {
         Optional<Users> items = this.repository.findById(id);
         if (items.isPresent()) {
@@ -126,19 +103,115 @@ public class UsersService {
             throw new ResourceNotFoundException("Post", "id", id);
         }
     }
+    // update
+    // public Users update(long id, Users userRequest) {
+    // Users user = repository.findById(id).orElseThrow(() -> new
+    // ResourceNotFoundException("Users", "id", id));
+
+    // if (userRequest.getName() != null) {
+    // user.setName(userRequest.getName());
+    // }
+
+    // if (userRequest.getEmail() != null) {
+    // user.setEmail(userRequest.getEmail());
+    // }
+    // if (userRequest.getUsername() != null) {
+    // user.setUsername(userRequest.getUsername());
+    // }
+    // user.setStatus(userRequest.getStatus());
+    // user.setRole(userRequest.getRole());
+    // user.setCreateAt(userRequest.getCreateAt());
+    // user.setImage(userRequest.getImage());
+
+    // return repository.save(user);
+    // }
+    public ResponseDTO update(long id, UserOutputDTO dto) {
+        try {
+            Users user = modelMapper.map(dto, Users.class); // chuyển từ dto sang entity
+            if (dto.getName() != null) {
+                user.setName(dto.getName());
+            }
+
+            if (dto.getEmail() != null) {
+                user.setEmail(dto.getEmail());
+            }
+            if (dto.getUsername() != null) {
+                user.setUsername(dto.getUsername());
+            }
+            
+            Optional<Users> opt = this.repository.findById(id);
+            if (opt.isEmpty()) {
+                return new ResponseDTO(2, "User not found");
+            }else {
+                Users info = opt.get();
+                info.setName(dto.getName());
+                info.setEmail(dto.getEmail());
+                info.setUsername(dto.getUsername());
+                info.setStatus(dto.getStatus());
+                info.setRole(dto.getRole());
+                info.setCreateAt(dto.getCreateAt());
+                info.setImage(dto.getImage());
+
+                info.setPassword(dto.getPassword());
+                Users update = this.repository.save(info);
+                UserOutputDTO responseDto = modelMapper.map(update, UserOutputDTO.class);
+                return new ResponseDTO(1, "Update successfully", responseDto);
+            }           
+
+
+
+        } catch (Exception e) {
+            return new ResponseDTO(2, "Failed to create: " + e.getMessage());
+        }
+    }
+    public ResponseDTO updatePassword(long id, UserOutputDTO dto) {
+        try {
+            Users user = modelMapper.map(dto, Users.class); // chuyển từ dto sang entity
+       
+            
+            Optional<Users> opt = this.repository.findById(id);
+            if (opt.isEmpty()) {
+                return new ResponseDTO(2, "User not found");
+            }else {
+                Users info = opt.get();
+              
+                info.setPassword(dto.getPassword());
+                Users update = this.repository.save(info);
+                UserOutputDTO responseDto = modelMapper.map(update, UserOutputDTO.class);
+                return new ResponseDTO(1, "Update successfully", responseDto);
+            }           
+
+
+
+        } catch (Exception e) {
+            return new ResponseDTO(2, "Failed to create: " + e.getMessage());
+        }
+    }
+
+    // delete
+    public ResponseDTO deleteByID(Long id) {
+        Optional<Users> opt = this.repository.findById(id);
+        if (opt.isEmpty()) {
+            return new ResponseDTO(2, "Empty");// không tìm thấy dữ liệu return lỗi
+        } else {
+            this.repository.deleteById(id);
+            return new ResponseDTO(1, "Success");
+        }
+    }
 
     public Users detailBySearch(String username, String email, int role) {
-        if (username!= ""){
+        if (username != "") {
             return this.repository.findByName(username); // Tìm người dùng theo tên người dùng trong cơ sở dữ liệu
-        } else if (email!= ""){
+        } else if (email != "") {
             return this.repository.findByName(username); // tìm theo email
-        } else if (role != 0){
+        } else if (role != 0) {
             return this.repository.findByName(username); // tìm theo role
-        } 
+        }
         return null;
     }
+
     public Users detailBySearchUserName(String username) {
-        if (username!= ""){
+        if (username != "") {
             return this.repository.findByName(username); // Tìm người dùng theo tên người dùng trong cơ sở dữ liệu
         }
         return null;

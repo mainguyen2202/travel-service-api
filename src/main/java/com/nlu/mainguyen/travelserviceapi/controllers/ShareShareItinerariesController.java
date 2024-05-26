@@ -22,7 +22,6 @@ import com.nlu.mainguyen.travelserviceapi.model.ShareItinerariesDTO;
 import com.nlu.mainguyen.travelserviceapi.services.ShareItinerariesService;
 
 @Controller
-@CrossOrigin("http://localhost:3000")
 @RequestMapping(path = "/shareShareItineraries")
 public class ShareShareItinerariesController {
     @Autowired

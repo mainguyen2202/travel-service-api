@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.*;
 import com.nlu.mainguyen.travelserviceapi.services.UsersService;
 
 import com.nlu.mainguyen.travelserviceapi.entities.Users;
+import com.nlu.mainguyen.travelserviceapi.model.ArticlesDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.model.UserOutputDTO;
 import com.nlu.mainguyen.travelserviceapi.model.UserInputDTO;
 
 @Controller
-@CrossOrigin("http://localhost:3000")
 @RequestMapping(path = "/users")
 public class UsersController {
 
@@ -88,37 +88,37 @@ public class UsersController {
         }
     }
 
-    @PostMapping("/edit/{id}")
-    public ResponseEntity<UserOutputDTO> update(@PathVariable long id, @RequestBody UserOutputDTO UserOutputDTO) {
-
+ 
+        @PostMapping("/edit/{id}")
+      public ResponseEntity<ResponseDTO> update(@PathVariable long id,@RequestBody UserOutputDTO request) {
         try {
-
-            // convert DTO to Entity
-            Users userRequest = modelMapper.map(UserOutputDTO, Users.class);
-            Users users = this.service.update(id, userRequest);
-
-            // entity to DTO
-            UserOutputDTO resp = modelMapper.map(users, UserOutputDTO.class);
-
-            return ResponseEntity.ok().body(resp);
+            ResponseDTO response = this.service.update(id, request);// lưu database, trả về id
+            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
         } catch (Exception e) {
-            // TODO: handle exception
-            return new ResponseEntity<UserOutputDTO>(new UserOutputDTO(), HttpStatus.BAD_REQUEST);
-        }
-    }
+            ResponseDTO response = new ResponseDTO(2, e.getMessage());
+            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+        }}
 
-    @PostMapping("/remove/{id}")
-    public ResponseEntity<String> delete(@PathVariable long id) {
-        try {
-            // Thực hiện xóa dữ liệu với ID đã cho
-            this.service.deleteByID(id);
+        @PostMapping("/editPassword/{id}")
+        public ResponseEntity<ResponseDTO> updatePassword(@PathVariable long id,@RequestBody UserOutputDTO request) {
+          try {
+              ResponseDTO response = this.service.updatePassword(id, request);// lưu database, trả về id
+              return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+          } catch (Exception e) {
+              ResponseDTO response = new ResponseDTO(2, e.getMessage());
+              return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+          }}
 
-            return ResponseEntity.ok().body("Delete successful");
-        } catch (Exception e) {
-            // Xử lý ngoại lệ và trả về mã lỗi BAD_REQUEST
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Delete failed");
+        @DeleteMapping("/remove/{id}")
+        public ResponseEntity<ResponseDTO> delete(@PathVariable("id") Long id) {
+            try {
+                ResponseDTO response = this.service.deleteByID(id);
+                return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+            } catch (Exception e) {
+                ResponseDTO response = new ResponseDTO(2, e.getMessage());
+                return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+            }
         }
-    }
 
     @GetMapping("/detailBySearch")
     public ResponseEntity<UserOutputDTO> detailBySearch(@RequestParam("username") String username,

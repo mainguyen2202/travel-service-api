@@ -23,7 +23,6 @@ import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.services.ItineraryArticlesService;
 
 @Controller
-@CrossOrigin("http://localhost:3000")
 @RequestMapping(path = "/itineraryArticles")
 public class ItineraryArticlesController {
     @Autowired

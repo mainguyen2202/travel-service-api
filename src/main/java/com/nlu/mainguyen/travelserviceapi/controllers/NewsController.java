@@ -12,7 +12,6 @@ import jakarta.validation.Valid;
 
 
 @Controller
-@CrossOrigin("http://localhost:3000")
 @RequestMapping(path="/news")
 public class NewsController {
     private NewsService service;

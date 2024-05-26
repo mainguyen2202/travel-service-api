@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,14 +24,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nlu.mainguyen.travelserviceapi.entities.Articles;
+import com.nlu.mainguyen.travelserviceapi.entities.Places;
 import com.nlu.mainguyen.travelserviceapi.model.ArticlesDTO;
+import com.nlu.mainguyen.travelserviceapi.model.ItinerariesDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
+import com.nlu.mainguyen.travelserviceapi.model.ResponseListDTO;
 import com.nlu.mainguyen.travelserviceapi.services.ArticlesService;
 
 import jakarta.validation.Valid;
 
 @Controller
-@CrossOrigin("http://localhost:3000")
 @RequestMapping(path = "/articles")
 public class ArticlesController {
     @Autowired
@@ -39,7 +42,7 @@ public class ArticlesController {
     @Autowired
     private ModelMapper modelMapper;
 
-    @GetMapping("/temp")
+    @GetMapping("/listAll")
     public @ResponseBody List<ArticlesDTO> showAll(Model model) {
         try {
             // List<Articles> Articles = this.service.showAll();// danh sách Entity mà cần
@@ -79,10 +82,10 @@ public class ArticlesController {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
         return new ArrayList<ArticlesDTO>();
     }
 
+   
     @GetMapping("/listDate")
     public @ResponseBody List<ArticlesDTO> showAllDescDate(Model model) {
         try {
@@ -145,16 +148,26 @@ public class ArticlesController {
         return new ArrayList<ArticlesDTO>();
     }
 
+
     @PostMapping("/edit/{id}")
-    public @ResponseBody String edit(@PathVariable("id") Long id, @Valid @RequestBody Articles input) {
-        this.service.update(input);
-        return "success";
+      public ResponseEntity<ResponseDTO> update(@PathVariable long id,@RequestBody ArticlesDTO request) {
+        try {
+            ResponseDTO response = this.service.update(id, request);// lưu database, trả về id
+            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+        } catch (Exception e) {
+            ResponseDTO response = new ResponseDTO(2, e.getMessage());
+            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+        }}
 
-    }
 
-    @PostMapping("/remove/{id}")
-    public String remove(@PathVariable("id") Long id) {
-        this.service.deleteByID(id);
-        return "success";
+    @DeleteMapping("/remove/{id}")
+    public ResponseEntity<ResponseDTO> delete(@PathVariable("id") Long id) {
+        try {
+            ResponseDTO response = this.service.deleteByID(id);
+            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+        } catch (Exception e) {
+            ResponseDTO response = new ResponseDTO(2, e.getMessage());
+            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+        }
     }
 }
