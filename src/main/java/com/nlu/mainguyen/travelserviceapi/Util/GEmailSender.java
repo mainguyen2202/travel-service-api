@@ -51,6 +51,7 @@ public class GEmailSender {
 
         return flag;
     }
+    /*
     public static void main(String[] args) {
 
         GEmailSender gEmailSender = new GEmailSender();
@@ -66,5 +67,6 @@ public class GEmailSender {
         }
 
     }
+    */
 
 }

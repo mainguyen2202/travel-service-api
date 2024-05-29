@@ -17,33 +17,6 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-	<!-- email -->
-
-		<dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/jakarta.mail/jakarta.mail-api -->
-        <dependency>
-            <groupId>jakarta.mail</groupId>
-            <artifactId>jakarta.mail-api</artifactId>
-            <version>2.1.1</version>
-        </dependency>
-
-
-        <!-- https://mvnrepository.com/artifact/com.sun.mail/jakarta.mail -->
-        <dependency>
-            <groupId>org.eclipse.angus</groupId>
-            <artifactId>jakarta.mail</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
-		<!-- email -->
-	
-		
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -109,6 +82,32 @@
 		</dependency>
 		<!--  END  -->
 
+		<!-- email -->
+
+		<dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/jakarta.mail/jakarta.mail-api -->
+        <dependency>
+            <groupId>jakarta.mail</groupId>
+            <artifactId>jakarta.mail-api</artifactId>
+            <version>2.1.1</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/com.sun.mail/jakarta.mail -->
+        <dependency>
+            <groupId>org.eclipse.angus</groupId>
+            <artifactId>jakarta.mail</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+		<!-- email -->
+
 		<!-- tag::actuator[] -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -128,8 +127,17 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<!-- <configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration> -->
 			</plugin>
 		</plugins>
+		<!-- <finalName>travel-app-docker</finalName> -->
 	</build>
 
 </project>

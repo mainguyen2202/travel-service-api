@@ -6,6 +6,17 @@ Travel project for Spring Boot
 
 Admin@Admin MINGW64 /d/DH20DT/HK8/TieuLuan/API/travel-service-api (main)
 ```
+$ ./mvnw package
+```
+
+Running app Packages as a JAR File
+
+```
+java -jar target/travel-service-api-0.0.1-SNAPSHOT.jar
+
+```
+
+```
 ./mvnw spring-boot:run
 ```
 
