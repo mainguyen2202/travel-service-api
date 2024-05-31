@@ -20,11 +20,16 @@ sau
 
         docker network
 
-docker build -t myorg/travel-app-docker .
+docker build -t travel-service-api:latest .
 
-docker network create travel-network
+docker run -d -p 8080:8080 --name travel-service-api travel-service-api:latest
 
-docker run -p 8080:8080 myorg/travel-app-docker
+# Build image
+docker compose build
+
+# Chạy container
+docker compose up -d
+
 
 # kết hợp tên và run
 docker run -p 8080:8080 --name travel-network myorg/travel-app-docker

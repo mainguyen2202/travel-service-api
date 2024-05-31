@@ -148,3 +148,23 @@ https://github.com/callicoder/jpa-hibernate-tutorials
 
 https://spring.io/guides/gs/rest-service-cors#global-cors-configuration
 Focus https://themewagon.github.io/focus-2/table-datatable-basic.html
+
+# Spring Boot 3 + Spring Security 6 - JWT Authentication and Authorisation [NEW] [2023]
+
+https://www.youtube.com/watch?v=KxqlJblhzfI
+
+https://github.com/ali-bouali/spring-boot-3-jwt-security
+
+https://www.youtube.com/watch?v=RnZmeczS_DI
+
+https://github.com/hello-iftekhar/springJwt/blob/main/src/main/java/com/helloIftekhar/springJwt/service/AuthenticationService.java
+
+Tiếng việt
+
+https://viblo.asia/p/huong-dan-spring-security-jwt-json-web-token-hibernate-oOVlYGmoK8W
+
+https://github.com/loda-kun/spring-boot-learning/blob/master/spring-security-hibernate-jwt/pom.xml
+
+middleware
+
+https://medium.com/@tericcabrel/implement-jwt-authentication-in-a-spring-boot-3-application-5839e4fd8fac
