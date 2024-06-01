@@ -155,11 +155,17 @@ https://www.youtube.com/watch?v=KxqlJblhzfI
 
 https://github.com/ali-bouali/spring-boot-3-jwt-security
 
+# Quan trọng Auth - Login
+https://www.youtube.com/playlist?list=PLmxVbmyIiPPuR3eysh7LxmAlN0f9GQRAl
 https://www.youtube.com/watch?v=RnZmeczS_DI
 
 https://github.com/hello-iftekhar/springJwt/blob/main/src/main/java/com/helloIftekhar/springJwt/service/AuthenticationService.java
 
-Tiếng việt
+Implementing Secure Refresh Tokens in Spring Boot | #1 | Spring Boot JWT
+
+https://www.youtube.com/watch?v=nvwKwsJg89E
+
+# Tiếng việt
 
 https://viblo.asia/p/huong-dan-spring-security-jwt-json-web-token-hibernate-oOVlYGmoK8W
 
@@ -168,3 +174,14 @@ https://github.com/loda-kun/spring-boot-learning/blob/master/spring-security-hib
 middleware
 
 https://medium.com/@tericcabrel/implement-jwt-authentication-in-a-spring-boot-3-application-5839e4fd8fac
+
+cors
+
+https://github.com/callicoder/spring-security-react-ant-design-polls-app/blob/master/polling-app-server/src/main/java/com/example/polls/config/WebMvcConfig.java
+
+# architecture spring boot api - reactjs
+https://www.bezkoder.com/spring-boot-react-jwt-auth/
+
+https://jwt.io/
+
+How to generate a JWT access token with some custom claims in it?

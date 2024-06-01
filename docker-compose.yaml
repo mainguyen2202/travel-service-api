@@ -36,7 +36,7 @@ volumes:
     driver: local
   
 
-
+# ./mvnw clean package
 # docker images
 # docker ps -a
 

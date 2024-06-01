@@ -139,6 +139,7 @@ public class UsersService {
                 info.setUsername(dto.getUsername());
                 info.setStatus(dto.getStatus());
                 info.setRole(dto.getRole());
+                
                 info.setCreateAt(dto.getCreateAt());
                 info.setImage(dto.getImage());
 

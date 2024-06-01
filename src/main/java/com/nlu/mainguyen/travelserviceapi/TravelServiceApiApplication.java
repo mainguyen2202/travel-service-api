@@ -19,16 +19,19 @@ public class TravelServiceApiApplication {
 		return new ModelMapper();
 	}
 
+	/*
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				// registry.addMapping("/health-check").allowedOrigins("http://localhost:9000");
 				registry.addMapping("/**")
-				.allowedMethods("POST","GET",  "PUT", "DELETE")
+				.allowedMethods("POST", "GET",  "PUT", "DELETE")
+				.allowCredentials(true)
+                .allowedHeaders("*")
 				.allowedOrigins("http://localhost:3000", "http://localhost:3006");
 			}
 		};
 	}
+	*/
 }
