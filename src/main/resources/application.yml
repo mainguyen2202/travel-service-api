@@ -19,5 +19,6 @@ application:
   security:
     jwt:
       secret-key: 4bb6d1dfbafb64a681139d1586b6f1160d18159afd57c8c79136d7490630407c
-      access-token-expiration: 86400000 # 10 giây - 1 ngày
+      access-token-expiration: 2592000000 # 10 giây - 1 ngày
       refresh-token-expiration: 2592000000 # 60 giây - 30 ngày
+      # 86400000 - 1 ngày

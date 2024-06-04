@@ -38,6 +38,9 @@ public class ResponseDTO {
     @JsonProperty("dataHistoryArticlesDTO")
     public HistoryArticlesDTO DataHistoryArticlesDTO;
 
+    @JsonProperty("dataContactsDTO")
+    public ContactsDTO DataContactsDTO;
+
     public ResponseDTO(int status, String message) {
         Status = status;
         Message = message;
@@ -84,5 +87,11 @@ public class ResponseDTO {
         Status = status;
         Message = message;
         DataHistoryArticlesDTO = dataHistoryArticlesDTO;
+    }
+
+    public ResponseDTO(int status, String message, ContactsDTO dataContactsDTO) {
+        Status = status;
+        Message = message;
+        DataContactsDTO = dataContactsDTO;
     }
 }

@@ -86,7 +86,15 @@ public class UsersController {
             return new ResponseEntity<UserOutputDTO>(new UserOutputDTO(), HttpStatus.BAD_REQUEST);
         }
     }
-
+    @PostMapping("/editUser/{id}")
+      public ResponseEntity<ResponseDTO> updateUser(@PathVariable long id,@RequestBody UserOutputDTO request) {
+        try {
+            ResponseDTO response = this.service.updateUser(id, request);// lưu database, trả về id
+            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+        } catch (Exception e) {
+            ResponseDTO response = new ResponseDTO(2, e.getMessage());
+            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+        }}
  
         @PostMapping("/edit/{id}")
       public ResponseEntity<ResponseDTO> update(@PathVariable long id,@RequestBody UserOutputDTO request) {
@@ -107,6 +115,8 @@ public class UsersController {
               ResponseDTO response = new ResponseDTO(2, e.getMessage());
               return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
           }}
+
+      
 
         @DeleteMapping("/remove/{id}")
         public ResponseEntity<ResponseDTO> delete(@PathVariable("id") Long id) {
