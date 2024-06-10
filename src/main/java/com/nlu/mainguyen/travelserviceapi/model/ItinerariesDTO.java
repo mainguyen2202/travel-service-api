@@ -17,4 +17,5 @@ public class ItinerariesDTO { // Lập kế hoạch
     private String content;
 
     private long usersId;
+    private UserOutputDTO users;
 }

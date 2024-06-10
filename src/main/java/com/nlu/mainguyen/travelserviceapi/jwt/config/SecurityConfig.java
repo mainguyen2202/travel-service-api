@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,8 +16,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -42,34 +45,24 @@ public class SecurityConfig {
                 this.logoutHandler = logoutHandler;
         }
 
-        /*
-        @Bean
-        public CorsConfigurationSource corsConfigurationSource() {
-                CorsConfiguration configuration = new CorsConfiguration();
-                configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
-                configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
-                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-                source.registerCorsConfiguration("/**", configuration);
-                return source;
-        }
-        */
-
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-                return http
-                                .csrf(AbstractHttpConfigurer::disable)
-                                .authorizeHttpRequests(
-                                                req -> req.requestMatchers("/auth/login", "/auth/register",
+                return http.csrf(AbstractHttpConfigurer::disable)
+                                .authorizeHttpRequests(request -> request
+                                                .requestMatchers(new AntPathRequestMatcher("/**/private/**"))
+                                                .authenticated())
+                                .httpBasic(Customizer.withDefaults())
+                                .authorizeHttpRequests(request -> request
+                                                .requestMatchers(new AntPathRequestMatcher("/**/public/*"))
+                                                .permitAll())
+                                .authorizeHttpRequests(request -> request
+                                                .requestMatchers("/**/registerUser",
+                                                                "/auth/login",
+                                                                "/auth/register",
                                                                 "/auth/refresh_token",
-                                                                "/users/forgotPassword"
-                                                             
-                                                                )
-                                                                .permitAll()
-                                                                .requestMatchers("/auth/admin_only")
-                                                                .hasAuthority("ADMIN")
-                                                                .anyRequest()
-                                                                .authenticated())
+                                                                "/users/forgotPassword")
+                                                .anonymous())
                                 .userDetailsService(userDetailsServiceImp)
                                 .sessionManagement(session -> session
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))

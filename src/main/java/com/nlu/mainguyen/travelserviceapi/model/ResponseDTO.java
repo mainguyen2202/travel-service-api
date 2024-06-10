@@ -41,6 +41,13 @@ public class ResponseDTO {
     @JsonProperty("dataContactsDTO")
     public ContactsDTO DataContactsDTO;
 
+
+    @JsonProperty("dataPlacesDTO")
+    public PlacesDTO DataPlacesDTO;
+
+    @JsonProperty("dataCoordinatesDTO")
+    public CoordinatesDTO DataCoordinatesDTO;
+
     public ResponseDTO(int status, String message) {
         Status = status;
         Message = message;
@@ -94,4 +101,18 @@ public class ResponseDTO {
         Message = message;
         DataContactsDTO = dataContactsDTO;
     }
+
+    public ResponseDTO(int status, String message, PlacesDTO dataPlacesDTO) {
+        Status = status;
+        Message = message;
+        DataPlacesDTO = dataPlacesDTO;
+    }
+
+    public ResponseDTO(int status, String message, CoordinatesDTO dataCoordinatesDTO) {
+        Status = status;
+        Message = message;
+        DataCoordinatesDTO = dataCoordinatesDTO;
+    }
+    
+    
 }

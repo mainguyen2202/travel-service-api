@@ -55,3 +55,11 @@ https://mkyong.com/spring-boot/spring-boot-spring-data-jpa-mysql-example/
 https://medium.com/@anuradha.kadurugasyaya/dockerize-a-spring-boot-application-a6df520f8ffe
 
 https://github.com/EnggAdda/SpringBootMYSQLDocker/blob/master/pom.xml
+
+# fix bug
+
+https://stackoverflow.com/questions/51980647/springboot-on-docker-unable-to-connect-to-mysql
+
+https://serverfault.com/questions/1132896/docker-compose-flyway-not-connecting-to-mysql
+
+https://github.com/moby/moby/issues/25562

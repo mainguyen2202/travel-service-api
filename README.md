@@ -185,3 +185,7 @@ https://www.bezkoder.com/spring-boot-react-jwt-auth/
 https://jwt.io/
 
 How to generate a JWT access token with some custom claims in it?
+
+## Difference Between permitAll() and anonymous() in Spring Security
+
+https://www.baeldung.com/spring-security-permitall-vs-anonymous

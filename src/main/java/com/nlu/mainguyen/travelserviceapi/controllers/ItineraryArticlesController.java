@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nlu.mainguyen.travelserviceapi.entities.ItineraryArticles;
 import com.nlu.mainguyen.travelserviceapi.model.ItineraryArticlesDTO;
+import com.nlu.mainguyen.travelserviceapi.model.PlacesDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.services.ItineraryArticlesService;
 
@@ -30,6 +32,24 @@ public class ItineraryArticlesController {
 
     @Autowired
     private ModelMapper modelMapper;
+
+      @GetMapping("/list")
+    public @ResponseBody List<ItineraryArticlesDTO> showAll(Model model) {
+        try {
+           
+
+            List<ItineraryArticlesDTO> results = this.service.getAll().stream()
+                    .map(item -> modelMapper.map(item, ItineraryArticlesDTO.class))
+                    .collect(Collectors.toList());
+
+            return results;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
 
     @PostMapping("/create")
     public ResponseEntity<ResponseDTO> create(@RequestBody ItineraryArticlesDTO request) {

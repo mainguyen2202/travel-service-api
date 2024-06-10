@@ -103,6 +103,16 @@ public class ItinerariesController {
             return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
         }
     }
+    @PostMapping("/admin/edit/{id}")
+    public ResponseEntity<ResponseDTO> updateAdmin(@PathVariable long id,@RequestBody ItinerariesDTO request) {
+      try {
+          ResponseDTO response = this.service.updateAdmin(id, request);// lưu database, trả về id
+          return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+      } catch (Exception e) {
+          ResponseDTO response = new ResponseDTO(2, e.getMessage());
+          return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+      }
+  }
 
     @DeleteMapping("/remove/{id}")
     public ResponseEntity<ResponseDTO> delete(@PathVariable("id") Long id) {

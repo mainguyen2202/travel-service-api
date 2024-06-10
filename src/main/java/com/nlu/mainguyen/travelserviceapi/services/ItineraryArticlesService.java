@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nlu.mainguyen.travelserviceapi.entities.ItineraryArticles;
+import com.nlu.mainguyen.travelserviceapi.entities.Places;
 import com.nlu.mainguyen.travelserviceapi.entities.Articles;
 import com.nlu.mainguyen.travelserviceapi.model.ItineraryArticlesDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
@@ -30,6 +31,12 @@ public class ItineraryArticlesService {
         this.articlesRepository = articlesRepository;
         this.itinerariesRepository = itinerariesRepository;
     }
+
+      // lấy danh sách
+    public List<ItineraryArticles> getAll() {
+        return this.repository.findAll();
+    }
+
 
     public List<ItineraryArticles> listByItineraryId(long itineraries_id, String date_start) {
         // if (date_start == null) {

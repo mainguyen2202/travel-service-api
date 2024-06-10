@@ -89,6 +89,29 @@ public class ItinerariesService {
             return new ResponseDTO(2, "Failed to create: " + e.getMessage());
         }
     }
+    public ResponseDTO updateAdmin(long id, ItinerariesDTO dto) {
+        try {
+            Optional<Itineraries> itinerariesOptional = this.repository.findById(id);
+        if (itinerariesOptional.isEmpty()) {
+            return null;// không tìm thấy dữ liệu return rỗng
+        } else {
+            // Cập nhật các trường của itineraries với các giá trị mới từ request
+            Itineraries itinerariesget = itinerariesOptional.get();
+            itinerariesget.setName(dto.getName());
+            itinerariesget.setContent(dto.getContent());
+            itinerariesget.setDateStart(dto.getDateStart());
+            itinerariesget.setDateEnd(dto.getDateEnd());
+            itinerariesget.setStatus(dto.getStatus());
+            itinerariesget.setParticipantCount((dto.getParticipantCount()));
+
+            Itineraries update = this.repository.save(itinerariesget);
+            ItinerariesDTO responseDto = modelMapper.map(update, ItinerariesDTO.class);
+
+            return new ResponseDTO(1, "Update successfully", responseDto);
+        }} catch (Exception e) {
+            return new ResponseDTO(2, "Failed to create: " + e.getMessage());
+        }
+    }
 
     public ResponseDTO deleteByID(Long id) {
         Optional<Itineraries> itineraries = this.repository.findById(id);

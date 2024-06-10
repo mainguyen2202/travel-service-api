@@ -26,7 +26,7 @@ public class TopicsController {
  @Autowired
     private ModelMapper modelMapper;
     
- @GetMapping("/list")
+ @GetMapping("/public/list")
     public @ResponseBody List<TopicsDTO> showAll(Model model) {
         try {
             // List<Users> users = this.service.showAll();// danh sách Entity mà cần convert
@@ -44,7 +44,7 @@ public class TopicsController {
         return null;
     }
     
-    @GetMapping("/list/{sub_topics_id}")
+    @GetMapping("/public/list/{sub_topics_id}")
     public @ResponseBody
     List<TopicsDTO> showAllId(@PathVariable("sub_topics_id") int subTopicsId) {
         try {

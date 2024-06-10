@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import com.nlu.mainguyen.travelserviceapi.services.CoordinatesService;
 
 import com.nlu.mainguyen.travelserviceapi.entities.Coordinates;
+import com.nlu.mainguyen.travelserviceapi.entities.Coordinates;
 import com.nlu.mainguyen.travelserviceapi.model.CoordinatesDTO;
+import com.nlu.mainguyen.travelserviceapi.model.CoordinatesDTO;
+import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 
 import jakarta.validation.Valid;
 
@@ -47,30 +52,49 @@ public class CoordinatesController {
         return null;
     }
 
-    @PostMapping("/create")
-    public @ResponseBody String registration(@RequestBody Coordinates input) {
-        // TODO
-        Coordinates result = this.service.create(input);
-        System.out.println(result);
-        return "success";
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<CoordinatesDTO> viewByID(@PathVariable("id") Long id) {
+        try {
+            Coordinates i = this.service.getById(id);
+
+            CoordinatesDTO resp = modelMapper.map(i, CoordinatesDTO.class);
+            return ResponseEntity.ok().body(resp);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<CoordinatesDTO>(new CoordinatesDTO(), HttpStatus.BAD_REQUEST);
+        }
     }
 
-    @GetMapping("/detail/{id}")
-    public @ResponseBody Coordinates viewCommentsByID(@PathVariable("id") Long id) {
-        Coordinates result = this.service.getById(id);
-        return result;
+    @PostMapping("/create")
+    public ResponseEntity<ResponseDTO> create(@RequestBody CoordinatesDTO request) {
+        try {
+            ResponseDTO response = this.service.create(request);// lưu database, trả về id
+            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+        } catch (Exception e) {
+            ResponseDTO response = new ResponseDTO(2, e.getMessage());
+            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+        }
     }
 
     @PostMapping("/edit/{id}")
-    public @ResponseBody String edit(@PathVariable("id") Long id, @Valid @RequestBody Coordinates input) {
-        this.service.update(input);
-        return "success";
-
+    public ResponseEntity<ResponseDTO> update(@PathVariable long id, @RequestBody CoordinatesDTO request) {
+        try {
+            ResponseDTO response = this.service.update(id, request);// lưu database, trả về id
+            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+        } catch (Exception e) {
+            ResponseDTO response = new ResponseDTO(2, e.getMessage());
+            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+        }
     }
 
-    @PostMapping("/remove/{id}")
-    public String remove(@PathVariable("id") Long id) {
-        this.service.deleteByID(id);
-        return "success";
+    @DeleteMapping("/remove/{id}")
+    public ResponseEntity<ResponseDTO> delete(@PathVariable("id") Long id) {
+        try {
+            ResponseDTO response = this.service.deleteByID(id);
+            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+        } catch (Exception e) {
+            ResponseDTO response = new ResponseDTO(2, e.getMessage());
+            return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
+        }
     }
 }
