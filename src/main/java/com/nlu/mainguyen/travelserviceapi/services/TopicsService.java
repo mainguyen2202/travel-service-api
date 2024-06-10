@@ -27,7 +27,7 @@ public class TopicsService {
         // Thực hiện logic lấy danh sách Topics dựa trên subTopicsId
         // Ví dụ:
         if(subTopicsId!=0){
-            return null;
+            return repository.findAllBySubTopicsId(subTopicsId);
         }
         return repository.findAllBySubTopicsId(subTopicsId);
     }

@@ -62,7 +62,7 @@ public class ArticlesController {
         return null;
     }
 
-    @GetMapping("/list")
+    @GetMapping("/public/list")
     // @RequestMapping(value = "/list", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody List<ArticlesDTO> getArticlesBySearch(@RequestParam("places_id") long places_id,
             @RequestParam("topics_id") long topics_id) {
@@ -86,7 +86,7 @@ public class ArticlesController {
     }
 
    
-    @GetMapping("/listDate")
+    @GetMapping("/public/listDate")
     public @ResponseBody List<ArticlesDTO> showAllDescDate(Model model) {
         try {
             // List<Articles> Articles = this.service.showAll();// danh sách Entity mà cần
@@ -117,7 +117,7 @@ public class ArticlesController {
         }
     }
 
-    @GetMapping("/detail/{id}")
+    @GetMapping("/public/detail/{id}")
     public ResponseEntity<ArticlesDTO> viewByID(@PathVariable("id") Long id) {
         try {
             Articles i = this.service.getById(id);
@@ -130,7 +130,7 @@ public class ArticlesController {
         }
     }
 
-    @GetMapping("/listSearchKeyWord")
+    @GetMapping("/public/listSearchKeyWord")
     public @ResponseBody List<ArticlesDTO> getArticlesBySearchName(@RequestParam("name") String name) {
 
         try {

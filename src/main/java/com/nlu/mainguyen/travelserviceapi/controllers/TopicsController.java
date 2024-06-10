@@ -1,4 +1,4 @@
-    package com.nlu.mainguyen.travelserviceapi.controllers;
+package com.nlu.mainguyen.travelserviceapi.controllers;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,18 +15,17 @@ import com.nlu.mainguyen.travelserviceapi.model.TopicsDTO;
 
 import jakarta.validation.Valid;
 
-
 @Controller
 
-@RequestMapping(path="/topics")
+@RequestMapping(path = "/topics")
 public class TopicsController {
     @Autowired
     private TopicsService service;
 
- @Autowired
+    @Autowired
     private ModelMapper modelMapper;
-    
- @GetMapping("/public/list")
+
+    @GetMapping("/public/list")
     public @ResponseBody List<TopicsDTO> showAll(Model model) {
         try {
             // List<Users> users = this.service.showAll();// danh sách Entity mà cần convert
@@ -43,10 +42,9 @@ public class TopicsController {
         }
         return null;
     }
-    
+
     @GetMapping("/public/list/{sub_topics_id}")
-    public @ResponseBody
-    List<TopicsDTO> showAllId(@PathVariable("sub_topics_id") int subTopicsId) {
+    public @ResponseBody List<TopicsDTO> showAllId(@PathVariable("sub_topics_id") int subTopicsId) {
         try {
             List<Topics> topics = service.getAllById(subTopicsId);
 
@@ -61,7 +59,7 @@ public class TopicsController {
         return null;
     }
 
-      @PostMapping("/create")
+    @PostMapping("/create")
     public @ResponseBody String registration(@RequestBody Topics input) {
         // TODO
         Topics result = this.service.create(input);
@@ -70,16 +68,18 @@ public class TopicsController {
     }
 
     @GetMapping("/detail/{id}")
-    public @ResponseBody Topics  viewCommentsByID(@PathVariable("id") Long id) {
+    public @ResponseBody Topics viewCommentsByID(@PathVariable("id") Long id) {
         Topics result = this.service.getById(id);
         return result;
     }
+
     @PostMapping("/edit/{id}")
     public @ResponseBody String edit(@PathVariable("id") Long id, @Valid @RequestBody Topics input) {
         this.service.update(input);
         return "success";
 
     }
+
     @DeleteMapping("/remove/{id}")
     public String remove(@PathVariable("id") Long id) {
         this.service.deleteByID(id);

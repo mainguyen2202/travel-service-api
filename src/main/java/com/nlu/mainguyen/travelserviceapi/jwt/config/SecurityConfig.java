@@ -50,14 +50,14 @@ public class SecurityConfig {
 
                 return http.csrf(AbstractHttpConfigurer::disable)
                                 .authorizeHttpRequests(request -> request
-                                                .requestMatchers(new AntPathRequestMatcher("/**/private/**"))
+                                                .requestMatchers(new AntPathRequestMatcher("/private/**"))
                                                 .authenticated())
-                                .httpBasic(Customizer.withDefaults())
+                                // .httpBasic(Customizer.withDefaults())
                                 .authorizeHttpRequests(request -> request
-                                                .requestMatchers(new AntPathRequestMatcher("/**/public/*"))
+                                                .requestMatchers("/places/**", "/topics/**", "/articles/public/**")
                                                 .permitAll())
                                 .authorizeHttpRequests(request -> request
-                                                .requestMatchers("/**/registerUser",
+                                                .requestMatchers("/places/registerUser",
                                                                 "/auth/login",
                                                                 "/auth/register",
                                                                 "/auth/refresh_token",

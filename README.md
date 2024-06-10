@@ -189,3 +189,6 @@ How to generate a JWT access token with some custom claims in it?
 ## Difference Between permitAll() and anonymous() in Spring Security
 
 https://www.baeldung.com/spring-security-permitall-vs-anonymous
+
+# Spring Boot – Interceptor
+https://hocspringboot.net/2021/04/17/spring-boot-interceptor/
