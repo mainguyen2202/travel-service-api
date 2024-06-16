@@ -1,4 +1,4 @@
-package com.nlu.mainguyen.travelserviceapi.controllers;
+package com.nlu.mainguyen.travelserviceapi.controllers.apipublic;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,8 +32,8 @@ import com.nlu.mainguyen.travelserviceapi.services.PlacesService;
 import jakarta.validation.Valid;
 
 @Controller // bảo mật thông tin - system - cho phép client nào được phép truy cập
-@RequestMapping(path = "/places")
-public class PlacesController {
+@RequestMapping(path = "/public/places")
+public class PlacesControllerPublic    {
 
     @Autowired
     private PlacesService service;
@@ -41,22 +41,8 @@ public class PlacesController {
     @Autowired
     private ModelMapper modelMapper;
 
-    @GetMapping("/private/showCart")
-    public @ResponseBody String showCart() {
-        return "Show Cart";
-    }
 
-    @GetMapping("/public/showProducts")
-    public @ResponseBody String listProducts() {
-        return "List Products";
-    }
-
-    @GetMapping("/registerUser")
-    public @ResponseBody String registerUser() {
-        return "Register User";
-    }
-
-    @GetMapping("/public/list")
+    @GetMapping("/list")
     public @ResponseBody List<PlacesDTO> showAll(Model model) {
         try {
             // List<Users> users = this.service.showAll();// danh sách Entity mà cần convert

@@ -1,11 +1,14 @@
 package com.nlu.mainguyen.travelserviceapi.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nlu.mainguyen.travelserviceapi.entities.Articles;
 import com.nlu.mainguyen.travelserviceapi.entities.HisArticles;
@@ -31,11 +34,12 @@ public class ArticlesService {
     private final TopicsRepository topicsRepository;
     private final UsersRepository userRepository;
 
-    public ArticlesService(ArticlesRepository repository, PlacesRepository placesRepository, TopicsRepository topicsRepository, UsersRepository userRepository) {
+    public ArticlesService(ArticlesRepository repository, PlacesRepository placesRepository,
+            TopicsRepository topicsRepository, UsersRepository userRepository) {
         this.repository = repository;
         this.placesRepository = placesRepository;
-       this.topicsRepository =topicsRepository;
-       this.userRepository = userRepository;
+        this.topicsRepository = topicsRepository;
+        this.userRepository = userRepository;
     }
 
     @Autowired
@@ -69,8 +73,9 @@ public class ArticlesService {
     }
 
     public List<Articles> detailBySearchName(String name) {
-        if (name != null) {
-            return repository.findAllSearchKeyword(name);
+        if (name != null && !name.isEmpty()) {
+            String search = "%" + name + "%";
+            return repository.findAllSearchKeyword(search);
         }
         // giá trị mặc định
         return null;
@@ -125,7 +130,7 @@ public class ArticlesService {
     public ResponseDTO update(long id, ArticlesDTO dto) {
         try {
             Articles entity = modelMapper.map(dto, Articles.class); // chuyển từ dto sang entity
-    
+
             Optional<Articles> opt = this.repository.findById(id);
             if (opt.isEmpty()) {
                 return null;// không tìm thấy dữ liệu return rỗng
@@ -148,21 +153,20 @@ public class ArticlesService {
                 }
                 Places place = optPlace.get();
                 get.setPlaces(place);
-    
+
                 Optional<Topics> optTopic = topicsRepository.findById(dto.getTopics().getId());
                 if (optTopic.isEmpty()) {
                     return new ResponseDTO(2, "User not found");
                 }
                 Topics topic = optTopic.get();
                 get.setTopics(topic);
-    
+
                 Optional<Users> userOptional = userRepository.findById(dto.getUsers().getId());
                 if (userOptional.isEmpty()) {
                     return new ResponseDTO(2, "User not found");
                 }
                 Users user = userOptional.get();
                 get.setUsers(user);
-                
 
                 Articles update = this.repository.save(get);
                 ArticlesDTO responseDto = modelMapper.map(update, ArticlesDTO.class);

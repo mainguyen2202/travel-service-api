@@ -49,13 +49,18 @@ public class SecurityConfig {
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
                 return http.csrf(AbstractHttpConfigurer::disable)
+
+
                                 .authorizeHttpRequests(request -> request
                                                 .requestMatchers(new AntPathRequestMatcher("/private/**"))
                                                 .authenticated())
-                                // .httpBasic(Customizer.withDefaults())
+
+                                 .httpBasic(Customizer.withDefaults())
+
                                 .authorizeHttpRequests(request -> request
-                                                .requestMatchers("/places/**", "/topics/**", "/articles/public/**")
+                                                .requestMatchers("/public/**")
                                                 .permitAll())
+
                                 .authorizeHttpRequests(request -> request
                                                 .requestMatchers("/places/registerUser",
                                                                 "/auth/login",
@@ -63,6 +68,7 @@ public class SecurityConfig {
                                                                 "/auth/refresh_token",
                                                                 "/users/forgotPassword")
                                                 .anonymous())
+                                                
                                 .userDetailsService(userDetailsServiceImp)
                                 .sessionManagement(session -> session
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))

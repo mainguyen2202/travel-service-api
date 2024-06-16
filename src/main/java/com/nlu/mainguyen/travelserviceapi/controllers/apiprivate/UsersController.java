@@ -1,4 +1,4 @@
-package com.nlu.mainguyen.travelserviceapi.controllers;
+package com.nlu.mainguyen.travelserviceapi.controllers.apiprivate;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ import com.nlu.mainguyen.travelserviceapi.model.UserOutputDTO;
 import com.nlu.mainguyen.travelserviceapi.model.UserInputDTO;
 
 @Controller
-@RequestMapping(path = "/users")
+@RequestMapping(path = "/private/users")
 public class UsersController {
 
     @Autowired

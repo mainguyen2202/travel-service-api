@@ -1,22 +1,6 @@
 SELECT * FROM db_travels.users;
-INSERT INTO `db_travels`.`users` (`id`, `create_at`, `email`, `firstname`, `image`, `lastname`, `password`, `role`, `status`, `username`) VALUES ('1', '2024-03-20', 'trucmainguyen02@gmail.com', 'Mai', 'avartar.jpg', 'Nguyen', 'abc123', '1', '1', 'mainguyen');
 
 
-
-
-
-INSERT INTO `users` (`id`, `create_at`, `email`, `firstname`, `image`, `lastname`, `password`, `role`, `status`, `username`)
-VALUES
-  (1, '2022-01-01', CONCAT('mai', '@gmail.com'), 'Mai', 'image1.jpg', 'Đỗ', 'password1', 1, 1, 'user1'),
-  (2, '2022-02-01', CONCAT('my', '@gmail.com'), 'Mỹ', 'image2.jpg', 'Nguyễn', 'password2', 2, 1, 'user2'),
-  (3, '2022-03-01', CONCAT('linh', '@gmail.com'), 'Linh', 'image3.jpg', 'Trần', 'password3', 2, 0, 'user3'),
-  (4, '2022-04-01', CONCAT('duy', '@gmail.com'), 'Duy', 'image4.jpg', 'Lê', 'password4', 1, 1, 'user4'),
-  (5, '2022-05-01', CONCAT('huong', '@gmail.com'), 'Hương', 'image5.jpg', 'Vũ', 'password5', 2, 1, 'user5'),
-  (6, '2022-06-01', CONCAT('an', '@gmail.com'), 'An', 'image6.jpg', 'Phạm', 'password6', 1, 0, 'user6'),
-  (7, '2022-07-01', CONCAT('thanh', '@gmail.com'), 'Thành', 'image7.jpg', 'Hoàng', 'password7', 2, 1, 'user7'),
-  (8, '2022-08-01', CONCAT('thu', '@gmail.com'), 'Thu', 'image8.jpg', 'Huỳnh', 'password8', 1, 1, 'user8'),
-  (9, '2022-09-01', CONCAT('hai', '@gmail.com'), 'Hải', 'image9.jpg', 'Ngô', 'password9', 2, 1, 'user9'),
-  (10, '2022-10-01', CONCAT('thao', '@gmail.com'), 'Thảo', 'image10.jpg', 'Bùi', 'password10', 1, 0, 'user10');
 
   INSERT INTO `topics` (`id`, `title`, `sub_topics_id`, `content`, `status`) VALUES
 (1, 'Thiên nhiên', NULL, NULL, 1),
@@ -67,29 +51,69 @@ VALUES
 (46, 'Khu trò chơi trong nhà', 7, NULL, 1),
 (47, 'Khu vui chơi ngoài trời', 7, NULL, 1);
 
-INSERT INTO `articles` (`id`,`name`, `content`, `create_at`, `image`, `status`, `title`, `places_id`, `topics_id`, `users_id`,`name`)
+INSERT INTO `travels`.`places`
+(`id`, `name`, `status`, `sub_place_id`, `coordinates_id`,`image`,`content`)
 VALUES
-
-(4, 'Content 4', '2022-04-04', 'image4.jpg', 1, 'Title 4', 4, 11, 1,'Du lịch biển'),
-(5, 'Content 5', '2022-05-05', 'image5.jpg', 1, 'Title 5', 5, 12, 1,'Du lịch biển'),
-(6, 'Content 6', '2022-06-06', 'image6.jpg', 1, 'Title 6', 6, 13, 1,'Du lịch biển'),
-(7, 'Content 7', '2022-07-07', 'image7.jpg', 1, 'Title 7', 7, 14, 1,'Du lịch biển'),
-(8, 'Content 8', '2022-08-08', 'image8.jpg', 1, 'Title 8', 8, 15, 1,'Du lịch biển'),
-(9, 'Content 9', '2022-09-09', 'image9.jpg', 1, 'Title 9', 9, 16, 1,'Du lịch biển'),
-(10, 'Content 10', '2022-10-10', 'image10.jpg', 1, 'Title 10', 10, 17, 1,'Du lịch biển');
-
-INSERT INTO `itineraries` (`id`, `date_end`, `date_start`, `name`, `position`, `status`, `users_id`,`content`)
-VALUES
-  (1, '2022-01-01', '2022-01-05', 'Trip A', 1, 1, 1, 'Trip A'),
-  (2, '2022-02-10', '2022-02-15', 'Trip B', 2, 1, 1, 'Trip A'),
-   (3, '2022-03-20', '2022-03-25', 'Trip C', 3, 0, 1, ''),
-  (4, '2022-04-05', '2022-04-10', 'Trip D', 4, 1, 1, 'Trip A'),
-  (5, '2022-05-15', '2022-05-20', 'Trip E', 5, 0, 1, 'Trip A');
-
- INSERT INTO itinerary_articles (id, articles_id, itineraries_id,status)
-VALUES
-(1, 1, 1,0),
-(2, 2, 1,0),
-(3, 1, 2,0),
-(4, 4, 2,0),
-(5, 1, 3,0);
+(1, 'Thành phố Hồ Chí Minh', 1, 1, 1, NULL, NULL),
+(2, 'Đà Nẵng', 1, 1, 1, NULL, NULL),
+(3, 'Khánh Hòa', 1, 1, 1, NULL, NULL),
+(4, 'Ninh Thuận', 1, 1, 1, NULL, NULL),
+(5, 'Hải Phòng', 1, 1, 1, NULL, NULL),
+(6, 'Hà Nội', 1, 1, 1, NULL, NULL),
+(7, 'An Giang', 1, 1, 1, NULL, NULL),
+(8, 'Bà Rịa – Vũng Tàu', 1, 1, 1, NULL, NULL),
+(9, 'Bắc Giang', 1, 1, 1, NULL, NULL),
+(10, 'Bắc Kạn', 1, 1, 1, NULL, NULL),
+(11, 'Bạc Liêu', 1, 1, 1, NULL, NULL),
+(12, 'Bắc Ninh', 1, 1, 1, NULL, NULL),
+(13, 'Bến Tre', 1, 1, 1, NULL, NULL),
+(14, 'Bình Định', 1, 1, 1, NULL, NULL),
+(15, 'Bình Dương', 1, 1, 1, NULL, NULL),
+(16, 'Bình Phước', 1, 1, 1, NULL, NULL),
+(17, 'Bình Thuận', 1, 1, 1, NULL, NULL),
+(18, 'Cà Mau', 1, 1, 1, NULL, NULL),
+(19, 'Cần Thơ', 1, 1, 1, NULL, NULL),
+(20, 'Cao Bằng', 1, 1, 1, NULL, NULL),
+(21, 'Đắk Lắk', 1, 1, 1, NULL, NULL),
+(22, 'Đắk Nông', 1, 1, 1, NULL, NULL),
+(23, 'Điện Biên', 1, 1, 1, NULL, NULL),
+(24, 'Đồng Nai', 1, 1, 1, NULL, NULL),
+(25, 'Đồng Tháp', 1, 1, 1, NULL, NULL),
+(26, 'Gia Lai', 1, 1, 1, NULL, NULL),
+(27, 'Hà Giang', 1, 1, 1, NULL, NULL),
+(28, 'Hà Nam', 1, 1, 1, NULL, NULL),
+(29, 'Hà Tĩnh', 1, 1, 1, NULL, NULL),
+(30, 'Hải Dương', 1, 1, 1, NULL, NULL),
+(31, 'Hậu Giang', 1, 1, 1, NULL, NULL),
+(32, 'Hòa Bình', 1, 1, 1, NULL, NULL),
+(33, 'Hưng Yên', 1, 1, 1, NULL, NULL),
+(34, 'Kiên Giang', 1, 1, 1, NULL, NULL),
+(35, 'Kon Tum', 1, 1, 1, NULL, NULL),
+(36, 'Lai Châu', 1, 1, 1, NULL, NULL),
+(37, 'Lâm Đồng', 1, 1, 1, NULL, NULL),
+(38, 'Lạng Sơn', 1, 1, 1, NULL, NULL),
+(39, 'Lào Cai', 1, 1, 1, NULL, NULL),
+(40, 'Long An', 1, 1, 1, NULL, NULL),
+(41, 'Nam Định', 1, 1, 1, NULL, NULL),
+(42, 'Nghệ An', 1, 1, 1, NULL, NULL),
+(43, 'Ninh Bình', 1, 1, 1, NULL, NULL),
+(44, 'Phú Thọ', 1, 1, 1, NULL, NULL),
+(45, 'Phú Yên', 1, 1, 1, NULL, NULL),
+(46, 'Quảng Bình', 1, 1, 1, NULL, NULL),
+(47, 'Quảng Nam', 1, 1, 1, NULL, NULL),
+(48, 'Quảng Ngãi', 1, 1, 1, NULL, NULL),
+(49, 'Quảng Ninh', 1, 1, 1, NULL, NULL),
+(50, 'Quảng Trị', 1, 1, 1, NULL, NULL),
+(51, 'Sóc Trăng', 1, 1, 1, NULL, NULL),
+(52, 'Sơn La', 1, 1, 1, NULL, NULL),
+(53, 'Tây Ninh', 1, 1, 1, NULL, NULL),
+(54, 'Thái Bình', 1, 1, 1, NULL, NULL),
+(55, 'Thái Nguyên', 1, 1, 1, NULL, NULL),
+(56, 'Thanh Hóa', 1, 1, 1, NULL, NULL),
+(57, 'Thừa Thiên Huế', 1, 1, 1, NULL, NULL),
+(58, 'Tiền Giang', 1, 1, 1, NULL, NULL),
+(59, 'Trà Vinh', 1, 1, 1, NULL, NULL),
+(60, 'Tuyên Quang', 1, 1, 1, NULL, NULL),
+(61, 'Vĩnh Long', 1, 1, 1, NULL, NULL),
+(62, 'Vĩnh Phúc', 1, 1, 1, NULL, NULL),
+(63, 'Yên Bái', 1, 1, 1, NULL, NULL);

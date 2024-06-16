@@ -1,4 +1,4 @@
-package com.nlu.mainguyen.travelserviceapi.controllers;
+package com.nlu.mainguyen.travelserviceapi.controllers.apiprivate;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,7 +22,7 @@ import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping(path = "/coordinates")
+@RequestMapping(path = "/private/coordinates")
 public class CoordinatesController {
 
     @Autowired

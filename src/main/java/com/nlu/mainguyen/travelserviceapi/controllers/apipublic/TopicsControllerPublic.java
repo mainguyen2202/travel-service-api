@@ -1,4 +1,4 @@
-package com.nlu.mainguyen.travelserviceapi.controllers;
+package com.nlu.mainguyen.travelserviceapi.controllers.apipublic;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,15 +17,15 @@ import jakarta.validation.Valid;
 
 @Controller
 
-@RequestMapping(path = "/topics")
-public class TopicsController {
+@RequestMapping(path = "/public/topics")
+public class TopicsControllerPublic    {
     @Autowired
     private TopicsService service;
 
     @Autowired
     private ModelMapper modelMapper;
 
-    @GetMapping("/public/list")
+    @GetMapping("/list")
     public @ResponseBody List<TopicsDTO> showAll(Model model) {
         try {
             // List<Users> users = this.service.showAll();// danh sách Entity mà cần convert
@@ -43,7 +43,7 @@ public class TopicsController {
         return null;
     }
 
-    @GetMapping("/public/list/{sub_topics_id}")
+    @GetMapping("/list/{sub_topics_id}")
     public @ResponseBody List<TopicsDTO> showAllId(@PathVariable("sub_topics_id") int subTopicsId) {
         try {
             List<Topics> topics = service.getAllById(subTopicsId);

@@ -1,4 +1,4 @@
-package com.nlu.mainguyen.travelserviceapi.controllers;
+package com.nlu.mainguyen.travelserviceapi.controllers.apiprivate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ import com.nlu.mainguyen.travelserviceapi.model.ContactsDTO;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping(path = "/contacts")
+@RequestMapping(path = "/private/contacts")
 public class ContactsController {
     @Autowired
     private ContactsService service;

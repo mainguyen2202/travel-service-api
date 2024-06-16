@@ -1,4 +1,4 @@
-package com.nlu.mainguyen.travelserviceapi.controllers;
+package com.nlu.mainguyen.travelserviceapi.controllers.apipublic;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,8 +25,8 @@ import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.services.ItineraryArticlesService;
 
 @Controller
-@RequestMapping(path = "/itineraryArticles")
-public class ItineraryArticlesController {
+@RequestMapping(path = "/public/itineraryArticles")
+public class ItineraryArticlesControllerPublic {
     @Autowired
     private ItineraryArticlesService service;
 

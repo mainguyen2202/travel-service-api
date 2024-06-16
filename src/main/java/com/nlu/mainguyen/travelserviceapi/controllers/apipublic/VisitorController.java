@@ -1,4 +1,4 @@
-package com.nlu.mainguyen.travelserviceapi.controllers;
+package com.nlu.mainguyen.travelserviceapi.controllers.apipublic;
 
 // import javax.validation.Valid;
 import jakarta.validation.Valid;

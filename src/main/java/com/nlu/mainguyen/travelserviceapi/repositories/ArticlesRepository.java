@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nlu.mainguyen.travelserviceapi.entities.Articles;
 import com.nlu.mainguyen.travelserviceapi.entities.HisArticles;
@@ -22,19 +24,6 @@ public interface ArticlesRepository extends JpaRepository<Articles, Long> {
     @Query(value = " SELECT * FROM articles s ORDER BY s.create_at DESC", nativeQuery = true)
     List<Articles> findAllDescDate();// B1
 
-    // @Query(value = " SELECT * FROM articles  WHERE  name= ?1 ", nativeQuery = true)
-    // List<Articles> findAllSearchKeyword(String name);// B1
-
-    @Query(value = " SELECT * FROM articles  WHERE  name LIKE  %?1%  ", nativeQuery = true)
+    @Query(value = "SELECT * FROM articles  WHERE  name LIKE ?1", nativeQuery = true)
     List<Articles> findAllSearchKeyword(String name);// B1
-
-  
-
-  
-
- 
-
-
-
-    
 }

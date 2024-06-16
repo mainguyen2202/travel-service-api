@@ -41,7 +41,7 @@ public class ItinerariesService {
         try {
             Itineraries itineraries = modelMapper.map(dto, Itineraries.class);// chuyển từ dto sang entity
 
-            Optional<Users> userOptional = userRepository.findById(dto.getUsersId());
+            Optional<Users> userOptional = userRepository.findById(dto.getUsers().getId());
             if (userOptional.isEmpty()) {
                 return new ResponseDTO(2, "User not found");
             }

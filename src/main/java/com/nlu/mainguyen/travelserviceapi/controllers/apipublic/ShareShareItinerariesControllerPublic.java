@@ -1,4 +1,4 @@
-package com.nlu.mainguyen.travelserviceapi.controllers;
+package com.nlu.mainguyen.travelserviceapi.controllers.apipublic;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,8 +22,8 @@ import com.nlu.mainguyen.travelserviceapi.model.ShareItinerariesDTO;
 import com.nlu.mainguyen.travelserviceapi.services.ShareItinerariesService;
 
 @Controller
-@RequestMapping(path = "/shareItineraries")
-public class ShareShareItinerariesController {
+@RequestMapping(path = "/public/shareItineraries")
+public class ShareShareItinerariesControllerPublic {
     @Autowired
     private ShareItinerariesService service;
 

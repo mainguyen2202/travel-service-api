@@ -1,4 +1,4 @@
-package com.nlu.mainguyen.travelserviceapi.controllers;
+package com.nlu.mainguyen.travelserviceapi.controllers.apipublic;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,11 +28,11 @@ import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.services.HistoryArticlesService;
 
 @Controller
-@RequestMapping(path = "/historyArticles")
-public class HistoryArticlesController {
+@RequestMapping(path = "/public/historyArticles")
+public class HistoryArticlesControllerPublic {
     private HistoryArticlesService service;
 
-    public HistoryArticlesController(HistoryArticlesService service) {
+    public HistoryArticlesControllerPublic(HistoryArticlesService service) {
         this.service = service;
     }
 

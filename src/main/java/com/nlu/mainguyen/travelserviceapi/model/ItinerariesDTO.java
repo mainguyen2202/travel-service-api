@@ -16,6 +16,6 @@ public class ItinerariesDTO { // Lập kế hoạch
     private int position; // thứ tự
     private String content;
 
-    private long usersId;
+    // private long usersId;
     private UserOutputDTO users;
 }

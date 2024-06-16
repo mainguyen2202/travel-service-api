@@ -48,7 +48,8 @@ public PlacesService(PlacesRepository repository, CoordinatesRepository coordina
     }
 
     public Iterable<Places> findByName(String name) {
-        return this.repository.findByName(name);
+        String search = "%" + name + "%";
+        return this.repository.findByName(search);
     }
 
    

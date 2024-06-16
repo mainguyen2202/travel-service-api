@@ -1,4 +1,4 @@
-package com.nlu.mainguyen.travelserviceapi.controllers;
+package com.nlu.mainguyen.travelserviceapi.controllers.apiprivate;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,7 +29,7 @@ import com.nlu.mainguyen.travelserviceapi.model.UserOutputDTO;
 import com.nlu.mainguyen.travelserviceapi.services.LikesService;
 
 @Controller
-@RequestMapping(path="/likes")
+@RequestMapping(path="/private/likes")
 public class LikesController {
     private LikesService service;
 
