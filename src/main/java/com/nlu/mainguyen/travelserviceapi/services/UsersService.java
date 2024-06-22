@@ -78,6 +78,7 @@ public class UsersService {
             // Mã hóa mật khẩu trước khi lưu vào cơ sở dữ liệu
             // String encodedPassword = passwordEncoder.encode(input.getPassword());
             // input.setPassword(encodedPassword);
+            userEntity.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
             // Lưu người dùng vào cơ sở dữ liệu
             Users createdUser = this.repository.save(userEntity);// lưu thành công và có id định danh
@@ -92,6 +93,7 @@ public class UsersService {
             return new ResponseDTO(2, errorMessage);
         }
     }
+    
 
     public ResponseDTO login(String username, String password) {
         // Kiểm tra sự tồn tại của người dùng bằng username
@@ -295,7 +297,7 @@ public class UsersService {
         // Gửi email đặt lại mật khẩu cho người dùng
         String subject = "Password Reset Request";
         String text = "Please click the following link to reset your password: " + passwordResetUrl;
-        gEmailSender.sendEmail(email, "trucmainguyen02@gmail.com", subject, text);
+        gEmailSender.sendEmail(email, subject, text);
 
         // Trả về phản hồi
         return new ResponseDTO(1, "Password reset instructions have been sent to your email");

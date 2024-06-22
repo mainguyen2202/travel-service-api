@@ -21,7 +21,7 @@ import com.nlu.mainguyen.travelserviceapi.model.UserInputDTO;
 
 @Controller
 @RequestMapping(path = "/users")
-public class UsersControllerAnonymous {
+public class UsersAnonymousController {
 
     @Autowired
     private UsersService service;

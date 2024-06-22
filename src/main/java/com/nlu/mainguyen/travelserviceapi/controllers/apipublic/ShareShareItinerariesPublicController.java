@@ -23,7 +23,7 @@ import com.nlu.mainguyen.travelserviceapi.services.ShareItinerariesService;
 
 @Controller
 @RequestMapping(path = "/public/shareItineraries")
-public class ShareShareItinerariesControllerPublic {
+public class ShareShareItinerariesPublicController {
     @Autowired
     private ShareItinerariesService service;
 

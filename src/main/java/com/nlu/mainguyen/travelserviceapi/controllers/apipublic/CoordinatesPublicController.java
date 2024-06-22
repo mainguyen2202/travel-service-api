@@ -23,7 +23,7 @@ import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping(path = "/public/coordinates")
-public class CoordinatesControllerPublic {
+public class CoordinatesPublicController {
 
     @Autowired
     private CoordinatesService service;

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class GEmailSender {
 
-    public boolean sendEmail(String to, String from, String subject, String text) {
+    public boolean sendEmail(String to, String subject, String text) {
         boolean flag = false;
 
         //logic
@@ -22,12 +22,10 @@ public class GEmailSender {
         properties.put("mail.smtp.port", "587");
         properties.put("mail.smtp.host", "smtp.gmail.com");
 
-        // String username = "web";
-        String email = "trucmainguyen02@gmail.com";
-        String password = "pbpfganrroiylmuq";
-
-
-        //session
+        String email = "trucmainguyen02@gmail.com";// tài khoản
+        // String username = "web"; // mật khẩu của ứng dụng 
+        String password = "pbpfganrroiylmuq";// mật khẩu
+        //session - token
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -35,11 +33,11 @@ public class GEmailSender {
             }
         });
 
+        // gửi mail
         try {
-
-            Message message = new MimeMessage(session);
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            message.setFrom(new InternetAddress(from));
+            Message message = new MimeMessage(session);// gán token đển gửi mail
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));// người nhận
+            message.setFrom(new InternetAddress(email));//người gửi
             message.setSubject(subject);
             message.setText(text);
             Transport.send(message);
@@ -47,8 +45,6 @@ public class GEmailSender {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
         return flag;
     }
     /*
@@ -56,10 +52,10 @@ public class GEmailSender {
 
         GEmailSender gEmailSender = new GEmailSender();
         String to = "20130321@st.hcmuaf.edu.vn";
-        String from = "trucmainguyen02@gmail.com";
+        // String from = "trucmainguyen02@gmail.com";
         String subject = "Second: Sending email using GMail";
         String text = "This is a example email send using gmail and java program with out less secure app";
-        boolean b = gEmailSender.sendEmail(to, from, subject, text);
+        boolean b = gEmailSender.sendEmail(to, subject, text);
         if (b) {
             System.out.println(" Email is sent successfully");
         } else {

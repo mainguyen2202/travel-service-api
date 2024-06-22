@@ -56,11 +56,22 @@ public class ArticlesService {
     }
 
     // lấy danh sách theo idPlaces, idTopics
-    public List<Articles> listAllBySearch(long places_id, long topics_id) {
+    public List<Articles> listAllBySearch(long places_id, long topics_id, String places_ids) {
+        // 1,2,8,10 -> String -> mảng long
+        List<Long> arrPlaceIds = new ArrayList<Long>();
+        String[] arrOfStr = places_ids.split(",");
+        for (String id : arrOfStr) {
+            arrPlaceIds.add(Long.parseLong(id, 10));// số hệ thập phân
+        }
+        if (arrPlaceIds.size() > 0 && topics_id == 0) {
+            return this.repository.findSearchMuiltiPlaces(arrPlaceIds);
+        } else if (arrPlaceIds.size() > 0 && topics_id != 0) {
+            return this.repository.findSearchMuilti(arrPlaceIds, topics_id);
+        }
         // places_id có giá trị và topics_id = 0
         // places_id = 0 và topics_id có giá trị
         // tất cả điều có giá trị
-        if (places_id != 0 && topics_id == 0) {
+        else if (places_id != 0 && topics_id == 0) {
             return this.repository.findAllByPlacesId(places_id);
         } else if (places_id == 0 && topics_id != 0) {
             return this.repository.findAllByTopicsId(topics_id);
@@ -87,14 +98,14 @@ public class ArticlesService {
 
             Optional<Places> optPlace = placesRepository.findById(dto.getPlaces().getId());
             if (optPlace.isEmpty()) {
-                return new ResponseDTO(2, "User not found");
+                return new ResponseDTO(2, "Places not found");
             }
             Places place = optPlace.get();
             entity.setPlaces(place);
 
             Optional<Topics> optTopic = topicsRepository.findById(dto.getTopics().getId());
             if (optTopic.isEmpty()) {
-                return new ResponseDTO(2, "User not found");
+                return new ResponseDTO(2, "Topics not found");
             }
             Topics topic = optTopic.get();
             entity.setTopics(topic);

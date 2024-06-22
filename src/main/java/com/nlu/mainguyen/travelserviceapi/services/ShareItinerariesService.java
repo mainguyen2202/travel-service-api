@@ -72,10 +72,9 @@ public class ShareItinerariesService {
     
             // Send email
             String to = userOptional.get().getEmail();
-            String from = "trucmainguyen02@gmail.com";
             String subject = "Hành trình mới được chia sẻ với bạn";
             String text = "Bạn của bạn đã chia sẻ hành trình với bạn. Làm ơn hãy kiểm tra nó."+passwordResetUrl;
-            gEmailSender.sendEmail(to, from, subject, text);
+            gEmailSender.sendEmail(to, subject, text);
 
             return new ResponseDTO(1, "Created successfully", responseDto);
         } catch (Exception e) {

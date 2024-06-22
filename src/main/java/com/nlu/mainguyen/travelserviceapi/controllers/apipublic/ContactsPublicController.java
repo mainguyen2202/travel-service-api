@@ -31,7 +31,7 @@ import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping(path = "/public/contacts")
-public class ContactsControllerPublic {
+public class ContactsPublicController {
     @Autowired
     private ContactsService service;
 

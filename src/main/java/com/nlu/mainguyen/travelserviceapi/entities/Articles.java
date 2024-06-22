@@ -46,7 +46,7 @@ public class Articles {// bài viết của nhiều địa điểm và nhiều t
 
     // @JsonIgnore
     // private final LocalDateTime editedAt = LocalDateTime.now();
-
+    @Column(columnDefinition = "LONGTEXT")
     private String content;
     private int status;
 

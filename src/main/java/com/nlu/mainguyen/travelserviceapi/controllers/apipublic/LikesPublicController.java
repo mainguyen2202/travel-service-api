@@ -30,10 +30,10 @@ import com.nlu.mainguyen.travelserviceapi.services.LikesService;
 
 @Controller
 @RequestMapping(path="/public/likes")
-public class LikesControllerPublic {
+public class LikesPublicController {
     private LikesService service;
 
-	public LikesControllerPublic(LikesService service) {
+	public LikesPublicController(LikesService service) {
 		this.service = service;
 	}
     @Autowired

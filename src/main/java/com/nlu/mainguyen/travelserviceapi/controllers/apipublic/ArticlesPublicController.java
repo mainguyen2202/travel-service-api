@@ -35,7 +35,7 @@ import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping(path = "/public/articles")
-public class ArticlesControllerPublic {
+public class ArticlesPublicController {
     @Autowired
     private ArticlesService service;
 
@@ -65,10 +65,10 @@ public class ArticlesControllerPublic {
     @GetMapping("/list")
     // @RequestMapping(value = "/list", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody List<ArticlesDTO> getArticlesBySearch(@RequestParam("places_id") long places_id,
-            @RequestParam("topics_id") long topics_id) {
-
+            @RequestParam("topics_id") long topics_id,
+            @RequestParam("places_ids") String places_ids) {
         try {
-            List<Articles> articles = service.listAllBySearch(places_id, topics_id);
+            List<Articles> articles = service.listAllBySearch(places_id, topics_id, places_ids);
 
             List<ArticlesDTO> results = articles.stream()
                     .map(item -> modelMapper.map(item, ArticlesDTO.class))

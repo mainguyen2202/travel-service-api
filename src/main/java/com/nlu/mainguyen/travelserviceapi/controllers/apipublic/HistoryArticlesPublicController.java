@@ -29,10 +29,10 @@ import com.nlu.mainguyen.travelserviceapi.services.HistoryArticlesService;
 
 @Controller
 @RequestMapping(path = "/public/historyArticles")
-public class HistoryArticlesControllerPublic {
+public class HistoryArticlesPublicController {
     private HistoryArticlesService service;
 
-    public HistoryArticlesControllerPublic(HistoryArticlesService service) {
+    public HistoryArticlesPublicController(HistoryArticlesService service) {
         this.service = service;
     }
 

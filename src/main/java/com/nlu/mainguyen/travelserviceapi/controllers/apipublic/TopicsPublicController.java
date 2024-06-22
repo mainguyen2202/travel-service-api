@@ -18,7 +18,7 @@ import jakarta.validation.Valid;
 @Controller
 
 @RequestMapping(path = "/public/topics")
-public class TopicsControllerPublic    {
+public class TopicsPublicController    {
     @Autowired
     private TopicsService service;
 

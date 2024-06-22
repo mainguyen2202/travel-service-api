@@ -74,6 +74,8 @@ public class UsersController {
 
     }
 
+    
+
     @GetMapping("/detail/{id}")
     public ResponseEntity<UserOutputDTO> viewCommentsByID(@PathVariable("id") Long id) {
         try {
