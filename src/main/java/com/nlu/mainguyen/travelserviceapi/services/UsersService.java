@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.nlu.mainguyen.travelserviceapi.Util.GEmailSender;
+import com.nlu.mainguyen.travelserviceapi.entities.PasswordResetToken;
 import com.nlu.mainguyen.travelserviceapi.entities.Users;
 import com.nlu.mainguyen.travelserviceapi.exception.ResourceNotFoundException;
+import com.nlu.mainguyen.travelserviceapi.model.ResetPasswordInputDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.model.UserInputDTO;
 import com.nlu.mainguyen.travelserviceapi.model.UserOutputDTO;
+import com.nlu.mainguyen.travelserviceapi.repositories.PasswordResetTokenRepository;
 import com.nlu.mainguyen.travelserviceapi.repositories.UsersRepository;
+
+import io.micrometer.common.util.StringUtils;
+
 import java.util.Base64;
 
 @Service
@@ -27,6 +34,9 @@ public class UsersService {
 
     @Autowired
     private UsersRepository repository;// new
+
+    @Autowired
+    private PasswordResetTokenRepository passwordTokenRepository;
 
     @Autowired
     private GEmailSender gEmailSender;
@@ -90,7 +100,6 @@ public class UsersService {
             return new ResponseDTO(2, errorMessage);
         }
     }
-    
 
     public ResponseDTO login(String username, String password) {
         // Kiểm tra sự tồn tại của người dùng bằng username
@@ -158,7 +167,7 @@ public class UsersService {
             return new ResponseDTO(2, "Failed to create: " + e.getMessage());
         }
     }
-    
+
     public ResponseDTO updateUser(long id, UserOutputDTO dto) {
         try {
             Users user = modelMapper.map(dto, Users.class); // chuyển từ dto sang entity
@@ -210,8 +219,6 @@ public class UsersService {
             return new ResponseDTO(2, "Failed to create: " + e.getMessage());
         }
     }
-    
-  
 
     // delete
     public ResponseDTO deleteByID(Long id) {
@@ -224,48 +231,14 @@ public class UsersService {
         }
     }
 
-    private String generateUniqueToken() {
-        // Implement the logic to generate a unique token
-        return "unique_token";
+    public void createPasswordResetTokenForUser(Users user, String token) {
+        // Xóa những dữ liệu cũ
+        // passwordTokenRepository.deleteByUserId(user.getId());
+
+        // PasswordResetToken myToken = new PasswordResetToken(token, user, expiryDate);
+        PasswordResetToken myToken = new PasswordResetToken(token, user);
+        passwordTokenRepository.save(myToken);
     }
-
-    private Date calculateExpirationDate() {
-        // Implement the logic to calculate the expiration date for the reset token
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.HOUR, 24);
-        return calendar.getTime();
-    }
-
-    // public ResponseDTO forgotPassword(String email) {
-    // // Find the user by email
-    // Users user = this.repository.findByEmail(email);
-    // if (user == null) {
-    // throw new RuntimeException("User not found");
-    // }
-
-    // // Generate a unique token and expiration date
-    // String resetToken = generateUniqueToken();
-    // Date expirationDate = calculateExpirationDate();
-
-    // // Update the user's reset token and expiration date
-    // user.setResetPasswordToken(resetToken);
-    // user.setResetPasswordTokenExpirationDate(expirationDate);
-    // this.repository.save(user);
-
-    // // Build the password reset URL
-    // String passwordResetUrl = "http://localhost:3000/ForgotPassword?token=" +
-    // resetToken + "&userId=" + user.getId();
-
-    // // Send the password reset email to the user
-    // String subject = "Password Reset Request";
-    // String text = "Please click the following link to reset your password: " +
-    // passwordResetUrl;
-    // gEmailSender.sendEmail(email, "trucmainguyen02@gmail.com", subject, text);
-
-    // // Return the response
-    // return new ResponseDTO(1, "Password reset instructions have been sent to your
-    // email");
-    // }
 
     public ResponseDTO forgotPassword(String email) {
         // Tìm người dùng bằng email
@@ -274,20 +247,16 @@ public class UsersService {
             throw new RuntimeException("User not found");
         }
 
-        // Tạo token và ngày hết hạn
-        String resetToken = generateUniqueToken();
-        Date expirationDate = calculateExpirationDate();
+        // Tạo token
+        String resetToken = UUID.randomUUID().toString();// tạo 1 token random
+        // Khởi tạo dữ liệu token và ngày hết hạn của người dùng
+        createPasswordResetTokenForUser(user, resetToken);
 
-        // Cập nhật token và ngày hết hạn của người dùng
-        user.setResetPasswordToken(resetToken);
-        user.setResetPasswordTokenExpirationDate(expirationDate);
-        this.repository.save(user);
-
-        // Mã hóa userId
-        String encryptedUserId = Base64.getEncoder().encodeToString(("&userId=" + user.getId()).getBytes());
+        // Mã hóa -> để bảo mật -> chuyển sang dùng SHA hoặc RSA
+        String encryptedToken = Base64.getEncoder().encodeToString((resetToken).getBytes());
 
         // Tạo URL đặt lại mật khẩu
-        String passwordResetUrl = "http://localhost:3000/ForgotPassword?token=" + resetToken + encryptedUserId;
+        String passwordResetUrl = "http://localhost:3000/ForgotPassword?token=" + encryptedToken;
 
         // Gửi email đặt lại mật khẩu cho người dùng
         String subject = "Password Reset Request";
@@ -296,6 +265,64 @@ public class UsersService {
 
         // Trả về phản hồi
         return new ResponseDTO(1, "Password reset instructions have been sent to your email");
+    }
+
+    // Cách đơn giản
+    public ResponseDTO validatePasswordResetTokenV1(String token) {
+        final PasswordResetToken passToken = passwordTokenRepository.findByToken(token);// lấy thông tin
+        if (passToken == null) {
+            return new ResponseDTO(2, "invalidToken"); // không tồn tại
+        } else {
+            final Calendar cal = Calendar.getInstance();// now()
+            if (passToken.getExpiryDate().before(cal.getTime())) {
+                return new ResponseDTO(2, "expired"); // hết hạn
+            }
+        }
+        return new ResponseDTO(1, "");// tồn tại và còn thời hạn
+    }
+
+    // Cách tối ưu
+    public String validatePasswordResetToken(String token) {
+        final PasswordResetToken passToken = passwordTokenRepository.findByToken(token);// lấy thông tin
+        return !isTokenFound(passToken) ? "invalidToken"
+                : isTokenExpired(passToken) ? "expired" : null;
+    }
+
+    private boolean isTokenFound(PasswordResetToken passToken) {
+        return (passToken != null);
+    }
+
+    private boolean isTokenExpired(PasswordResetToken passToken) {
+        final Calendar cal = Calendar.getInstance();
+        return passToken.getExpiryDate().before(cal.getTime());// kiểm tra thời gian
+    }
+
+    public ResponseDTO resetPassword(ResetPasswordInputDTO dto) {
+        // Token -> giải mã -> userid
+        // String encryptedUserId = "&userId=123456789";
+        byte[] decodedBytes = Base64.getDecoder().decode(dto.getToken().getBytes());
+        String decryptedResetToken = new String(decodedBytes);
+        if (!StringUtils.isEmpty(decryptedResetToken)) {
+
+            String check = validatePasswordResetToken(decryptedResetToken);
+            if (check != null) {
+                return new ResponseDTO(2, check);// Câu thông báo lỗi
+            } else {
+                // Cập nhật mật khẩu của bảng user 
+                PasswordResetToken passToken = passwordTokenRepository.findByToken(decryptedResetToken);
+                if (passToken == null) {
+                    return new ResponseDTO(2, "User not found");
+                } else {
+                    Users info = passToken.getUser();
+                    info.setPassword(passwordEncoder.encode(dto.getPassword()));
+                    Users update = this.repository.save(info);
+                    UserOutputDTO responseDto = modelMapper.map(update, UserOutputDTO.class);
+                    return new ResponseDTO(1, "Update successfully", responseDto);
+                }
+            }
+        } else {
+            return new ResponseDTO(2, "UserId is empty");
+        }
     }
 
     // end

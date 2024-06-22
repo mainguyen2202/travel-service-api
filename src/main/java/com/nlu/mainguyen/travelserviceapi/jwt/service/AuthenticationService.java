@@ -84,23 +84,23 @@ public class AuthenticationService {
         String accessToken = jwtService.generateAccessToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);
 
-        revokeAllTokenByUser(user);// xóa tất cả token cũ của user đó
+        // revokeAllTokenByUser(user);// xóa tất cả token cũ của user đó
         saveUserToken(accessToken, refreshToken, user);// lưu token đang sử dụng của user đó
 
         return new AuthenticationResponse(accessToken, refreshToken, "User login was successful");
 
     }
     private void revokeAllTokenByUser(Users user) {
-        List<Token> validTokens = tokenRepository.findAllAccessTokensByUser(user.getId());
+        List<Token> validTokens = tokenRepository.findAllAccessTokensByUser(user.getId());// lấy danh sách token chưa dx logout
         if(validTokens.isEmpty()) {
             return;
         }
 
         validTokens.forEach(t-> {
-            t.setLoggedOut(true);
+            t.setLoggedOut(true);//cập nhật đã logout
         });
 
-        tokenRepository.saveAll(validTokens);
+        tokenRepository.saveAll(validTokens);// lưu lại => chỉ có 1 token có hiệu lực đang hoạt động
     }
     private void saveUserToken(String accessToken, String refreshToken, Users user) {
         Token token = new Token();

@@ -18,21 +18,22 @@ import com.nlu.mainguyen.travelserviceapi.entities.VisitorTModel;
 import com.nlu.mainguyen.travelserviceapi.services.VisitorService;
 
 @Controller
-@RequestMapping(path="/visitor")
+@RequestMapping(path = "/visitor")
 public class VisitorController {
 
     private VisitorService visitorService;// thuộc tính
     // constuctor
-    public VisitorController(VisitorService initialVisitorSer){
+
+    public VisitorController(VisitorService initialVisitorSer) {
         // Khởi tạo serice
         this.visitorService = initialVisitorSer;
-    }    
+    }
 
     @GetMapping("/list")
     public @ResponseBody List<VisitorTModel> showAllVisitors(Model model) {
         return this.visitorService.showAllUser();
-        
     }
+
     @PostMapping("/register")
     public @ResponseBody String registrationViewForm(@RequestBody VisitorTModel visitor) {
         // TODO
@@ -42,24 +43,23 @@ public class VisitorController {
     }
 
     @GetMapping("/detail/{id}")
-    public @ResponseBody VisitorTModel  viewAVisitorByID(@PathVariable("id") Long id) {
+    public @ResponseBody VisitorTModel viewAVisitorByID(@PathVariable("id") Long id) {
         VisitorTModel aVisitor = visitorService.getByIdAVisitor(id);
         return aVisitor;
     }
+
     @PostMapping("/edit/{id}")
-    public @ResponseBody String editAVisitor(@PathVariable("id") Long id, @Valid @RequestBody VisitorTModel updateCurrentUser) {
+    public @ResponseBody String editAVisitor(@PathVariable("id") Long id,
+            @Valid @RequestBody VisitorTModel updateCurrentUser) {
         visitorService.updateAVisitor(updateCurrentUser);
         return "success";
 
     }
+
     @PostMapping("/remove/{id}")
     public String removeAVisitor(@PathVariable("id") Long id) {
         visitorService.deleteByID(id);
         return "success";
     }
-    
-  
-    
-    
-    
+
 }

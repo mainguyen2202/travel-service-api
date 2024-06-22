@@ -192,3 +192,9 @@ https://www.baeldung.com/spring-security-permitall-vs-anonymous
 
 # Spring Boot – Interceptor
 https://hocspringboot.net/2021/04/17/spring-boot-interceptor/
+
+# reset password
+
+https://www.baeldung.com/spring-security-registration-i-forgot-my-password
+
+https://github.com/Baeldung/spring-security-registration/blob/master/src/main/java/com/baeldung/persistence/model/PasswordResetToken.java

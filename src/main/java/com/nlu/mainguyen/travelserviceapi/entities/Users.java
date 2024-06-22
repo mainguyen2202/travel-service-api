@@ -32,8 +32,8 @@ public class Users implements UserDetails {
     private int status;
     private int role;
     private Date createAt;
-    private String resetPasswordToken;
-    private Date resetPasswordTokenExpirationDate;
+    // private String resetPasswordToken;
+    // private Date resetPasswordTokenExpirationDate;
 
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;

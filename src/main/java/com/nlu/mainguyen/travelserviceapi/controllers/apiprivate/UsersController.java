@@ -64,18 +64,6 @@ public class UsersController {
         }
     }
 
-    // đăng nhập
-    @PostMapping("/login")
-    public ResponseEntity<ResponseDTO> login(@RequestBody UserInputDTO userRequest) {
-        ResponseDTO userResponse = this.service.login(userRequest.getUsername(), userRequest.getPassword());// lưu
-                                                                                                            // database,
-                                                                                                            // trả về id
-        return new ResponseEntity<ResponseDTO>(userResponse, HttpStatus.OK);// OK : 200, 201
-
-    }
-
-    
-
     @GetMapping("/detail/{id}")
     public ResponseEntity<UserOutputDTO> viewCommentsByID(@PathVariable("id") Long id) {
         try {
@@ -116,7 +104,7 @@ public class UsersController {
           } catch (Exception e) {
               ResponseDTO response = new ResponseDTO(2, e.getMessage());
               return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);// OK : 200, 201
-          }}
+        }}
 
       
 
@@ -164,18 +152,4 @@ public class UsersController {
                                                                                                    // ra
         }
     }
-
-    @PostMapping("/forgotPassword")
-    public ResponseEntity<ResponseDTO> forgotPassword(@RequestBody UserOutputDTO request) {
-        try {
-            ResponseDTO response = this.service.forgotPassword(request.getEmail());
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        } catch (Exception e) {
-            ResponseDTO response = new ResponseDTO(2, e.getMessage());
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        }
-    }
-
-
-
 }

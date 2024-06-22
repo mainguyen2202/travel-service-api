@@ -24,11 +24,11 @@ import com.nlu.mainguyen.travelserviceapi.jwt.service.UserDetailsServiceImp;
 @EnableWebSecurity
 public class SecurityConfig {
 
-        private final UserDetailsServiceImp userDetailsServiceImp;
+        private final UserDetailsServiceImp userDetailsServiceImp;// cấp 1: kiểm tra về thông tin user
 
-        private final JwtAuthenticationFilter jwtAuthenticationFilter;
+        private final JwtAuthenticationFilter jwtAuthenticationFilter;// cấp 2: kiểm tra token
 
-        private final CustomLogoutHandler logoutHandler;
+        private final CustomLogoutHandler logoutHandler; // tương đương controler xử lí về API logout
 
         public SecurityConfig(UserDetailsServiceImp userDetailsServiceImp,
                         JwtAuthenticationFilter jwtAuthenticationFilter,
@@ -43,25 +43,24 @@ public class SecurityConfig {
 
                 return http.csrf(AbstractHttpConfigurer::disable)
 
-
                                 .authorizeHttpRequests(request -> request
                                                 .requestMatchers(new AntPathRequestMatcher("/private/**"))
                                                 .authenticated())
 
-                                 .httpBasic(Customizer.withDefaults())
+                                .httpBasic(Customizer.withDefaults())
 
                                 .authorizeHttpRequests(request -> request
                                                 .requestMatchers("/public/**")
                                                 .permitAll())
 
                                 .authorizeHttpRequests(request -> request
-                                                .requestMatchers("/places/registerUser",
-                                                                "/auth/login",
+                                                .requestMatchers("/auth/login",
                                                                 "/auth/register",
                                                                 "/auth/refresh_token",
-                                                                "/users/forgotPassword")
+                                                                "/auth/resetPassword",
+                                                                "/auth/forgotPassword")
                                                 .anonymous())
-                                                
+
                                 .userDetailsService(userDetailsServiceImp)
                                 .sessionManagement(session -> session
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))

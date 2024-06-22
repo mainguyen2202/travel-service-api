@@ -18,6 +18,8 @@ import com.nlu.mainguyen.travelserviceapi.repositories.PlacesRepository;
 import com.nlu.mainguyen.travelserviceapi.repositories.TopicsRepository;
 import com.nlu.mainguyen.travelserviceapi.repositories.UsersRepository;
 
+import io.micrometer.common.util.StringUtils;
+
 @Service
 public class ArticlesService {
     @Autowired
@@ -49,10 +51,13 @@ public class ArticlesService {
     public List<Articles> listAllBySearch(long places_id, long topics_id, String places_ids) {
         // 1,2,8,10 -> String -> mảng long
         List<Long> arrPlaceIds = new ArrayList<Long>();
-        String[] arrOfStr = places_ids.split(",");
-        for (String id : arrOfStr) {
-            arrPlaceIds.add(Long.parseLong(id, 10));// số hệ thập phân
+        if (!StringUtils.isEmpty(places_ids)) {
+            String[] arrOfStr = places_ids.split(",");
+            for (String id : arrOfStr) {
+                arrPlaceIds.add(Long.parseLong(id, 10));
+            }
         }
+
         if (arrPlaceIds.size() > 0 && topics_id == 0) {
             return this.repository.findSearchMuiltiPlaces(arrPlaceIds);
         } else if (arrPlaceIds.size() > 0 && topics_id != 0) {

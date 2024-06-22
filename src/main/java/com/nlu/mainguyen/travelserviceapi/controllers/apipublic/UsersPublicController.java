@@ -1,4 +1,4 @@
-package com.nlu.mainguyen.travelserviceapi.controllers.anonymous;
+package com.nlu.mainguyen.travelserviceapi.controllers.apipublic;
 
 import java.util.List;
 
@@ -15,13 +15,14 @@ import org.springframework.web.bind.annotation.*;
 import com.nlu.mainguyen.travelserviceapi.services.UsersService;
 
 import com.nlu.mainguyen.travelserviceapi.entities.Users;
+import com.nlu.mainguyen.travelserviceapi.model.ResetPasswordInputDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.model.UserOutputDTO;
 import com.nlu.mainguyen.travelserviceapi.model.UserInputDTO;
 
 @Controller
-@RequestMapping(path = "/users")
-public class UsersAnonymousController {
+@RequestMapping(path = "/public/users")
+public class UsersPublicController {
 
     @Autowired
     private UsersService service;
@@ -62,16 +63,6 @@ public class UsersAnonymousController {
             ResponseDTO userResponse = new ResponseDTO(2, e.getMessage());
             return new ResponseEntity<ResponseDTO>(userResponse, HttpStatus.OK);// OK : 200, 201
         }
-    }
-
-    // đăng nhập
-    @PostMapping("/login")
-    public ResponseEntity<ResponseDTO> login(@RequestBody UserInputDTO userRequest) {
-        ResponseDTO userResponse = this.service.login(userRequest.getUsername(), userRequest.getPassword());// lưu
-                                                                                                            // database,
-                                                                                                            // trả về id
-        return new ResponseEntity<ResponseDTO>(userResponse, HttpStatus.OK);// OK : 200, 201
-
     }
 
     @GetMapping("/detail/{id}")
@@ -162,18 +153,4 @@ public class UsersAnonymousController {
                                                                                                    // ra
         }
     }
-
-    @PostMapping("/forgotPassword")
-    public ResponseEntity<ResponseDTO> forgotPassword(@RequestBody UserOutputDTO request) {
-        try {
-            ResponseDTO response = this.service.forgotPassword(request.getEmail());
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        } catch (Exception e) {
-            ResponseDTO response = new ResponseDTO(2, e.getMessage());
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        }
-    }
-
-
-
 }
