@@ -12,7 +12,6 @@ import com.nlu.mainguyen.travelserviceapi.entities.ShareItineraries;
 import com.nlu.mainguyen.travelserviceapi.entities.Users;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ShareItinerariesDTO;
-import com.nlu.mainguyen.travelserviceapi.repositories.ItinerariesRepository;
 import com.nlu.mainguyen.travelserviceapi.repositories.ShareItinerariesRepository;
 import com.nlu.mainguyen.travelserviceapi.repositories.UsersRepository;
 
@@ -20,27 +19,19 @@ import com.nlu.mainguyen.travelserviceapi.repositories.UsersRepository;
 public class ShareItinerariesService {
     @Autowired
     private ShareItinerariesRepository repository;
+
     @Autowired
     private ModelMapper modelMapper;
-    private final UsersRepository userRepository;
-    private final ItinerariesRepository itinerariesRepository;
+
+    @Autowired
+    private UsersRepository userRepository;
 
     @Autowired
     private GEmailSender gEmailSender;
 
-    public ShareItinerariesService(ShareItinerariesRepository repository, UsersRepository userRepository,
-            ItinerariesRepository itinerariesRepository, GEmailSender gEmailSender) {
-        this.repository = repository;
-        this.userRepository = userRepository;
-        this.itinerariesRepository = itinerariesRepository;
-        this.gEmailSender = gEmailSender;
-    }
-
     // lấy danh sách theo id
     public List<ShareItineraries> listByUserId(long users_id) {// B2
-
         return this.repository.findByUsersId(users_id);
-
     }
 
     public ResponseDTO create(ShareItinerariesDTO dto) {

@@ -22,13 +22,10 @@ public class ItineraryArticlesService {
     @Autowired
     private ModelMapper modelMapper;
     private final ArticlesRepository articlesRepository;
-    private final ItinerariesRepository itinerariesRepository;
-
     public ItineraryArticlesService(ItineraryArticlesRepository repository, ArticlesRepository articlesRepository,
             ItinerariesRepository itinerariesRepository) {
         this.repository = repository;
         this.articlesRepository = articlesRepository;
-        this.itinerariesRepository = itinerariesRepository;
     }
 
       // lấy danh sách

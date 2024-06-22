@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.nlu.mainguyen.travelserviceapi.entities.HisArticles;
 import com.nlu.mainguyen.travelserviceapi.model.HistoryArticlesDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
-import com.nlu.mainguyen.travelserviceapi.repositories.ArticlesRepository;
 import com.nlu.mainguyen.travelserviceapi.repositories.HistoryArticlesRepository;
 
 @Service
@@ -22,11 +21,8 @@ public class HistoryArticlesService {
     @Autowired
     private ModelMapper modelMapper;
 
-    private final ArticlesRepository articlesRepository;
-
-    public HistoryArticlesService(HistoryArticlesRepository repository, ArticlesRepository articlesRepository) {
+    public HistoryArticlesService(HistoryArticlesRepository repository) {
         this.repository = repository;
-        this.articlesRepository = articlesRepository;
     }
 
     // lấy danh sách

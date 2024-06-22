@@ -82,8 +82,6 @@ public PlacesService(PlacesRepository repository, CoordinatesRepository coordina
 
     public ResponseDTO update(long id, PlacesDTO dto) {
         try {
-            Places entity = modelMapper.map(dto, Places.class); // chuyển từ dto sang entity
-    
             Optional<Places> opt = this.repository.findById(id);
             if (opt.isEmpty()) {
                 return null;// không tìm thấy dữ liệu return rỗng

@@ -22,17 +22,15 @@ import com.nlu.mainguyen.travelserviceapi.repositories.UsersRepository;
 public class ArticlesService {
     @Autowired
     private ArticlesRepository repository;
-    private final PlacesRepository placesRepository;
-    private final TopicsRepository topicsRepository;
-    private final UsersRepository userRepository;
 
-    public ArticlesService(ArticlesRepository repository, PlacesRepository placesRepository,
-            TopicsRepository topicsRepository, UsersRepository userRepository) {
-        this.repository = repository;
-        this.placesRepository = placesRepository;
-        this.topicsRepository = topicsRepository;
-        this.userRepository = userRepository;
-    }
+    @Autowired
+    private PlacesRepository placesRepository;
+
+    @Autowired
+    private TopicsRepository topicsRepository;
+
+    @Autowired
+    private UsersRepository userRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -132,8 +130,6 @@ public class ArticlesService {
 
     public ResponseDTO update(long id, ArticlesDTO dto) {
         try {
-            Articles entity = modelMapper.map(dto, Articles.class); // chuyển từ dto sang entity
-
             Optional<Articles> opt = this.repository.findById(id);
             if (opt.isEmpty()) {
                 return null;// không tìm thấy dữ liệu return rỗng

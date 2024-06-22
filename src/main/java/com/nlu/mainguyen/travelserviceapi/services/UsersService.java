@@ -194,8 +194,6 @@ public class UsersService {
 
     public ResponseDTO updatePassword(long id, UserOutputDTO dto) {
         try {
-            Users user = modelMapper.map(dto, Users.class); // chuyển từ dto sang entity
-
             Optional<Users> opt = this.repository.findById(id);
             if (opt.isEmpty()) {
                 return new ResponseDTO(2, "User not found");

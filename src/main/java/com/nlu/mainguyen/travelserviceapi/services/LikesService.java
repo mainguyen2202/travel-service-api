@@ -13,20 +13,15 @@ import com.nlu.mainguyen.travelserviceapi.entities.Likes;
 import com.nlu.mainguyen.travelserviceapi.model.LikesDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.repositories.LikesRepository;
-import com.nlu.mainguyen.travelserviceapi.repositories.UsersRepository;
 
 @Service
 public class LikesService {
 
+    @Autowired
     private LikesRepository repository;
-    private final UsersRepository userRepository;
+
     @Autowired
     private ModelMapper modelMapper;
-
-    public LikesService(LikesRepository repository, UsersRepository userRepository) {
-        this.repository = repository;
-        this.userRepository = userRepository;
-    }
 
     public List<Likes> getAll() {
         return this.repository.findAll();

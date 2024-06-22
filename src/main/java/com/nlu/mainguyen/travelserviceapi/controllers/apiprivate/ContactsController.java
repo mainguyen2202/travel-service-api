@@ -1,6 +1,5 @@
 package com.nlu.mainguyen.travelserviceapi.controllers.apiprivate;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +16,6 @@ import com.nlu.mainguyen.travelserviceapi.model.ContactsDTO;
 public class ContactsController {
     @Autowired
     private ContactsService service;
-
-    @Autowired
-    private ModelMapper modelMapper;
 
     @PostMapping("/create")
     public ResponseEntity<ResponseDTO> create(@RequestBody ContactsDTO request) {

@@ -50,8 +50,6 @@ public class CoordinatesService {
 
     public ResponseDTO update(long id, CoordinatesDTO dto) {
         try {
-            Coordinates entity = modelMapper.map(dto, Coordinates.class); // chuyển từ dto sang entity
-    
             Optional<Coordinates> opt = this.repository.findById(id);
             if (opt.isEmpty()) {
                 return null;// không tìm thấy dữ liệu return rỗng

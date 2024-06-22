@@ -27,16 +27,13 @@ import com.nlu.mainguyen.travelserviceapi.services.FeedbacksService;
 @Controller
 @RequestMapping(path = "/public/feedbacks")
 public class FeedbacksPublicController {
+    @Autowired
     private FeedbacksService service;
 
     @Autowired
     private ModelMapper modelMapper;
 
-    public FeedbacksPublicController(FeedbacksService service) {
-        this.service = service;
-    }
-
-     @GetMapping("/listAll")
+    @GetMapping("/listAll")
     public @ResponseBody List<FeedbacksDTO> showAll(Model model) {
         try {
             // List<Articles> Articles = this.service.showAll();// danh sách Entity mà cần

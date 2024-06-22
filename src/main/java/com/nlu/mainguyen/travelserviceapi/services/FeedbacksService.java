@@ -11,27 +11,21 @@ import com.nlu.mainguyen.travelserviceapi.entities.Feedbacks;
 import com.nlu.mainguyen.travelserviceapi.entities.Users;
 import com.nlu.mainguyen.travelserviceapi.model.FeedbacksDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
-import com.nlu.mainguyen.travelserviceapi.repositories.ArticlesRepository;
 import com.nlu.mainguyen.travelserviceapi.repositories.FeedbacksRepository;
 import com.nlu.mainguyen.travelserviceapi.repositories.UsersRepository;
 
 @Service
 public class FeedbacksService {
 
+    @Autowired
     private FeedbacksRepository repository;
     
-    private final UsersRepository userRepository;
-    private final ArticlesRepository articlesrepository;
+    @Autowired
+    private UsersRepository userRepository;
+
     @Autowired
     private ModelMapper modelMapper;
-    public FeedbacksService(FeedbacksRepository repository,UsersRepository userRepository,ArticlesRepository articlesrepository) {
-        
-        this.repository = repository;
-        this.userRepository = userRepository;
-        this.articlesrepository = articlesrepository;
-    }
 
-    
     // lấy danh sách
     public List<Feedbacks> getAll() {
         return repository.findAll();
@@ -83,8 +77,6 @@ public class FeedbacksService {
 
         public ResponseDTO update(long id, FeedbacksDTO dto) {
         try {
-            Feedbacks entity = modelMapper.map(dto, Feedbacks.class); // chuyển từ dto sang entity
-    
             Optional<Feedbacks> opt = this.repository.findById(id);
             if (opt.isEmpty()) {
                 return null;// không tìm thấy dữ liệu return rỗng
