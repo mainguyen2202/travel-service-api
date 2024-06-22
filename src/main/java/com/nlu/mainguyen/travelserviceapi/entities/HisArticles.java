@@ -1,7 +1,6 @@
 package com.nlu.mainguyen.travelserviceapi.entities;
 
 import java.sql.Date;
-import org.springframework.format.annotation.DateTimeFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

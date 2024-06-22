@@ -1,8 +1,5 @@
 package com.nlu.mainguyen.travelserviceapi.model;
 
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nlu.mainguyen.travelserviceapi.entities.Places;
 
 // API danh sách

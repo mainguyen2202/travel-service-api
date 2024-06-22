@@ -9,17 +9,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nlu.mainguyen.travelserviceapi.entities.Articles;
-import com.nlu.mainguyen.travelserviceapi.entities.HisArticles;
 import com.nlu.mainguyen.travelserviceapi.entities.Likes;
-import com.nlu.mainguyen.travelserviceapi.entities.Users;
-import com.nlu.mainguyen.travelserviceapi.model.ArticlesDTO;
-import com.nlu.mainguyen.travelserviceapi.model.HistoryArticlesDTO;
 import com.nlu.mainguyen.travelserviceapi.model.LikesDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.repositories.LikesRepository;
 import com.nlu.mainguyen.travelserviceapi.repositories.UsersRepository;
-import com.nlu.mainguyen.travelserviceapi.model.UserOutputDTO;
 
 @Service
 public class LikesService {

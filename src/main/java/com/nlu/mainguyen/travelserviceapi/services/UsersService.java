@@ -21,9 +21,6 @@ import com.nlu.mainguyen.travelserviceapi.model.UserInputDTO;
 import com.nlu.mainguyen.travelserviceapi.model.UserOutputDTO;
 import com.nlu.mainguyen.travelserviceapi.repositories.UsersRepository;
 import java.util.Base64;
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
-import java.security.Key;
 
 @Service
 public class UsersService {

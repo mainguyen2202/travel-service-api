@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nlu.mainguyen.travelserviceapi.entities.ItineraryArticles;
 import com.nlu.mainguyen.travelserviceapi.model.ItineraryArticlesDTO;
-import com.nlu.mainguyen.travelserviceapi.model.PlacesDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.services.ItineraryArticlesService;
 

@@ -3,9 +3,6 @@ package com.nlu.mainguyen.travelserviceapi.model;
 import java.sql.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.nlu.mainguyen.travelserviceapi.entities.HisArticles;
-
 import lombok.Data;
 
 @Data

@@ -1,15 +1,9 @@
 package com.nlu.mainguyen.travelserviceapi.repositories;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.nlu.mainguyen.travelserviceapi.entities.Articles;
-import com.nlu.mainguyen.travelserviceapi.entities.HisArticles;
 
 public interface ArticlesRepository extends JpaRepository<Articles, Long> {
     @Query(value = "SELECT * FROM articles WHERE places_id = ?1", nativeQuery = true)

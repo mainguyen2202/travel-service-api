@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,16 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nlu.mainguyen.travelserviceapi.entities.Places;
-import com.nlu.mainguyen.travelserviceapi.entities.Places;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
-import com.nlu.mainguyen.travelserviceapi.model.ResponseInfoDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseListDTO;
 import com.nlu.mainguyen.travelserviceapi.model.PlacesDTO;
-import com.nlu.mainguyen.travelserviceapi.model.PlacesDTO;
-
 import com.nlu.mainguyen.travelserviceapi.services.PlacesService;
-
-import jakarta.validation.Valid;
 
 @Controller // bảo mật thông tin - system - cho phép client nào được phép truy cập
 @RequestMapping(path = "/public/places")

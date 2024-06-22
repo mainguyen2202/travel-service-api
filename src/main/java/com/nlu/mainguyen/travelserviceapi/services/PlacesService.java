@@ -9,17 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.nlu.mainguyen.travelserviceapi.entities.Places;
 import com.nlu.mainguyen.travelserviceapi.entities.Coordinates;
-import com.nlu.mainguyen.travelserviceapi.entities.Places;
-import com.nlu.mainguyen.travelserviceapi.entities.Topics;
-import com.nlu.mainguyen.travelserviceapi.entities.Users;
-import com.nlu.mainguyen.travelserviceapi.model.PlacesDTO;
-import com.nlu.mainguyen.travelserviceapi.model.CoordinatesDTO;
 import com.nlu.mainguyen.travelserviceapi.model.PlacesDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
-import com.nlu.mainguyen.travelserviceapi.model.ResponseInfoDTO;
 import com.nlu.mainguyen.travelserviceapi.repositories.CoordinatesRepository;
 import com.nlu.mainguyen.travelserviceapi.repositories.PlacesRepository;
-import com.nlu.mainguyen.travelserviceapi.repositories.UsersRepository;
 
 @Service
 public class PlacesService {

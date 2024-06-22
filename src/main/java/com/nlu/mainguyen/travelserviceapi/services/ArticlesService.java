@@ -6,22 +6,14 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.nlu.mainguyen.travelserviceapi.entities.Articles;
-import com.nlu.mainguyen.travelserviceapi.entities.HisArticles;
-import com.nlu.mainguyen.travelserviceapi.entities.Itineraries;
 import com.nlu.mainguyen.travelserviceapi.entities.Places;
 import com.nlu.mainguyen.travelserviceapi.entities.Topics;
 import com.nlu.mainguyen.travelserviceapi.entities.Users;
 import com.nlu.mainguyen.travelserviceapi.model.ArticlesDTO;
-import com.nlu.mainguyen.travelserviceapi.model.ItinerariesDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.repositories.ArticlesRepository;
-import com.nlu.mainguyen.travelserviceapi.repositories.HistoryArticlesRepository;
-import com.nlu.mainguyen.travelserviceapi.repositories.ItinerariesRepository;
 import com.nlu.mainguyen.travelserviceapi.repositories.PlacesRepository;
 import com.nlu.mainguyen.travelserviceapi.repositories.TopicsRepository;
 import com.nlu.mainguyen.travelserviceapi.repositories.UsersRepository;

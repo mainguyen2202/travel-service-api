@@ -14,12 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import com.nlu.mainguyen.travelserviceapi.services.CoordinatesService;
 
 import com.nlu.mainguyen.travelserviceapi.entities.Coordinates;
-import com.nlu.mainguyen.travelserviceapi.entities.Coordinates;
-import com.nlu.mainguyen.travelserviceapi.model.CoordinatesDTO;
 import com.nlu.mainguyen.travelserviceapi.model.CoordinatesDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
-
-import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping(path = "/private/coordinates")
