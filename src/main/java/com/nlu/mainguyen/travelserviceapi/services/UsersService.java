@@ -2,7 +2,6 @@ package com.nlu.mainguyen.travelserviceapi.services;
 
 import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -26,7 +25,6 @@ import com.nlu.mainguyen.travelserviceapi.repositories.PasswordResetTokenReposit
 import com.nlu.mainguyen.travelserviceapi.repositories.UsersRepository;
 
 import io.micrometer.common.util.StringUtils;
-import jakarta.persistence.EntityTransaction;
 
 import java.util.Base64;
 

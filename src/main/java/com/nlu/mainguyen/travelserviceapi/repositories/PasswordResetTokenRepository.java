@@ -1,15 +1,14 @@
 package com.nlu.mainguyen.travelserviceapi.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
+// import org.springframework.data.jpa.repository.Modifying;
+// import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nlu.mainguyen.travelserviceapi.entities.PasswordResetToken;
-import com.nlu.mainguyen.travelserviceapi.entities.Users;
 
-import java.util.Date;
-import java.util.stream.Stream;
+// import java.util.Date;
+// import java.util.stream.Stream;
 
 public interface PasswordResetTokenRepository extends JpaRepository<PasswordResetToken, Long> {
 
