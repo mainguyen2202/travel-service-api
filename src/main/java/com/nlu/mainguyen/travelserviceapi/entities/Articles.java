@@ -41,6 +41,13 @@ public class Articles {// bài viết của nhiều địa điểm và nhiều t
 
     private Date createAt;
 
+    public Articles(Long id, String longitude, String latitude, String name) {
+        this.id = id;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.name = name;
+    }
+
     // @JsonIgnore
     // private final LocalDateTime editedAt = LocalDateTime.now();
     @Column(columnDefinition = "LONGTEXT")

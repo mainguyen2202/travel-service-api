@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nlu.mainguyen.travelserviceapi.entities.ItineraryArticles;
+import com.nlu.mainguyen.travelserviceapi.map.Tuple;
 import com.nlu.mainguyen.travelserviceapi.model.ItineraryArticlesDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
+import com.nlu.mainguyen.travelserviceapi.model.ResponseListItineraryArticleDTO;
 import com.nlu.mainguyen.travelserviceapi.services.ItineraryArticlesService;
 
 @Controller
@@ -32,10 +34,9 @@ public class ItineraryArticlesController {
     @Autowired
     private ModelMapper modelMapper;
 
-      @GetMapping("/list")
+    @GetMapping("/list")
     public @ResponseBody List<ItineraryArticlesDTO> showAll(Model model) {
         try {
-           
 
             List<ItineraryArticlesDTO> results = this.service.getAll().stream()
                     .map(item -> modelMapper.map(item, ItineraryArticlesDTO.class))
@@ -48,7 +49,6 @@ public class ItineraryArticlesController {
         }
         return null;
     }
-
 
     @PostMapping("/create")
     public ResponseEntity<ResponseDTO> create(@RequestBody ItineraryArticlesDTO request) {
@@ -64,24 +64,31 @@ public class ItineraryArticlesController {
     // GET
     // http://127.0.0.1:8080/itineraryArticles/listBySearch?date_start=2024-04-19&itineraries_id=1
     @GetMapping("/listBySearch")
-    public @ResponseBody List<ItineraryArticlesDTO> listBySearch(@RequestParam("itineraries_id") long itineraries_id,
-            @RequestParam("date_start") String date_start
-            // convert String to Date
-            // @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date_start
-            // @RequestParam("date_start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date_start
-            ) {// B3
+    public @ResponseBody ResponseListItineraryArticleDTO listBySearch(
+            @RequestParam("itineraries_id") long itineraries_id,
+            @RequestParam("date_start") String date_start,
+            @RequestParam("latitude") String GPSlatitude,
+            @RequestParam("longitude") String GPSlongitude
+    // convert String to Date
+    // @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date_start
+    // @RequestParam("date_start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    // Date date_start
+    ) {// B3
         try {
-            List<ItineraryArticles> ltsItineraryArticles = this.service.listByItineraryId(itineraries_id, date_start);
+            Tuple<List<ItineraryArticles>, Double> result = this.service.listBySearch(
+                    itineraries_id, date_start, GPSlatitude, GPSlongitude);
+            List<ItineraryArticles> ltsItineraryArticles = result.Item1;
+            Double totalDistance = result.Item2;
 
             List<ItineraryArticlesDTO> results = ltsItineraryArticles.stream()
                     .map(item -> modelMapper.map(item, ItineraryArticlesDTO.class))
                     .collect(Collectors.toList());// B4
 
-            return results;
+            return new ResponseListItineraryArticleDTO(1, "Thành công", results, totalDistance);
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            return new ResponseListItineraryArticleDTO(2, e.getMessage());
         }
-        return null;
     }
 
     @PostMapping("/edit/{id}")
@@ -107,6 +114,7 @@ public class ItineraryArticlesController {
             return new ResponseEntity<ItineraryArticlesDTO>(new ItineraryArticlesDTO(), HttpStatus.BAD_REQUEST);
         }
     }
+
     @DeleteMapping("/remove/{id}")
     public ResponseEntity<ResponseDTO> delete(@PathVariable("id") Long id) {
         try {

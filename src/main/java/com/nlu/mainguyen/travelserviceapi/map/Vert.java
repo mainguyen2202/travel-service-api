@@ -7,13 +7,17 @@ public class Vert implements Comparable<Vert> {
 
     private boolean visited;
     private String name;
+    private long id;
     private double latitude;
     private double longitude;
     private List<Edge> neighbours;
     private double dist = Double.MAX_VALUE;
     private Vert pr;
+    private Object info;
 
-    public Vert(String name, double latitude, double longitude) {
+    public Vert(long id, String name, double latitude, double longitude, Object info) {
+        this.id = id;
+        this.info = info;
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -99,10 +103,26 @@ public class Vert implements Comparable<Vert> {
         this.dist = dist;
     }
 
+    public Object getInfo() {
+        return info;
+    }
+
+    public void setInfo(Object info) {
+        this.info = info;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return this.name;
-        // return this.name + " " + this.latitude + " " + this.longitude;
+        // return this.id + " " this.name + " " + this.latitude + " " + this.longitude;
     }
 
     @Override
