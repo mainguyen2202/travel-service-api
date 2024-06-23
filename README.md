@@ -201,3 +201,19 @@ https://github.com/Baeldung/spring-security-registration/blob/master/src/main/ja
 
 # Spring - No EntityManager with actual transaction available for current thread - cannot reliably process 'persist' call
 https://stackoverflow.com/questions/32269192/spring-no-entitymanager-with-actual-transaction-available-for-current-thread
+
+# Thuật toán Dijkstra
+
+https://niithanoi.edu.vn/shortest-path.html
+
+```
+Thuật toán được sử dụng trong đoạn code này là thuật toán Dijkstra. Đây là một thuật toán tìm đường đi ngắn nhất trong một đồ thị có trọng số (weighted graph).
+
+Cụ thể, trong đoạn code này, chúng ta thực hiện các bước sau:
+
+Khởi tạo đồ thị bằng cách tạo các đỉnh (Vert) và các cạnh (Edge) với trọng số tương ứng.
+Trong phương thức ShortestPath(), chúng ta sử dụng thuật toán Dijkstra để tìm đường đi ngắn nhất từ một điểm bắt đầu (start) đến tất cả các điểm còn lại.
+Thuật toán Dijkstra hoạt động bằng cách lặp qua các đỉnh chưa được thêm vào đường đi, tìm đỉnh kế tiếp với khoảng cách ngắn nhất, và cập nhật đường đi và tổng khoảng cách tương ứng.
+Cuối cùng, phương thức ShortestPath() in ra đường đi ngắn nhất và tổng khoảng cách.
+Thuật toán Dijkstra là một trong những thuật toán tìm đường đi ngắn nhất phổ biến và hiệu quả, đặc biệt khi làm việc với các đồ thị có trọng số.
+```
