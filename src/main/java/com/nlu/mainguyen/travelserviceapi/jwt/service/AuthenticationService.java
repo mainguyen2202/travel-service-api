@@ -84,7 +84,7 @@ public class AuthenticationService {
         String accessToken = jwtService.generateAccessToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);
 
-        // revokeAllTokenByUser(user);// xóa tất cả token cũ của user đó
+        revokeAllTokenByUser(user);// xóa tất cả token cũ của user đó
         saveUserToken(accessToken, refreshToken, user);// lưu token đang sử dụng của user đó
 
         return new AuthenticationResponse(accessToken, refreshToken, "User login was successful");

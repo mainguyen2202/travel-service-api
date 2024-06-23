@@ -198,3 +198,6 @@ https://hocspringboot.net/2021/04/17/spring-boot-interceptor/
 https://www.baeldung.com/spring-security-registration-i-forgot-my-password
 
 https://github.com/Baeldung/spring-security-registration/blob/master/src/main/java/com/baeldung/persistence/model/PasswordResetToken.java
+
+# Spring - No EntityManager with actual transaction available for current thread - cannot reliably process 'persist' call
+https://stackoverflow.com/questions/32269192/spring-no-entitymanager-with-actual-transaction-available-for-current-thread

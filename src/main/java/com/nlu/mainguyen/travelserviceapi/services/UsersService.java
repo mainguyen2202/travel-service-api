@@ -26,6 +26,7 @@ import com.nlu.mainguyen.travelserviceapi.repositories.PasswordResetTokenReposit
 import com.nlu.mainguyen.travelserviceapi.repositories.UsersRepository;
 
 import io.micrometer.common.util.StringUtils;
+import jakarta.persistence.EntityTransaction;
 
 import java.util.Base64;
 
@@ -41,15 +42,9 @@ public class UsersService {
     @Autowired
     private GEmailSender gEmailSender;
 
-    private final PasswordEncoder passwordEncoder;
+    @Autowired
+    private  PasswordEncoder passwordEncoder;
 
-    public UsersService(UsersRepository repository,
-            GEmailSender gEmailSender,
-            PasswordEncoder passwordEncoder) {
-        this.repository = repository;
-        this.gEmailSender = gEmailSender;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @Autowired
     private ModelMapper modelMapper;
@@ -233,12 +228,14 @@ public class UsersService {
 
     public void createPasswordResetTokenForUser(Users user, String token) {
         // Xóa những dữ liệu cũ
-        // passwordTokenRepository.deleteByUserId(user.getId());
+        passwordTokenRepository.deleteByUserId(user.getId());
 
         // PasswordResetToken myToken = new PasswordResetToken(token, user, expiryDate);
         PasswordResetToken myToken = new PasswordResetToken(token, user);
         passwordTokenRepository.save(myToken);
     }
+
+
 
     public ResponseDTO forgotPassword(String email) {
         // Tìm người dùng bằng email
