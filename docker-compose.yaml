@@ -19,7 +19,8 @@ services:
     container_name: travel-service-api
     build:
       context: ./
-      dockerfile: ./Dockerfile
+      # dockerfile: ./Dockerfile
+      dockerfile: ./Dockerfile.dev
     depends_on:
       - mysql-docker-container
     ports:
@@ -43,7 +44,11 @@ volumes:
 # docker images
 # docker ps -a
 
-# docker run -it -p 8080:80 nginx
+# docker ps
+
+# docker exec -it <container-id> /bin/sh
+
+# docker exec -it 1b21f9e143e0 /bin/sh
 
 # docker-compose up -d --build
 

@@ -65,6 +65,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             logger.info("set authentication with username=" + username);
 
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            // valid accesss token -> kiểm tra thời gian hiệu lực của token
             if (jwtService.isValid(token, userDetails)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());

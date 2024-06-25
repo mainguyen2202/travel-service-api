@@ -64,18 +64,39 @@ public class ItineraryArticlesController {
     // GET
     // http://127.0.0.1:8080/itineraryArticles/listBySearch?date_start=2024-04-19&itineraries_id=1
     @GetMapping("/listBySearch")
-    public @ResponseBody ResponseListItineraryArticleDTO listBySearch(
-            @RequestParam("itineraries_id") long itineraries_id,
-            @RequestParam("date_start") String date_start,
-            @RequestParam("latitude") String GPSlatitude,
-            @RequestParam("longitude") String GPSlongitude
+    public @ResponseBody List<ItineraryArticlesDTO> listBySearch(@RequestParam("itineraries_id") long itineraries_id,
+            @RequestParam("date_start") String date_start
     // convert String to Date
     // @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date_start
     // @RequestParam("date_start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     // Date date_start
     ) {// B3
         try {
-            Tuple<List<ItineraryArticles>, Double> result = this.service.listBySearch(
+            List<ItineraryArticles> ltsItineraryArticles = this.service.listByItineraryId(itineraries_id, date_start);
+
+            List<ItineraryArticlesDTO> results = ltsItineraryArticles.stream()
+                    .map(item -> modelMapper.map(item, ItineraryArticlesDTO.class))
+                    .collect(Collectors.toList());// B4
+
+            return results;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    // GET
+    // http://127.0.0.1:8080/itineraryArticles/listBySearchShortest?date_start=2024-04-19&itineraries_id=1&latitude=10&longitude=106
+    @GetMapping("/listBySearchShortest")
+    public @ResponseBody ResponseListItineraryArticleDTO listBySearchShortest(
+            @RequestParam("itineraries_id") long itineraries_id,
+            @RequestParam("date_start") String date_start,
+            @RequestParam("latitude") String GPSlatitude,
+            @RequestParam("longitude") String GPSlongitude
+
+    ) {
+        try {
+            Tuple<List<ItineraryArticles>, Double> result = this.service.listBySearchShortest(
                     itineraries_id, date_start, GPSlatitude, GPSlongitude);
             List<ItineraryArticles> ltsItineraryArticles = result.Item1;
             Double totalDistance = result.Item2;

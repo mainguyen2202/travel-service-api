@@ -50,7 +50,7 @@ public class ItineraryArticlesService {
         return this.repository.findAllByDateStart(itineraries_id, date_start);
     }
 
-    public Tuple<List<ItineraryArticles>, Double> listBySearch(
+    public Tuple<List<ItineraryArticles>, Double> listBySearchShortest(
             long itineraries_id, String date_start, String GPSlatitude, String GPSlongitude) {
         // if (date_start == null) {
         if (date_start == "") {
