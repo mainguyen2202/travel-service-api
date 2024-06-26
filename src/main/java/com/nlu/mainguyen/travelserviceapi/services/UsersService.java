@@ -13,16 +13,15 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.nlu.mainguyen.travelserviceapi.Util.GEmailSender;
 import com.nlu.mainguyen.travelserviceapi.entities.PasswordResetToken;
 import com.nlu.mainguyen.travelserviceapi.entities.Users;
-import com.nlu.mainguyen.travelserviceapi.exception.ResourceNotFoundException;
 import com.nlu.mainguyen.travelserviceapi.model.ResetPasswordInputDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.model.UserInputDTO;
 import com.nlu.mainguyen.travelserviceapi.model.UserOutputDTO;
 import com.nlu.mainguyen.travelserviceapi.repositories.PasswordResetTokenRepository;
 import com.nlu.mainguyen.travelserviceapi.repositories.UsersRepository;
+import com.nlu.mainguyen.travelserviceapi.util.GEmailSender;
 
 import io.micrometer.common.util.StringUtils;
 
@@ -118,7 +117,7 @@ public class UsersService {
         if (items.isPresent()) {
             return items.get();
         } else {
-            throw new ResourceNotFoundException("Post", "id", id);
+            return null;
         }
     }
 

@@ -4,11 +4,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nlu.mainguyen.travelserviceapi.Util.GEmailSender;
 import com.nlu.mainguyen.travelserviceapi.entities.Contacts;
 import com.nlu.mainguyen.travelserviceapi.model.ContactsDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.repositories.ContactsRepository;
+import com.nlu.mainguyen.travelserviceapi.util.GEmailSender;
 
 @Service
 public class ContactsService {

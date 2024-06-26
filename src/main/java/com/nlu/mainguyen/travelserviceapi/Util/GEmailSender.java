@@ -1,4 +1,4 @@
-package com.nlu.mainguyen.travelserviceapi.Util;
+package com.nlu.mainguyen.travelserviceapi.util;
 
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;

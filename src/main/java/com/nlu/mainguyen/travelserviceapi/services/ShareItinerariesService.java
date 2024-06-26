@@ -7,13 +7,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nlu.mainguyen.travelserviceapi.Util.GEmailSender;
 import com.nlu.mainguyen.travelserviceapi.entities.ShareItineraries;
 import com.nlu.mainguyen.travelserviceapi.entities.Users;
 import com.nlu.mainguyen.travelserviceapi.model.ResponseDTO;
 import com.nlu.mainguyen.travelserviceapi.model.ShareItinerariesDTO;
 import com.nlu.mainguyen.travelserviceapi.repositories.ShareItinerariesRepository;
 import com.nlu.mainguyen.travelserviceapi.repositories.UsersRepository;
+import com.nlu.mainguyen.travelserviceapi.util.GEmailSender;
 
 @Service
 public class ShareItinerariesService {

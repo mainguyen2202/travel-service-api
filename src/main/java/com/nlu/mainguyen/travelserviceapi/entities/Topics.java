@@ -24,9 +24,6 @@ public class Topics {// danh mục
     private String image;
 
     @OneToMany(mappedBy = "topics", cascade = CascadeType.ALL)
-    private List<News> news = new ArrayList<>();
-
-    @OneToMany(mappedBy = "topics", cascade = CascadeType.ALL)
     private List<Articles> articles = new ArrayList<>();
 
 
