@@ -19,8 +19,8 @@ services:
     container_name: travel-service-api
     build:
       context: ./
-      # dockerfile: ./Dockerfile
-      dockerfile: ./Dockerfile.dev
+      dockerfile: ./Dockerfile
+      # dockerfile: ./Dockerfile.dev
     depends_on:
       - mysql-docker-container
     ports:
